@@ -1,0 +1,10 @@
+Table S12. Natural 49-bp ONSEN-like HSE seed-variant accession summary.									
+Accession	Candidate windows	Exact seeds	1-2 mismatch seeds	3-4 mismatch seeds	Median mismatch	Maximum mismatch	Median HSE-like units retained	Seeds with any HSE-unit substitution	Seeds with any unit no longer HSE-like
+Col-0	19	13	4	2	0	4	5	4	4
+An-1	7	2	4	1	1	4	5	1	0
+C24	11	8	2	1	0	3	5	3	2
+Cvi	9	4	1	4	1	4	5	4	4
+Eri	16	7	5	4	1	4	5	4	1
+Kyo	17	10	6	1	0	3	5	6	4
+Ler	15	11	4	0	0	1	5	1	0
+Sha	41	22	12	7	0	4	5	10	9

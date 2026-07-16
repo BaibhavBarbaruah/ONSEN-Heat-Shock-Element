@@ -1,0 +1,23 @@
+section	item	value
+Analysis QC	Genome file	Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz (external input; provenance recorded in the public repository)
+Analysis QC	JASPAR file	JASPAR2026_CORE_plants_nonredundant_pfms_jaspar.txt (external input; provenance recorded in the public repository)
+Analysis QC	Background coordinate file	strict_TE_only_background_coordinates.csv (external input; provenance recorded in the public repository)
+Analysis QC	Chromosome source columns available	chr_clean, seqid
+Analysis QC	ONSEN regions	16
+Analysis QC	Background regions before exclusion	1942
+Analysis QC	Direct overlaps removed	0
+Analysis QC	Final background regions	1942
+Analysis QC	HSF models	10
+Analysis QC	Thresholds	0.8, 0.85, 0.9, 0.95
+Analysis QC	Pseudocount	0.8
+Analysis QC	Both strands scanned	Yes
+HSF motif inventory	HSFC1	MA1667.3; width=8 bp; pseudocount=0.8
+HSF motif inventory	HSFA6B	MA1664.3; width=8 bp; pseudocount=0.8
+HSF motif inventory	HSFB3	MA1761.2; width=12 bp; pseudocount=0.8
+HSF motif inventory	HSFA6A	MA1760.1; width=13 bp; pseudocount=0.8
+HSF motif inventory	HSFA4A	MA1759.2; width=14 bp; pseudocount=0.8
+HSF motif inventory	HSFA1E	MA1758.2; width=14 bp; pseudocount=0.8
+HSF motif inventory	HSFB4	MA2020.2; width=10 bp; pseudocount=0.8
+HSF motif inventory	HSFB2B	MA1666.3; width=11 bp; pseudocount=0.8
+HSF motif inventory	HSFB2A	MA1665.3; width=10 bp; pseudocount=0.8
+HSF motif inventory	HSFA1B	MA2019.2; width=8 bp; pseudocount=0.8

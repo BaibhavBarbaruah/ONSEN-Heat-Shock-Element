@@ -1,0 +1,29 @@
+Table S3. AP2/ERF-family motif models gained or strengthened in the in-silico-designed HSE-disrupted 49-bp ONSEN sequence.						
+JASPAR ID	AP2/ERF model	Native best score	Mutated best score	Delta score	Effect class	Mutated best match
+MA0993.2	ERF7	0.778	1	0.222	gained_after_mutation	CGGC
+MA0997.2	ERF069	0.808	1	0.192	gained_after_mutation	CGGC
+MA2402.1	OsERF104	0.72	0.973	0.252	gained_after_mutation	TCGGC
+MA1232.2	ERF054	0.854	0.917	0.0626	strengthened_after_mutation	CTACCGTC
+MA1752.2	ERF025	0.673	0.915	0.242	gained_after_mutation	TACCGTCA
+MA0995.3	ERF039	0.665	0.913	0.247	gained_after_mutation	ACCGTCA
+MA1049.2	ERF094	0.709	0.908	0.199	gained_after_mutation	GGCCACC
+MA1227.3	ERF027	0.639	0.9	0.261	gained_after_mutation	ACCGTCA
+MA1229.2	ERF034	0.735	0.896	0.161	gained_after_mutation	CTACCGTCA
+MA2011.2	ERF010	0.785	0.887	0.102	gained_after_mutation	TACCGTCA
+MA0971.2	DREB1A	0.693	0.884	0.191	gained_after_mutation	ACCGTCAT
+MA1796.1	RAP2-7	0.848	0.883	0.035	gained_after_mutation	TCATCGGC
+MA1233.3	ERF021	0.695	0.883	0.188	gained_after_mutation	TACCGTCA
+MA1234.2	ERF017	0.732	0.882	0.15	gained_after_mutation	TACCGTCAT
+MA1263.2	ERF055	0.797	0.881	0.0831	gained_after_mutation	CTACCGTCA
+MA1259.2	ERF023	0.731	0.879	0.148	gained_after_mutation	CTACCGTCA
+MA1260.2	ERF013	0.812	0.879	0.0669	gained_after_mutation	CTACCGTCA
+MA1230.2	ERF037	0.685	0.878	0.194	gained_after_mutation	CTACCGTCA
+MA1238.3	ERF038	0.743	0.878	0.135	gained_after_mutation	TACCGTCA
+MA1265.3	ERF015	0.762	0.878	0.116	gained_after_mutation	TACCGTCA
+MA0980.3	RAP2-10	0.599	0.878	0.279	gained_after_mutation	ACCGTCA
+MA1048.1	ERF018	0.726	0.875	0.149	gained_after_mutation	ACCGTCAT
+MA1424.2	ERF019	0.766	0.874	0.108	gained_after_mutation	CTACCGTCA
+MA1669.2	DREB1B	0.636	0.871	0.234	gained_after_mutation	ACCGTCAT
+MA0978.1	DREB1E	0.644	0.859	0.215	gained_after_mutation	ACCGTCAT
+MA0998.2	ERF096	0.659	0.854	0.195	gained_after_mutation	GCCACC
+MA1748.2	DREB1F	0.727	0.853	0.125	gained_after_mutation	ACCGTC

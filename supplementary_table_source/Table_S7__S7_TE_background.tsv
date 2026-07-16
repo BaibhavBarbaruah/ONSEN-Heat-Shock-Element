@@ -1,0 +1,4 @@
+Table S7. Strict TE-only background comparison and initial threshold robustness for HSF-family motif density.								
+Relative-score cutoff	n ONSEN terminal windows	n strict TE background	ONSEN median HSF hits/kb	Background median HSF hits/kb	Wilcoxon P	Cliff's delta	Background >= ONSEN median	Background >= ONSEN max
+0.85	16	1942	75	10.84	7.33e-12	0.992	7	2
+0.9	16	1942	37.5	1.538	7.54e-13	0.994	4	2

@@ -1,0 +1,11 @@
+Table S6. Non-redundant HSF-compatible locations in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
+
+Column	Definition
+HSF PWM model-position hits	Total number of HSF-family PWM matches passing the relative score threshold. Similar HSF PWMs can match overlapping sequence intervals and are counted separately in this metric.
+Non-redundant HSF-compatible locations	Number of distinct sequence intervals remaining after merging genuinely overlapping HSF-family motif hits across PWM models and strands.
+Raw HSF hit density per kb	HSF PWM model-position hits divided by sequence length and multiplied by 1000.
+Non-redundant HSF-location density per kb	Non-redundant HSF-compatible locations divided by sequence length and multiplied by 1000.
+Raw hits per non-redundant location	Ratio of raw HSF PWM model-position hits to non-redundant HSF-compatible locations.
+Raw hits collapsed (%)	Percentage of raw HSF PWM model-position hits collapsed by overlap-based merging.
+Site start/end, forward coordinate	Coordinates after placing all hits onto the forward sequence. For copy-wide scans, reverse-strand matches were converted to forward coordinates before merging.
+Maximum relative PWM score	Relative PWM score scaled between the theoretical minimum and maximum possible scores for the corresponding PWM.

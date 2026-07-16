@@ -1,0 +1,15 @@
+Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: motif-effect and family-level summary.		
+TF family	Native motif-position hits	Mutated motif-position hits
+unknown_or_other	176	88
+DOF	36	28
+HSF	31	0
+GATA	17	7
+MYB	9	9
+AP2/ERF	8	45
+NAC	6	1
+bZIP	2	5
+C2H2/ZAT	1	4
+WRKY	1	3
+HD-ZIP	1	0
+LBD	1	0
+ARF	0	1

@@ -1,0 +1,13 @@
+Table S6. Non-redundant HSF-compatible locations in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
+
+Item	Description
+Table title	Table S6. Non-redundant HSF-compatible locations in native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
+Purpose	This table addresses the reviewer concern that related HSF-family PWMs may repeatedly match the same genomic or sequence location.
+PWM threshold	Relative PWM score >= 0.85.
+Non-redundant merging rule	Within each sequence, HSF-family motif intervals were merged transitively when they overlapped by at least one nucleotide. PWM model and strand did not prevent merging. Adjacent but non-overlapping intervals were retained separately.
+Coordinate handling	For the 49-bp native and designed sequences, motif_start and motif_end were already forward-sequence coordinates. For copy-wide ONSEN scans, reverse-strand positions were converted to forward-sequence coordinates before merging.
+Important interpretation	Non-redundant HSF-compatible locations are computational motif-compatible intervals. They do not demonstrate experimental HSF binding or occupancy.
+Main result	The native 49-bp sequence contained 31 HSF PWM model-position hits that collapsed into one non-redundant HSF-compatible location. Across the sixteen Col-0 ONSEN 800-bp terminal candidate windows, 48-75 raw HSF hits collapsed to 7-10 non-redundant locations per window.
+Input summary file	Revision_R1_2_combined_HSF_raw_vs_nonredundant_summary_threshold_0p85.csv (external input; provenance recorded in the public repository)
+Input Col-0 location file	Revision_R1_2_Col0_ONSEN_HSF_nonredundant_locations_threshold_0p85.csv (external input; provenance recorded in the public repository)
+Input 49-bp location file	Revision_R1_2_49bp_HSF_nonredundant_locations_threshold_0p85.csv (external input; provenance recorded in the public repository)

@@ -1,0 +1,22 @@
+Table S6. Non-redundant HSF-compatible locations in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
+HSF-family motif hits were filtered at relative PWM score >= 0.85. Raw values represent PWM model-position hits. Non-redundant locations were obtained by merging genuinely overlapping HSF-family motif intervals across PWM models and strands. These locations represent computational motif compatibility, not experimentally verified HSF occupancy.
+
+Analysis	Sequence/window ID	ONSEN copy	LTR side	Sequence length (bp)	HSF PWM model-position hits	Non-redundant HSF-compatible locations	Unique HSF PWM models detected	Maximum relative PWM score	Raw HSF hit density per kb	Non-redundant HSF-location density per kb	Raw hits per non-redundant location	Number of raw hits collapsed	Raw hits collapsed (%)
+Native/designed 49-bp sequence	mutated			49	0	0	0		0	0		0	
+Native/designed 49-bp sequence	native			49	31	1	10	0.9971	632.65	20.41	31	30	96.8
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G11265_ONSEN1_leftLTRcandidate	ONSEN1	left_LTR_candidate	800	70	9	10	0.9971	87.5	11.25	7.78	61	87.1
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G11265_ONSEN1_rightLTRcandidate	ONSEN1	right_LTR_candidate	800	56	7	10	0.9971	70	8.75	8	49	87.5
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G21945_ONSEN7_leftLTRcandidate	ONSEN7	left_LTR_candidate	800	59	7	10	0.9971	73.75	8.75	8.43	52	88.1
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G21945_ONSEN7_rightLTRcandidate	ONSEN7	right_LTR_candidate	800	56	8	10	0.9971	70	10	7	48	85.7
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G48710_ONSEN5_leftLTRcandidate	ONSEN5	left_LTR_candidate	800	70	9	10	0.9971	87.5	11.25	7.78	61	87.1
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G48710_ONSEN5_rightLTRcandidate	ONSEN5	right_LTR_candidate	800	63	8	10	0.9971	78.75	10	7.88	55	87.3
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G58140_ONSEN4_leftLTRcandidate	ONSEN4	left_LTR_candidate	800	50	7	10	0.9971	62.5	8.75	7.14	43	86
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G58140_ONSEN4_rightLTRcandidate	ONSEN4	right_LTR_candidate	800	48	9	10	0.9971	60	11.25	5.33	39	81.2
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G32415_ONSEN8_leftLTRcandidate	ONSEN8	left_LTR_candidate	800	69	8	10	0.9971	86.25	10	8.62	61	88.4
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G32415_ONSEN8_rightLTRcandidate	ONSEN8	right_LTR_candidate	800	59	7	10	0.9971	73.75	8.75	8.43	52	88.1
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G59720_ONSEN6_leftLTRcandidate	ONSEN6	left_LTR_candidate	800	66	9	10	0.9971	82.5	11.25	7.33	57	86.4
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G59720_ONSEN6_rightLTRcandidate	ONSEN6	right_LTR_candidate	800	52	7	9	0.9971	65	8.75	7.43	45	86.5
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G61330_ONSEN2_leftLTRcandidate	ONSEN2	left_LTR_candidate	800	56	7	10	0.9971	70	8.75	8	49	87.5
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT3G61330_ONSEN2_rightLTRcandidate	ONSEN2	right_LTR_candidate	800	70	9	10	0.9971	87.5	11.25	7.78	61	87.1
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT5G13205_ONSEN3_leftLTRcandidate	ONSEN3	left_LTR_candidate	800	61	8	10	0.9971	76.25	10	7.62	53	86.9
+Col-0 ONSEN 800-bp terminal candidate window	Col0_AT5G13205_ONSEN3_rightLTRcandidate	ONSEN3	right_LTR_candidate	800	75	10	10	0.9971	93.75	12.5	7.5	65	86.7

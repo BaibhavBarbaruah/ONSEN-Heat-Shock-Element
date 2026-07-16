@@ -1,0 +1,22 @@
+Table S4. Constrained-mutant sensitivity and exact-GC control for the in-silico-designed 49-bp ONSEN HSE-disrupted sequence.
+
+Item	Value	Validation or note
+Native 49-bp sequence	TCCTTAAAAGATTCTAGAAATTTTCTAGAATCATCTTCCACCTCCTTAA	Validated sequence used throughout the analysis
+In-silico-designed HSE-disrupted 49-bp sequence	TCCTTAAAAGAGGCTACCGATTGGCTACCGTCATCGGCCACCTCCTTAA	Validated sequence used throughout the analysis
+Sequence length	49	Expected value: 49 bp
+Number of substitutions versus native sequence	12	Expected value: 12 substitutions
+Native-sequence GC content	30.61224%	Calculated directly from the native sequence
+Designed-sequence GC content	51.02041%	Calculated directly from the designed sequence
+Native HSE-like units	Five units: positions 11-15, 16-20, 22-26, 27-31 and 35-39	Five native HSE-like units
+Mutable HSE-core triplets	Positions 12-14, 17-19, 23-25, 28-30 and 36-38	Fifteen mutable positions
+Constrained random-mutant library size	5,000	Validated from constrained_HSE_mutant_library_n5000.csv
+Total valid exact-GC design-space size	5,120	Validated from Step2C_complete_exact_GC_constrained_sequence_library.csv
+Alternative exact-GC comparator designs	5,119	Total exact-GC designs minus the original designed sequence
+Substitution constraint	Exactly 12 substitutions relative to the native sequence	Applied to variable-GC and exact-GC designs
+HSE-disruption constraint	All five native HSE-like cores were disrupted	Applied to variable-GC and exact-GC designs
+Canonical-HSE constraint	No remaining canonical nTTCn or nGAAn unit	Applied during constrained sequence generation
+Primary relative PWM-score threshold	0.85	Primary manuscript threshold
+Sensitivity thresholds	0.80, 0.85, 0.90 and 0.95	Threshold-sensitivity series
+TF families summarised	HSF, AP2/ERF and DOF	Reviewer-focused family summaries
+Motif-count metric	Motif-model/position matches, not independent TF-binding sites	Counts can be redundant across related motif models
+Interpretive limitation	The designed sequence is an illustrative in-silico perturbation. Predicted motif compatibility does not demonstrate TF binding or regulatory activity.	The AP2/ERF result must not be generalised as an inherent consequence of HSE disruption.

@@ -1,0 +1,18 @@
+Table S5. Copy-wide Arabidopsis HSF-family motif summary and density across Col-0 ONSEN terminal candidate windows.						
+ONSEN copy	Terminal candidate window	HSF motif-position hits	Unique HSF models	Maximum relative score	Terminal-window width (bp)	HSF motif density (hits/kb)
+ONSEN1	Left terminal window	70	10	0.997	800	87.5
+ONSEN1	Right terminal window	56	10	0.997	800	70
+ONSEN2	Left terminal window	56	10	0.997	800	70
+ONSEN2	Right terminal window	70	10	0.997	800	87.5
+ONSEN3	Left terminal window	61	10	0.997	800	76.25
+ONSEN3	Right terminal window	75	10	0.997	800	93.75
+ONSEN4	Left terminal window	50	10	0.997	800	62.5
+ONSEN4	Right terminal window	48	10	0.997	800	60
+ONSEN5	Left terminal window	70	10	0.997	800	87.5
+ONSEN5	Right terminal window	63	10	0.997	800	78.75
+ONSEN6	Left terminal window	66	10	0.997	800	82.5
+ONSEN6	Right terminal window	52	9	0.997	800	65
+ONSEN7	Left terminal window	59	10	0.997	800	73.75
+ONSEN7	Right terminal window	56	10	0.997	800	70
+ONSEN8	Left terminal window	69	10	0.997	800	86.25
+ONSEN8	Right terminal window	59	10	0.997	800	73.75

@@ -1,0 +1,10 @@
+Table S11. Natural-accession ONSEN-like candidate-window abundance and paired HSE/LTR structural-proxy summary.							
+Accession	Candidate windows	Difference vs Col-0	Ratio vs Col-0	Total HSF motif-position hits	Median HSF hits/kb	Median unique HSF models	Putative paired HSE/LTR proxies
+Col-0	19	0	1	1044	65.96	10	8
+An-1	7	-12	0.368	432	71.85	10	2
+C24	11	-8	0.579	620	64.78	10	5
+Cvi	9	-10	0.474	421	64.78	10	4
+Eri	16	-3	0.842	875	65.96	10	4
+Kyo	17	-2	0.895	979	65.96	10	7
+Ler	15	-4	0.789	841	67.14	10	6
+Sha	41	22	2.158	2326	65.96	10	16
