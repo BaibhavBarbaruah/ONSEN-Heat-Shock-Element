@@ -1,0 +1,7 @@
+sample_id,treatment,condition,replicate,ecotype,biosample_accession,bioproject,laboratory_provenance,bam_filename,fastq_R1,fastq_R2
+Col0_NS_rep1,NS,Col-0 non-stressed,1,Col-0,SAMD01789795,PRJDB39904,Generated in our laboratory,Col0_NS_rep1.bam,,
+Col0_NS_rep2,NS,Col-0 non-stressed,2,Col-0,SAMD01789796,PRJDB39904,Generated in our laboratory,Col0_NS_rep2.bam,,
+Col0_NS_rep3,NS,Col-0 non-stressed,3,Col-0,SAMD01789797,PRJDB39904,Generated in our laboratory,Col0_NS_rep3.bam,,
+Col0_HS_24h_37C_rep1,HS,Col-0 24-h 37C heat stress,1,Col-0,SAMD01943917,PRJDB42759,Generated in our laboratory,Col0_HS_24h_37C_rep1.bam,,
+Col0_HS_24h_37C_rep2,HS,Col-0 24-h 37C heat stress,2,Col-0,SAMD01943918,PRJDB42759,Generated in our laboratory,Col0_HS_24h_37C_rep2.bam,,
+Col0_HS_24h_37C_rep3,HS,Col-0 24-h 37C heat stress,3,Col-0,SAMD01943919,PRJDB42759,Generated in our laboratory,Col0_HS_24h_37C_rep3.bam,,

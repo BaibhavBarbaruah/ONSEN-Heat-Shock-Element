@@ -1,0 +1,92 @@
+Final Biology Open revision repository package
+Version: 1.0.0
+Date: 2026-07-15
+Manuscript: bio.062799
+
+Repository policy:
+- final journal-numbered TSV source sheets are deposited;
+- Excel workbooks are reconstructed by 08_write_supplementary_tables.R;
+- journal-ready assembled figure artwork remains a submission asset;
+- large public/reference inputs are identified in INPUT_PROVENANCE.tsv.
+
+Files:
+.gitignore
+LICENSE
+README.md
+CHANGELOG.md
+CITATION.cff
+DATA_AVAILABILITY.md
+REPRODUCIBILITY_NOTES.md
+FINAL_NUMBERING_MAP.tsv
+FILE_CHECKSUMS_SHA256.tsv
+FULL_PACKAGE_MANIFEST.txt
+INPUT_PROVENANCE.tsv
+REPRODUCIBILITY_MATRIX.tsv
+R_PACKAGE_REQUIREMENTS.txt
+00_install_packages.R
+00_run_pipeline.R
+ONSEN_config.R
+ONSEN_functions.R
+01_native_mutated_motif_analysis.R
+02_constrained_mutant_sensitivity.R
+03_col0_HSF_and_TE_background.R
+03B_threshold_and_continuous_sensitivity.R
+03B_threshold_and_continuous_sensitivity_part1.R
+03B_threshold_and_continuous_sensitivity_part2.R
+04_nonredundant_HSF_locations.R
+05_methylation_analysis.R
+06_rnaseq_analysis.R
+07_accession_analysis.R
+07B_figure7_identity_and_logo_workflow.R
+08_write_supplementary_tables.R
+09_write_session_info.R
+10_validate_manuscript_outputs.R
+Arabidopsis_HSF_models_JASPAR2026.csv
+ONSEN_49bp_sequences.fasta
+ONSEN_Col0_terminal_candidate_windows.csv
+ONSEN_Col0_terminal_candidate_windows.saf
+ONSEN_HSE_units_and_substitutions.csv
+RNAseq_sample_metadata_template.csv
+motifs/MA0981.2_DOF1.8.jaspar
+motifs/MA1667.2_HSFC1.jaspar
+motifs/README.md
+source_data/Figure7_logo_model_metadata.csv
+source_data/Figure7_variant_metrics.tsv
+source_data/README.md
+source_data/S8A_threshold_stats.tsv
+source_data/S8B_continuous_stats.tsv
+source_data/S8D_QC.tsv
+source_data/Table_S13_natural_variant_TF_family.tsv
+source_data/Table_S14_published_accession_evidence.tsv
+supplementary_table_source/README.md
+supplementary_table_source/Table_S10__S10A_class_signal.tsv
+supplementary_table_source/Table_S10__S10B_window_signal.tsv
+supplementary_table_source/Table_S11__S11_accessions.tsv
+supplementary_table_source/Table_S12__S12_seed_variants.tsv
+supplementary_table_source/Table_S13__S13_TF_family.tsv
+supplementary_table_source/Table_S14__Table_S14.tsv
+supplementary_table_source/Table_S1__S1A_motif_effects.tsv
+supplementary_table_source/Table_S1__S1B_family_summary.tsv
+supplementary_table_source/Table_S2__S2_HSF_lost.tsv
+supplementary_table_source/Table_S3__S3_AP2ERF_gained.tsv
+supplementary_table_source/Table_S4__S4A_primary_0p85.tsv
+supplementary_table_source/Table_S4__S4B_all_thresholds.tsv
+supplementary_table_source/Table_S4__S4C_GC_correlation.tsv
+supplementary_table_source/Table_S4__S4D_design_QC.tsv
+supplementary_table_source/Table_S5__S5_Col0_HSF.tsv
+supplementary_table_source/Table_S6__49bp_locations.tsv
+supplementary_table_source/Table_S6__Col0_ONSEN_locations_part1.tsv
+supplementary_table_source/Table_S6__Col0_ONSEN_locations_part2.tsv
+supplementary_table_source/Table_S6__Col0_ONSEN_locations_part3.tsv
+supplementary_table_source/Table_S6__Col0_ONSEN_locations_part4.tsv
+supplementary_table_source/Table_S6__Column_definitions.tsv
+supplementary_table_source/Table_S6__README.tsv
+supplementary_table_source/Table_S6__Table_S6_summary.tsv
+supplementary_table_source/Table_S7__S7_TE_background.tsv
+supplementary_table_source/Table_S8__S8A_threshold_stats.tsv
+supplementary_table_source/Table_S8__S8B_continuous_stats.tsv
+supplementary_table_source/Table_S8__S8D_QC.tsv
+supplementary_table_source/Table_S9__S9B_statistics.tsv
+supplementary_table_source/Table_S9__S9C_ordinary_TE_control.tsv
+supplementary_table_source/Table_S9__S9D_selected_outliers.tsv
+supplementary_table_source/Table_S9__S9_methylation.tsv

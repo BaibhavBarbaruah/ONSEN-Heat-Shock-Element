@@ -1,0 +1,30 @@
+display_item	analysis	responsible_code	required_inputs	generated_or_deposited_outputs	status
+Fig. 1A	Native/designed sequence schematic	01_native_mutated_motif_analysis.R	ONSEN_49bp_sequences.fasta; ONSEN_HSE_units_and_substitutions.csv	Fig1A_native_designed_sequence.pdf/png	covered
+Fig. 1B	TF-family motif-position hits	01_native_mutated_motif_analysis.R	native_vs_mutated_49bp_TF_motif_hits_annotated.csv	Fig1B_family_hit_counts.pdf/png	covered
+Fig. 2A-D	Motif-model best-score heatmaps	01_native_mutated_motif_analysis.R	native_vs_mutated_49bp_ALL_window_scores_unfiltered.csv; Tables S2-S3	Fig2A-D panel PDF/PNG files	covered
+Fig. 3A-D	Col-0 terminal-window HSF results and strict TE comparison	03_col0_HSF_and_TE_background.R	Col-0 terminal windows; strict TE coordinates; HSF scans	Fig3A-D panel PDF/PNG files	covered
+Fig. 4A-D	Basal methylation and ordinary-TE control	05_methylation_analysis.R	GSM1085222 methylome; ONSEN/TE coordinates	Fig4A-D panel PDF/PNG files	covered
+Fig. 5A-C	Heat-marker and candidate-window RNA-seq	06_rnaseq_analysis.R	gene counts; metadata; fractional candidate-window counts	Fig5A-C panel PDF/PNG files	covered
+Fig. 6	Natural 49-bp sequence variants	07_accession_analysis.R	natural variant sequences and summary	Fig6 panel PDF/PNG files	covered
+Fig. 7A-B	Natural TF-family motif compatibility	07_accession_analysis.R	natural variant TF-family absolute/delta summaries	Fig7A-B panel files; source_data/Table_S13_natural_variant_TF_family.tsv	covered
+Fig. 7C	Sequence identity relative to Col-0	07B_figure7_identity_and_logo_workflow.R	source_data/Figure7_variant_metrics.tsv	Fig7C_sequence_identity.pdf/png	covered
+Fig. 7D	Representative HSF and DOF JASPAR logos	07B_figure7_identity_and_logo_workflow.R	motifs/MA1667.2_HSFC1.jaspar; motifs/MA0981.2_DOF1.8.jaspar	Fig7D_representative_JASPAR_logos.pdf/png; source_data/Figure7_logo_model_metadata.csv	covered
+Fig. S1A-C	Constrained-mutant and exact-GC sensitivity	02_constrained_mutant_sensitivity.R	Step2B/Step2C outputs or regenerated design libraries	FigS1A-C panel PDF/PNG files	covered
+Fig. S2	Raw versus non-redundant HSF locations	04_nonredundant_HSF_locations.R	49-bp and copy-wide HSF hit tables	FigS2 panel PDF/PNG files	covered
+Fig. S3A-C	Threshold sensitivity and continuous regional scores	03B_threshold_and_continuous_sensitivity.R	strict TE coordinates; TAIR10; JASPAR HSF PWMs	FigS3_HSF_threshold_and_continuous_scores.pdf/png; source_data/S8A, S8B and S8D TSV files; generated S8C_region_metrics.tsv.gz	covered
+Fig. S4A-C	Additional accession HSE architecture, scaled summaries and HSF-model compatibility	07_accession_analysis.R	candidate architecture and HSF-model summaries	FigS4A-C panel PDF/PNG files	covered
+Fig. S5A-C	Accession candidate abundance, HSF density and structural proxies	07_accession_analysis.R	accession candidate/proxy summaries	FigS5A-C panel PDF/PNG files	covered
+Table S1	Motif effects and family summary	01_native_mutated_motif_analysis.R; 08_write_supplementary_tables.R	motif effects/family summaries	Table_S1.xlsx	covered
+Table S2	HSF models below threshold	01_native_mutated_motif_analysis.R; 08_write_supplementary_tables.R	HSF best scores	Table_S2.xlsx	covered
+Table S3	AP2/ERF models gained/strengthened	01_native_mutated_motif_analysis.R; 08_write_supplementary_tables.R	motif gain/loss	Table_S3.xlsx	covered
+Table S4	Constrained-mutant and exact-GC sensitivity	02_constrained_mutant_sensitivity.R; 08_write_supplementary_tables.R	Step2B/Step2C outputs	Table_S4.xlsx	covered
+Table S5	Col-0 copy-wide HSF summary	03_col0_HSF_and_TE_background.R; 08_write_supplementary_tables.R	Col-0 HSF summary	Table_S5.xlsx	covered
+Table S6	Non-redundant HSF locations	04_nonredundant_HSF_locations.R; 08_write_supplementary_tables.R	merged HSF intervals	Table_S6.xlsx	covered
+Table S7	Strict TE-background comparison	03_col0_HSF_and_TE_background.R; 08_write_supplementary_tables.R	strict TE threshold statistics	Table_S7.xlsx	covered
+Table S8	Threshold and continuous-score sensitivity	03B_threshold_and_continuous_sensitivity.R; 08_write_supplementary_tables.R	multi-threshold/continuous summaries	Table_S8.xlsx; source_data/S8A, S8B and S8D TSV files; generated S8C_region_metrics.tsv.gz	covered
+Table S9	Methylation and ordinary-TE control	05_methylation_analysis.R; 08_write_supplementary_tables.R	methylation class/locus/statistics outputs	Table_S9.xlsx	covered
+Table S10	RNA-seq candidate-window summaries	06_rnaseq_analysis.R; 08_write_supplementary_tables.R	candidate class/window signals	Table_S10.xlsx	covered
+Table S11	Accession candidate/proxy summary	07_accession_analysis.R; 08_write_supplementary_tables.R	accession candidate/proxy summaries	Table_S11.xlsx	covered
+Table S12	Natural seed variants	07_accession_analysis.R; 08_write_supplementary_tables.R	variant accession summary	Table_S12.xlsx	covered
+Table S13	Natural TF-family summary	07_accession_analysis.R; 08_write_supplementary_tables.R	variant TF-family summaries	Table_S13.xlsx; source_data/Table_S13_natural_variant_TF_family.tsv	covered
+Table S14	Published accession evidence synthesis	manual cited synthesis; 08_write_supplementary_tables.R	published sources cited in workbook	Table_S14.xlsx; source_data/Table_S14_published_accession_evidence.tsv	covered; manual literature table

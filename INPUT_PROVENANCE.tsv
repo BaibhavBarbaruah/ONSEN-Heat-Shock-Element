@@ -1,0 +1,51 @@
+resource	expected_filename	origin	source_type	purpose_or_final_item
+Reference genome	Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz	TAIR10	Public reference	Genome extraction and genome-based analyses
+Genome/TE annotation	Araport11_GFF3_genes_transposons.20241001.gff.gz	Araport11	Public reference	Gene and transposable-element annotations
+Gene annotation	Arabidopsis_thaliana.TAIR10.54.gtf	Ensembl Plants/TAIR10	Public reference	Gene-level featureCounts
+JASPAR 2024 motifs	JASPAR2024_CORE_plants_nonredundant_pfms_jaspar.txt	JASPAR	Public motif collection	Historical/native motif-scan provenance
+JASPAR 2026 motifs	JASPAR2026_CORE_plants_nonredundant_pfms_jaspar.txt	JASPAR	Public motif collection	Primary motif collection for final analyses
+Native/designed sequences	native_vs_mutated_49bp_sequences.csv	Generated in study	Processed metadata	Figs. 1-2; Tables S1-S3
+All 49-bp window scores	native_vs_mutated_49bp_ALL_window_scores_unfiltered.csv	Generated in study	Processed motif output	Continuous/best-score reconstruction for Fig. 2
+49-bp motif hits	native_vs_mutated_49bp_TF_motif_hits_annotated.csv	Generated in study	Processed motif output	Figs. 1-2; Tables S1-S3; Fig. S2/Table S6
+49-bp motif gain/loss	native_vs_mutated_49bp_TF_motif_gain_loss_table.csv	Generated in study	Processed motif output	Fig. 2; Tables S1-S3
+Col-0 ONSEN FASTA	Col0_ONSEN_full_and_LTRcandidate_regions.fasta	Generated from TAIR10	Processed sequence input	Eight loci and sixteen terminal candidate windows
+Col-0 terminal-window metadata	Col0_ONSEN_full_and_LTRcandidate_regions_metadata.csv	Generated from TAIR10	Processed coordinate metadata	Fig. 3; Tables S5-S8
+Col-0 HSF hits	Col0_ONSEN_LTRcandidate_JASPAR2026_Arabidopsis_HSF_hits.csv	Generated in study	Processed motif output	Fig. 3; Table S5; Fig. S2/Table S6
+Strict TE coordinates	strict_TE_only_background_coordinates.csv	Generated from Araport11	Processed genomic input	1,942 strict non-ONSEN TE regions; Fig. 3; Tables S7-S8
+TE threshold summary	ONSEN_vs_strict_TE_only_background_threshold_0p85_0p90_summary.csv	Generated in study	Processed result	Fig. 3; Table S7
+TE statistics	ONSEN_vs_strict_TE_only_background_threshold_0p85_0p90_STATS.csv	Generated in study	Processed result	Wilcoxon/Cliff's delta; Table S7
+TE outlier annotations	strict_TE_background_annotated_with_HSF_outlier_classes.csv	Generated in study	Processed result	Fig. 3D; density threshold set at the weakest ONSEN terminal window before ONSEN/ATCOPIA78 harmonisation
+Four-threshold regional metrics	Revision_R1_3_region_level_HSF_metrics_all_thresholds.csv	Generated in study	Processed result	Fig. S3; Table S8
+Continuous regional HSF scores	Revision_R1_3_region_level_continuous_HSF_scores.csv	Generated in study	Processed result	Fig. S3; Table S8
+Four-threshold statistics	Revision_R1_3_threshold_sensitivity_statistics.csv	Generated in study	Processed result	Fig. S3A; Table S8
+Continuous-score statistics	Revision_R1_3_continuous_score_statistics.csv	Generated in study	Processed result	Fig. S3B-C; Table S8
+HSF model inventory	Revision_R1_3_HSF_model_inventory.csv	Generated in study	Processed metadata	JASPAR model IDs/widths used in Table S8 analysis
+Public methylome	GSM1085222_mC_calls_Col_0.tsv.gz	GEO GSE43857 / GSM1085222	Public data	Basal unstressed Col-0 leaf methylation; Fig. 4/Table S9
+ONSEN methylation coordinates	Figure5_ONSEN_LTR_candidate_coordinates.csv	Generated in study	Processed coordinate input	Fig. 4/Table S9
+HSF-rich TE outlier coordinates	Figure5_HSF_rich_non_ONSEN_TE_outlier_coordinates_ANNOTATED.csv	Generated in study	Processed coordinate input	Fixed eight-region non-ONSEN subset; Figs. 4B-D and 5C; Tables S9-S10
+Ordinary-TE methylation summary	Revision_Fig4_ONSEN_vs_ordinary_TE_Col0_leaf_methylation_locus_summary.csv	Generated in study	Processed result	Fig. 4A/Table S9
+Ordinary-TE methylation statistics	Revision_Fig4_ONSEN_vs_ordinary_TE_Wilcoxon_BH_statistics.csv	Generated in study	Processed result	Fig. 4A/Table S9
+RNA-seq metadata	Col0_NS_vs_24h_37C_HS_sample_metadata.csv	Generated in our laboratory; PRJDB39904 and PRJDB42759	Original-study metadata	Six-library Col-0 sample map with three biological replicates per condition; Fig. 5/Table S10
+RNA-seq alignments	Col0_NS_rep1.bam ... Col0_HS_24h_37C_rep3.bam	Generated from the six study libraries	Original-study alignment	Six validated Col-0 paired-end libraries; optional large-data step
+Gene counts	Col0_NS_vs_24h_37C_HS_gene_counts_raw.tsv	Generated in the present study	Processed count input	DESeq2/Fig. 5A
+Candidate-window counts	Col0_NS_vs_24h_37C_HS_candidate_ONSEN_HSF_rich_TE_loci_fractional_multimap_counts_annotated.tsv	Generated in the present study	Processed count input	Fig. 5B-C/Table S10
+Candidate SAF	candidate_ONSEN_HSF_rich_TE_loci_for_featureCounts.saf	Generated in study	Processed coordinate input	Fractional multimapping-aware featureCounts
+Gene library summary	Col0_NS_vs_24h_37C_HS_gene_assigned_count_library_summary.tsv	Generated in study	Processed QC input	Candidate-signal normalization
+Accession candidate metadata	accession_ONSEN_like_HSE_candidate_windows_mismatch_leq4_metadata.csv	Generated in study	Processed result	Figs. 6, S4-S5; Tables S11-S12
+Accession candidate FASTA	accession_ONSEN_like_HSE_candidate_windows_mismatch_leq4_plusminus400bp.fasta	Generated in study	Processed sequence result	Natural-accession analysis
+Fixed accession HSF summary	FIXED_accession_ONSEN_like_mainchr_candidate_windows_JASPAR2026_Arabidopsis_HSF_candidate_summary_threshold_0.85.csv	Generated in study	Processed result	Figs. S4-S5; Table S11
+Paired proxy summary	putative_ONSEN_like_copy_proxy_summary_mismatch_leq4.csv	Generated in study	Processed result	Fig. S5/Table S11
+Natural variant accession summary	natural_accession_49bp_HSE_seed_variant_accession_summary.csv	Generated in study	Processed result	Fig. 6/Table S12
+Natural variant TF-family summary	natural_accession_variant_seed_TF_family_summary_long.csv	Generated in study	Processed result	Fig. 7/Table S13
+Random mutant library	constrained_HSE_mutant_library_n5000.csv	Generated in study	Processed sequence library	Fig. S1/Table S4
+Random-mutant family summary	Step2B_validated_v1_sequence_family_threshold_summary.csv	Generated in study	Processed result	Fig. S1/Table S4
+Random-mutant empirical comparison	Step2B_validated_v1_designed_mutant_empirical_comparison.csv	Generated in study	Processed result	Fig. S1/Table S4
+Random-mutant GC correlations	Step2B_validated_v1_random_mutant_GC_spearman_correlations.csv	Generated in study	Processed result	Fig. S1/Table S4
+Exact-GC sequence library	Step2C_complete_exact_GC_constrained_sequence_library.csv	Generated in study	Processed sequence library	5,120 valid exact-GC designs including designed sequence
+Exact-GC family summary	Step2C_complete_exact_GC_sequence_family_threshold_summary.csv	Generated in study	Processed result	Fig. S1/Table S4
+Exact-GC empirical comparison	Step2C_designed_mutant_vs_complete_exact_GC_design_space.csv	Generated in study	Processed result	Fig. S1/Table S4
+Non-redundant HSF summary	Revision_R1_2_combined_HSF_raw_vs_nonredundant_summary_threshold_0p85.csv	Generated in study	Processed result	Fig. S2/Table S6
+Representative HSF logo PFM	motifs/MA1667.2_HSFC1.jaspar	JASPAR	Deposited motif metadata	Fig. 7D upper logo
+Representative DOF logo PFM	motifs/MA0981.2_DOF1.8.jaspar	JASPAR	Deposited motif metadata	Fig. 7D lower logo
+Published accession evidence	source_data/Table_S14_published_accession_evidence.tsv; supplementary_table_source/Table_S14__Table_S14.tsv	Manual cited synthesis	Deposited source table	Table S14; accession-specific published context
+Final figure mapping	REPRODUCIBILITY_MATRIX.tsv	Final revision package	Deposited metadata	Maps Fig. 1-Fig. 7 and Fig. S1-Fig. S5 to scripts and outputs

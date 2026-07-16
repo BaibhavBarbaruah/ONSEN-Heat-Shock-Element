@@ -1,0 +1,20 @@
+item_type	old_item	final_item	description
+Supplementary figure	Fig. S3	Fig. S1	Constrained-mutant sensitivity and exact-GC control
+Supplementary figure	Fig. S4	Fig. S2	Raw versus non-redundant HSF-compatible locations
+Supplementary figure	Fig. S5	Fig. S3	Threshold sensitivity and continuous HSF scores
+Supplementary figure	Fig. S1	Fig. S5	Accession candidate abundance, HSF density and structural proxies
+Supplementary figure	Fig. S2	Fig. S4	Additional accession HSE/HSF summaries
+Supplementary table	Table S1	Table S1	Native-versus-designed motif effects and family summary
+Supplementary table	Table S2	Table S2	HSF models below threshold after mutation
+Supplementary table	Table S3	Table S3	AP2/ERF models gained or strengthened
+Supplementary table	Table S12	Table S4	Constrained-mutant and exact-GC sensitivity
+Supplementary table	Table S4	Table S5	Col-0 copy-wide HSF summary
+Supplementary table	Table S13	Table S6	Non-redundant HSF-compatible locations
+Supplementary table	Table S5	Table S7	Strict TE-background comparison
+Supplementary table	Table S14	Table S8	Threshold sensitivity and continuous scores
+Supplementary table	Table S6	Table S9	Methylation and ordinary-TE control
+Supplementary table	Table S7	Table S10	RNA-seq candidate-window analysis
+Supplementary table	Table S8	Table S11	Accession candidate and proxy summary
+Supplementary table	Table S9	Table S12	Natural seed variants
+Supplementary table	Table S10	Table S13	Natural TF-family summary
+Supplementary table	Table S11	Table S14	Published accession-evidence synthesis
