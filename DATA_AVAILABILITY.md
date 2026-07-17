@@ -47,4 +47,4 @@ Large public/reference inputs and journal submission artwork are not duplicated.
 
 ## Code repository
 
-https://github.com/BaibhavBarbaruah/ONSEN-HSE
+https://github.com/BaibhavBarbaruah/ONSEN-Heat-Shock-Element
