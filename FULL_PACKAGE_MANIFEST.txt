@@ -4,8 +4,8 @@ Date: 2026-07-15
 Manuscript: bio.062799
 
 Repository policy:
-- final journal-numbered TSV source sheets are deposited;
-- Excel workbooks are reconstructed by 08_write_supplementary_tables.R;
+- final journal-numbered Excel workbooks and TSV source sheets are deposited;
+- Excel workbooks can be reconstructed by 08_write_supplementary_tables.R;
 - journal-ready assembled figure artwork remains a submission asset;
 - large public/reference inputs are identified in INPUT_PROVENANCE.tsv.
 
@@ -14,6 +14,7 @@ Files:
 LICENSE
 README.md
 CHANGELOG.md
+DDBJ_Update_Change_Log.md
 CITATION.cff
 DATA_AVAILABILITY.md
 REPRODUCIBILITY_NOTES.md
@@ -47,6 +48,20 @@ ONSEN_Col0_terminal_candidate_windows.csv
 ONSEN_Col0_terminal_candidate_windows.saf
 ONSEN_HSE_units_and_substitutions.csv
 RNAseq_sample_metadata_template.csv
+Table_S1.xlsx
+Table_S2.xlsx
+Table_S3.xlsx
+Table_S4.xlsx
+Table_S5.xlsx
+Table_S6.xlsx
+Table_S7.xlsx
+Table_S8.xlsx
+Table_S9.xlsx
+Table_S10.xlsx
+Table_S11.xlsx
+Table_S12.xlsx
+Table_S13.xlsx
+Table_S14.xlsx
 motifs/MA0981.2_DOF1.8.jaspar
 motifs/MA1667.2_HSFC1.jaspar
 motifs/README.md
@@ -58,6 +73,7 @@ source_data/S8B_continuous_stats.tsv
 source_data/S8D_QC.tsv
 source_data/Table_S13_natural_variant_TF_family.tsv
 source_data/Table_S14_published_accession_evidence.tsv
+reproduced_outputs/repository_validation_report.csv
 supplementary_table_source/README.md
 supplementary_table_source/Table_S10__S10A_class_signal.tsv
 supplementary_table_source/Table_S10__S10B_window_signal.tsv
