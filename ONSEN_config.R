@@ -1,4 +1,4 @@
-# Portable configuration for the flat ONSEN-HSE repository.
+# Portable configuration for the ONSEN HSE repository.
 
 options(stringsAsFactors = FALSE)
 
