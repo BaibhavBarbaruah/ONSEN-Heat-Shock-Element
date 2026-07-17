@@ -1,5 +1,5 @@
-Table S8D. Analysis quality-control information.
-
+Table S8. Threshold sensitivity and continuous-score analysis of HSF-family predicted motif enrichment in Col-0 ONSEN terminal candidate windows relative to a strict non-ONSEN transposable-element background.
+Part D. Analysis quality-control information.
 section	item	value
 Analysis QC	Genome file	Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz (external input; provenance recorded in the public repository)
 Analysis QC	JASPAR file	JASPAR2026_CORE_plants_nonredundant_pfms_jaspar.txt (external input; provenance recorded in the public repository)

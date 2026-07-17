@@ -39,6 +39,7 @@
 - `06_rnaseq_analysis.R`: replaced validation against DRA013053 DRR/DRX assignments with validation of the six BioSample/BioProject assignments, Col-0 identity, three replicates per condition and laboratory provenance.
 - `10_validate_manuscript_outputs.R`: replaced DRA/DRR/DRX checks with BioSample, BioProject, replicate and laboratory-provenance checks, and moved the validation-report/failure gate after those checks so they are actually included in repository validation.
 - `FILE_CHECKSUMS_SHA256.tsv`: updated the `INPUT_PROVENANCE.tsv` SHA-256 value and byte count.
+- `Table_S1.xlsx` through `Table_S14.xlsx` and `supplementary_table_source/`: synchronized the public binary workbooks and deposited TSV source sheets with the final submission workbooks, including Table S9D and the corrected Table S10 summary.
 
 ## Removed everywhere relevant
 
@@ -65,7 +66,6 @@
 
 ## User action
 
-- Commit/push or merge the updated repository package into the public GitHub repository. The remote repository was not changed from this workspace because the required authenticated GitHub CLI session was unavailable.
 - Supply the highlighted manuscript required by the editor and confirm that it is text-identical to the returned clean manuscript apart from revision highlighting. No highlighted manuscript was uploaded in this session, although the response letter says one has been prepared.
 - Confirm the truthful reporting of sample-size determination, exclusions, randomisation and blinding before submission. The journal checklist's overall methodology/statistics confirmation is checked, but the manuscript does not currently contain explicit statements for each of these items; no scientific assertion was added without author confirmation.
 - Run `10_validate_manuscript_outputs.R` in an R environment with the repository dependencies before publishing the repository update.

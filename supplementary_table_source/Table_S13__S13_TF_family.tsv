@@ -1,4 +1,4 @@
-Table S13. Natural seed-variant TF-family motif summary.									
+Table S13. Natural seed-variant transcription-factor-family motif summary.
 Accession	Variant seed	Mismatch count	Mismatch positions	HSF motif IDs	DOF motif IDs	AP2/ERF motif IDs	Delta HSF vs Col-0	Delta DOF vs Col-0	Delta AP2/ERF vs Col-0
 An-1	An-1-v01	1	21	15	12	8	0	4	0
 An-1	An-1-v02	1	21	15	12	8	0	4	0

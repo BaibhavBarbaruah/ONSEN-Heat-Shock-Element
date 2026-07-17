@@ -1,5 +1,5 @@
-Table S8B. Continuous HSF relative-score comparisons.
-
+Table S8. Threshold sensitivity and continuous-score analysis of HSF-family predicted motif enrichment in Col-0 ONSEN terminal candidate windows relative to a strict non-ONSEN transposable-element background.
+Part B. Continuous HSF relative-score comparisons.
 metric	metric_column	n_ONSEN_regions	n_background_regions	ONSEN_median	ONSEN_Q1	ONSEN_Q3	background_median	background_Q1	background_Q3	Wilcoxon_P	Cliffs_delta	Wilcoxon_P_BH
 Maximum HSF relative PWM score	maximum_HSF_relative_score	16	1942	0.997057323853935	0.997057323853935	0.997057323853935	0.908452927585686	0.877148587339202	0.938823665407958	2.79139791083228e-08	0.804840370751802	2.79139791083228e-08
 Mean of top five HSF relative PWM scores	mean_top5_HSF_relative_score	16	1942	0.994168599502574	0.994168599502574	0.994168599502574	0.888266324307317	0.853031007818497	0.913500767678181	8.85803998450853e-12	0.989282955715757	1.40042706844095e-11

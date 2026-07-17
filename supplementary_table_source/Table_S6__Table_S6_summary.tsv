@@ -1,9 +1,9 @@
 Table S6. Non-redundant HSF-compatible locations in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
-HSF-family motif hits were filtered at relative PWM score >= 0.85. Raw values represent PWM model-position hits. Non-redundant locations were obtained by merging genuinely overlapping HSF-family motif intervals across PWM models and strands. These locations represent computational motif compatibility, not experimentally verified HSF occupancy.
+HSF-family motif hits were filtered at relative PWM score ≥0.85. Raw values represent PWM model-position hits. Non-redundant locations were obtained by merging genuinely overlapping HSF-family motif intervals across PWM models and strands. These locations represent computational motif compatibility, not experimentally verified HSF occupancy.
 
 Analysis	Sequence/window ID	ONSEN copy	LTR side	Sequence length (bp)	HSF PWM model-position hits	Non-redundant HSF-compatible locations	Unique HSF PWM models detected	Maximum relative PWM score	Raw HSF hit density per kb	Non-redundant HSF-location density per kb	Raw hits per non-redundant location	Number of raw hits collapsed	Raw hits collapsed (%)
-Native/designed 49-bp sequence	mutated			49	0	0	0		0	0		0	
-Native/designed 49-bp sequence	native			49	31	1	10	0.9971	632.65	20.41	31	30	96.8
+Native/designed HSE-disrupted 49-bp sequence	designed_HSE_disrupted			49	0	0	0		0	0		0
+Native/designed HSE-disrupted 49-bp sequence	native			49	31	1	10	0.9971	632.65	20.41	31	30	96.8
 Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G11265_ONSEN1_leftLTRcandidate	ONSEN1	left_LTR_candidate	800	70	9	10	0.9971	87.5	11.25	7.78	61	87.1
 Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G11265_ONSEN1_rightLTRcandidate	ONSEN1	right_LTR_candidate	800	56	7	10	0.9971	70	8.75	8	49	87.5
 Col-0 ONSEN 800-bp terminal candidate window	Col0_AT1G21945_ONSEN7_leftLTRcandidate	ONSEN7	left_LTR_candidate	800	59	7	10	0.9971	73.75	8.75	8.43	52	88.1

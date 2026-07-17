@@ -1,5 +1,5 @@
 Table S9. Public Col-0 leaf weighted methylation summaries for ONSEN terminal candidate windows, HSF-rich non-ONSEN TE outliers and ordinary background TEs.
-Original comparison of ONSEN terminal candidate windows with selected HSF-rich non-ONSEN TE outliers. This comparison is retained for the locus-level analyses in Fig. 4B-D.				
+Original comparison of ONSEN terminal candidate windows with selected HSF-rich non-ONSEN TE outliers. This comparison is retained for the locus-level analyses in Fig. 4B-D.
 Context	Primary test	Multiple-test correction	Original significance label	Interpretation
 CG	Wilcoxon rank-sum	Benjamini-Hochberg across CG/CHG/CHH	ns	No significant difference at adjusted P<=0.05
 CHG	Wilcoxon rank-sum	Benjamini-Hochberg across CG/CHG/CHH	ns	No significant difference at adjusted P<=0.05

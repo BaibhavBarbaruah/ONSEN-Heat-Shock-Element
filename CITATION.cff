@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite the associated Biology Open article when using this code or processed data."
 title: "ONSEN HSE regulatory-architecture analyses"
 type: software
-version: 1.0.0
+version: 1.0.1
 authors:
   - family-names: Barbaruah
     given-names: Baibhav R.
@@ -11,7 +11,7 @@ authors:
   - family-names: Ito
     given-names: Hidetaka
 repository-code: "https://github.com/BaibhavBarbaruah/ONSEN-Heat-Shock-Element"
-date-released: 2026-07-15
+date-released: 2026-07-17
 license: MIT
 keywords:
   - ONSEN

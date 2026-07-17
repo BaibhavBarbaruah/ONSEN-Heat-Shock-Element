@@ -1,5 +1,5 @@
-Table S8A. HSF-family motif-density threshold sensitivity.
-
+Table S8. Threshold sensitivity and continuous-score analysis of HSF-family predicted motif enrichment in Col-0 ONSEN terminal candidate windows relative to a strict non-ONSEN transposable-element background.
+Part A. HSF-family motif-density threshold sensitivity.
 relative_score_threshold	n_ONSEN_regions	n_background_regions	ONSEN_median_hits_per_kb	ONSEN_Q1_hits_per_kb	ONSEN_Q3_hits_per_kb	background_median_hits_per_kb	background_Q1_hits_per_kb	background_Q3_hits_per_kb	Wilcoxon_P	Cliffs_delta	background_regions_at_or_above_ONSEN_median	background_regions_at_or_above_ONSEN_maximum	Wilcoxon_P_BH
 0.8	16	1942	154.375	140	165	37.4011814265046	24.684828222675	54.8351726089417	7.05335058097169e-12	0.994013903192585	4	3	7.32940237229334e-12
 0.85	16	1942	75	70	86.5625	10.840108401084	5.28053496391227	19.6231692411658	7.32940237229334e-12	0.992147270854789	7	2	7.32940237229334e-12

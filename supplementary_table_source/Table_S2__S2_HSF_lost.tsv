@@ -1,5 +1,5 @@
-Table S2. Arabidopsis HSF-family motif models falling below the scoring threshold in the in-silico-designed HSE-disrupted 49-bp ONSEN sequence.					
-JASPAR ID	HSF model	Native best relative score	Mutated best relative score	Delta score	Native best match
+Table S2. Arabidopsis HSF-family motif models falling below the scoring threshold in the in-silico-designed HSE-disrupted 49-bp ONSEN sequence.
+JASPAR ID	HSF model	Native best relative score	Designed HSE-disrupted best relative score	Delta score	Native best match
 MA1667.3	HSFC1	0.997	0.678	-0.319	TTCTAGAA
 MA1664.3	HSFA6B	0.983	0.677	-0.306	TTCTAGAA
 MA1761.2	HSFB3	0.969	0.689	-0.28	AAGATTCTAGAA

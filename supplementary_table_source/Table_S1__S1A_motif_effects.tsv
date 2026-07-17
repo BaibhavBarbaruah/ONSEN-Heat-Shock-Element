@@ -1,9 +1,9 @@
-Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: motif-effect and family-level summary.			
+Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: motif-effect and family-level summary.
 Motif-effect class	Number of motif IDs	Relative-score cutoff	Score-margin used
-lost_after_mutation	60	0.85	0.05
-gained_after_mutation	50	0.85	0.05
-weakened_after_mutation	2	0.85	0.05
-strengthened_after_mutation	3	0.85	0.05
+lost_in_design	60	0.85	0.05
+gained_in_design	50	0.85	0.05
+weakened_in_design	2	0.85	0.05
+strengthened_in_design	3	0.85	0.05
 shifted_position	3	0.85	0.05
 retained	44	0.85	0.05
 below_threshold_both	643	0.85	0.05

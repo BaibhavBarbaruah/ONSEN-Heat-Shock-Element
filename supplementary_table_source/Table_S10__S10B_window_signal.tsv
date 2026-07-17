@@ -1,4 +1,4 @@
-Table S10. Fractional multimapping-aware RNA-seq candidate-window summary for Col-0 non-stressed and 24-h 37°C heat-stressed samples.						
+Table S10. Fractional multimapping-aware RNA-seq candidate-window summary for Col-0 non-stressed and 24-h 37°C heat-stressed samples.
 Candidate window	Candidate class	Mean NS	Mean HS	log2FC HS vs NS [pseudocount 0.05 CPM]	Welch BH-adjusted P	Wilcoxon BH-adjusted P
 ONSEN1-R	ONSEN / ATCOPIA78	1.266	212.7	7.337	6.28e-06	0.091
 ONSEN2-L	ONSEN / ATCOPIA78	1.646	203	6.904	0.000962	0.091
@@ -23,16 +23,16 @@ AT2TE45420"	ONSEN / ATCOPIA78	0	0.0599	1.137	0.423	0.505
 "ATHILA4A
 AT1TE44520"	Other HSF-rich TE	0	0.03	0.678	0.423	0.505
 "ATHILA8B
-AT5TE37570"	Other HSF-rich TE	0	0	0		
+AT5TE37570"	Other HSF-rich TE	0	0	0
 "ATHILA4A
-AT5TE45145"	Other HSF-rich TE	0	0	0		
+AT5TE45145"	Other HSF-rich TE	0	0	0
 "ATHILA4A
-AT1TE51750"	Other HSF-rich TE	0	0	0		
+AT1TE51750"	Other HSF-rich TE	0	0	0
 "ATHILA4D
-AT2TE49215"	Other HSF-rich TE	0	0	0		
+AT2TE49215"	Other HSF-rich TE	0	0	0
 "ATHILA4A
-AT1TE47330"	Other HSF-rich TE	0	0	0		
+AT1TE47330"	Other HSF-rich TE	0	0	0
 "ATHILA4A
-AT1TE47115"	Other HSF-rich TE	0	0	0		
-ONSEN3-L	ONSEN / ATCOPIA78	0	0	0		
-ONSEN3-R	ONSEN / ATCOPIA78	0	0	0		
+AT1TE47115"	Other HSF-rich TE	0	0	0
+ONSEN3-L	ONSEN / ATCOPIA78	0	0	0
+ONSEN3-R	ONSEN / ATCOPIA78	0	0	0

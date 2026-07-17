@@ -1,4 +1,4 @@
 Table S6. Non-redundant HSF-compatible locations in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
 
 Source	Sequence ID	ONSEN copy	LTR side	Non-redundant location ID	Site start, forward coordinate	Site end, forward coordinate	Site width (bp)	HSF PWM model-position hits in merged location	Unique HSF PWM models in merged location	HSF PWM models	Motif IDs	Strands	Maximum relative PWM score	Representative HSF model	Representative motif ID	Representative matched sequence	Sequence length (bp)
-Native_mutated_49bp	native			1	6	36	31	31	10	HSFA1B; HSFA1E; HSFA4A; HSFA6A; HSFA6B; HSFB2A; HSFB2B; HSFB3; HSFB4; HSFC1	MA1664.3; MA1665.3; MA1666.3; MA1667.3; MA1758.2; MA1759.2; MA1760.1; MA1761.2; MA2019.2; MA2020.2	-; +	0.9971	HSFC1	MA1667.3	TTCTAGAA	49
+Native_designed_HSE_disrupted_49bp	native			1	6	36	31	31	10	HSFA1B; HSFA1E; HSFA4A; HSFA6A; HSFA6B; HSFB2A; HSFB2B; HSFB3; HSFB4; HSFC1	MA1664.3; MA1665.3; MA1666.3; MA1667.3; MA1758.2; MA1759.2; MA1760.1; MA1761.2; MA2019.2; MA2020.2	-; +	0.9971	HSFC1	MA1667.3	TTCTAGAA	49

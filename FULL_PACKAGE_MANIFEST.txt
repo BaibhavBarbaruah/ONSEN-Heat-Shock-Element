@@ -1,6 +1,6 @@
 Final Biology Open revision repository package
-Version: 1.0.0
-Date: 2026-07-15
+Version: 1.0.1
+Date: 2026-07-17
 Manuscript: bio.062799
 
 Repository policy:
