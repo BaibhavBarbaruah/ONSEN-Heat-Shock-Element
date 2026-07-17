@@ -1,4 +1,4 @@
-# Shared utilities for the flat ONSEN-HSE repository.
+# Shared utilities for the ONSEN HSE repository.
 
 source("ONSEN_config.R")
 
