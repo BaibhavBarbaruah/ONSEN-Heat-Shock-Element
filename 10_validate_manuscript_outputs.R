@@ -2,8 +2,8 @@
 # and supplementary package (Fig. S1-Fig. S4; Table S1-Table S13).
 
 source("ONSEN_config.R")
-require_packages <- c("data.table", "dplyr", "openxlsx")
-missing <- require_packages[!vapply(require_packages, requireNamespace, logical(1), quietly = TRUE)]
+needed <- c("data.table", "dplyr", "openxlsx")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing)) stop("Missing validation package(s): ", paste(missing, collapse = ", "))
 message_config()
 
@@ -14,7 +14,10 @@ add_check <- function(name, passed, detail) {
     stringsAsFactors = FALSE
   )
 }
-text_of <- function(path) paste(readLines(file.path(REPO_ROOT, path), warn = FALSE), collapse = "\n")
+text_of <- function(path) {
+  full_path <- if (grepl("^(/|[A-Za-z]:[/\\\\])", path, perl = TRUE)) path else file.path(REPO_ROOT, path)
+  paste(readLines(full_path, warn = FALSE), collapse = "\n")
+}
 read_final <- function(filename, skip = 2L) {
   data.table::fread(
     file.path(REPO_ROOT, "supplementary_table_source", filename),
@@ -186,7 +189,7 @@ add_check("Accession candidate counts",
             identical(as.integer(s12[["Candidate windows"]]), expected_accession_counts),
           "Col-0/An-1/C24/Cvi/Eri/Kyo/Ler/Sha = 19/7/11/9/16/17/15/41")
 
-# Code-level guards for the two substantive corrections.
+# Code-level guards for substantive analysis definitions.
 s3b <- text_of("03B_threshold_and_continuous_sensitivity.R")
 s6 <- text_of("06_rnaseq_analysis.R")
 s7code <- text_of("07_accession_analysis.R")
