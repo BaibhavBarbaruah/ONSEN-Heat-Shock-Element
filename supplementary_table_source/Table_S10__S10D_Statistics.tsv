@@ -1,0 +1,16 @@
+Table S10D. Statistical analysis of replicate-summed fractional CPM across the sixteen curated ONSEN terminal candidate windows.							
+For each biological replicate, fractional CPM was summed across the 16 ONSEN terminal candidate windows in Table S10C. The two-sided Welch's t-test is the principal Fig. 5B result; the Wilcoxon rank-sum test is the corresponding non-parametric result reported in Table S10.							
+							
+Treatment	Biological replicate	Summed fractional CPM across 16 windows	Mean fractional CPM per window				
+NS	rep1	5.114090780260709	0.31963067376629434				
+NS	rep2	3.4999421564649786	0.21874638477906116				
+NS	rep3	3.797015634200551	0.23731347713753445				
+HS	rep1	818.0030816106668	51.12519260066667				
+HS	rep2	889.5381707859899	55.59613567412437				
+HS	rep3	889.1096607134879	55.56935379459299				
+							
+Statistical test	Comparison unit	n NS	n HS	Test statistic	Degrees of freedom	Two-sided P	Implementation note
+Welch's t-test	Replicate-summed fractional CPM	3	3	-36.22563679164123	2.0017411399376708	0.000757270061088614	Two-sided; unequal variances (R: t.test, var.equal=FALSE)
+Wilcoxon rank-sum test	Replicate-summed fractional CPM	3	3	0		0.08085559837005224	Two-sided; asymptotic normal approximation with continuity correction (R: wilcox.test, exact=FALSE)
+							
+Note: These tests compare three biological-replicate sums per condition. They are not per-window tests, and the measurements are candidate-window signal rather than copy-specific ONSEN expression because multimapping reads were counted fractionally.							

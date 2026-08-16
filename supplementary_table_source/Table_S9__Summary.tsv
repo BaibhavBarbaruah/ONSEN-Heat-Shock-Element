@@ -1,0 +1,5 @@
+Table S9. Genome-wide gene and transposable-element differential expression in Col-0 after 24-h 37°C heat stress. Summary.					
+					
+Feature class	Total annotated features	Features with non-zero signal	Features with non-missing BH-adjusted P value	Significantly upregulated	Significantly downregulated
+Genes	32833	25912	23922	3912	4185
+Transposable elements	31189	7632	2101	692	397

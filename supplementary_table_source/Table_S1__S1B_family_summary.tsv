@@ -1,15 +1,19 @@
-Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: motif-effect and family-level summary.
-TF family	Native motif-position hits	Designed HSE-disrupted motif-position hits
-unknown_or_other	176	88
-DOF	36	28
-HSF	31	0
-GATA	17	7
-MYB	9	9
-AP2/ERF	8	45
-NAC	6	1
+Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: PWM-model effects and family-specific non-redundant motif-coordinate placements.		
+		
+TF family	"Native HSE window
+non-redundant motif-coordinate placements"	"Designed HSE-disrupted sequence
+non-redundant motif-coordinate placements"
+HSF	20	0
+AP2/ERF	6	25
+DOF	18	15
+GATA	9	3
+MYB	6	7
+NAC	2	1
 bZIP	2	5
 C2H2/ZAT	1	4
 WRKY	1	3
+ARF	0	1
 HD-ZIP	1	0
 LBD	1	0
-ARF	0	1
+		
+Note: Non-redundant motif-coordinate placements are the primary family-level motif metric. Within each sequence and TF family, predictions with identical 1-based start/end coordinates are collapsed across PWM models and strands; predictions with a different start or end coordinate remain separate. Values represent computational motif compatibility, not experimentally validated TF binding. Counts are family-specific and should not be summed across TF families because different families can overlap the same coordinates. The uncurated 'unknown_or_other' category is omitted. Relative PWM-score threshold ≥0.85.		

@@ -1,0 +1,2 @@
+comparison	metric	ONSEN_unit	ONSEN_n	ONSEN_median	comparator_unit	comparator_n	comparator_median	test	P_reporting	source_note
+ONSEN versus annotation-defined non-ONSEN LTR-retrotransposons	non-redundant HSF motif-coordinate placement density (placements/kb)	ONSEN element	8	51.2	non-ONSEN LTR-retrotransposon element	794	8.12	two-sided Wilcoxon rank-sum test	<0.0001	Summary values and significance reporting used for Fig. 4C; element-level scan input is an external processed analysis input documented in INPUT_PROVENANCE.tsv.

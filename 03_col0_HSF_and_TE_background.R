@@ -1,5 +1,5 @@
 # Col-0 ONSEN HSF scan and strict TE-only background analysis.
-# Covers Fig. 3 and source data for Tables S4-S5.
+# Covers Fig. 3 and source data for final Tables S4 and S6.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "stringr",
@@ -233,8 +233,25 @@ rename_coordinate_columns <- function(x) {
 }
 background_coords <- rename_coordinate_columns(background_coords)
 
-if (nrow(background_coords) != 1942L) {
-  warning("The final manuscript background contained 1,942 regions; current coordinate file contains ",
+onsen_like_background <- if ("TE_family" %in% names(background_coords)) {
+  grepl(
+    "ONSEN|ATCOPIA[ _-]?78|COPIA[ _-]?78",
+    paste(background_coords$sequence_id, background_coords$TE_family),
+    ignore.case = TRUE
+  )
+} else {
+  grepl(
+    "ONSEN|ATCOPIA[ _-]?78|COPIA[ _-]?78",
+    background_coords$sequence_id,
+    ignore.case = TRUE
+  )
+}
+if (any(onsen_like_background)) {
+  background_coords <- background_coords[!onsen_like_background, , drop = FALSE]
+}
+
+if (nrow(background_coords) != 1930L) {
+  warning("The final manuscript background contained 1,930 regions; current coordinate file contains ",
           nrow(background_coords), ".")
 }
 
@@ -268,7 +285,7 @@ if (!is.na(processed_bg_summary_file) && !ONSEN_FORCE_RESCAN) {
 }
 
 # If exact region-level background counts are not found, the published class
-# statistics are retained from Table S5 and the processed project summaries.
+# statistics are retained from Table S6 and the processed project summaries.
 if (nrow(background_summary_all)) {
   safe_write_csv(background_summary_all, "strict_TE_background_HSF_summary_repository.csv")
 }
@@ -307,9 +324,9 @@ if (!is.na(stats_file) && !ONSEN_FORCE_RESCAN) {
   }
   stats_table <- dplyr::bind_rows(stats_rows)
 } else {
-  # Table S5 is included in the repository and remains the authoritative
+  # Table S6 is included in the repository and remains the authoritative
   # processed summary when region-level background values are unavailable.
-  stats_table <- readxl::read_excel(repo_file("Table_S5.xlsx"), skip = 1)
+  stats_table <- readxl::read_excel(repo_file("Table_S6.xlsx"), skip = 3)
 }
 safe_write_csv(stats_table, "ONSEN_vs_strict_TE_HSF_statistics_repository.csv")
 

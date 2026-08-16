@@ -1,10 +1,12 @@
-Table S11. Natural-accession ONSEN-like candidate-window abundance and paired HSE/LTR structural-proxy summary.
-Accession	Candidate windows	Difference vs Col-0	Ratio vs Col-0	Total HSF motif-position hits	Median HSF hits/kb	Median unique HSF models	Putative paired HSE/LTR proxies
-Col-0	19	0	1	1044	65.96	10	8
-An-1	7	-12	0.368	432	71.85	10	2
-C24	11	-8	0.579	620	64.78	10	5
-Cvi	9	-10	0.474	421	64.78	10	4
-Eri	16	-3	0.842	875	65.96	10	4
-Kyo	17	-2	0.895	979	65.96	10	7
-Ler	15	-4	0.789	841	67.14	10	6
-Sha	41	22	2.158	2326	65.96	10	16
+Table S11. Natural-accession ONSEN-like candidate-window abundance, non-redundant HSF motif-coordinate density and paired HSE/LTR structural-proxy summary.							
+Accession	Candidate windows	Difference vs Col-0	Ratio vs Col-0	Median non-redundant HSF motif-coordinate placements per kb	Median distinct HSF PWM models	Putative paired HSE/LTR proxies	
+Col-0	19	0	1	43.58068315665489	10	8	
+An-1	7	-12	0.3684210526315789	48.29210836277974	10	2	
+C24	11	-8	0.5789473684210527	42.40282685512368	10	5	
+Cvi	9	-10	0.47368421052631576	42.40282685512368	10	4	
+Eri	16	-3	0.8421052631578947	43.58068315665489	10	4	
+Kyo	17	-2	0.8947368421052632	42.40282685512368	10	7	
+Ler	15	-4	0.7894736842105263	43.58068315665489	10	6	
+Sha	41	22	2.1578947368421053	42.40282685512368	10	16	
+							
+Note: Non-redundant HSF motif-coordinate placements collapse predictions with identical 1-based start/end coordinates across HSF PWM models and strands within each candidate window. Distinct HSF PWM models are reported separately and are not interpreted as independent motif sites. Candidate windows are 849 bp (49-bp HSE seed ±400 bp).							

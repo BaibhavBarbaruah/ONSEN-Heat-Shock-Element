@@ -1,5 +1,7 @@
 # Biology Open DDBJ update — exact change log
 
+Repository-numbering note (2026-08-17): the final journal package contains Tables S1-S13. References below to the then-current S14 intermediate were superseded by the final synchronization recorded in `CHANGELOG.md` version 1.2.0.
+
 ## Manuscript
 
 - Replaced the RNA-seq deposition text in **Data and resource availability** with the author-supplied wording exactly, including the term **“accession numbers”**, BioProjects PRJDB39904 and PRJDB42759, and BioSamples SAMD01789795–SAMD01789797 and SAMD01943917–SAMD01943919.
@@ -39,7 +41,7 @@
 - `06_rnaseq_analysis.R`: replaced validation against DRA013053 DRR/DRX assignments with validation of the six BioSample/BioProject assignments, Col-0 identity, three replicates per condition and laboratory provenance.
 - `10_validate_manuscript_outputs.R`: replaced DRA/DRR/DRX checks with BioSample, BioProject, replicate and laboratory-provenance checks, and moved the validation-report/failure gate after those checks so they are actually included in repository validation.
 - `FILE_CHECKSUMS_SHA256.tsv`: updated the `INPUT_PROVENANCE.tsv` SHA-256 value and byte count.
-- `Table_S1.xlsx` through `Table_S14.xlsx` and `supplementary_table_source/`: synchronized the public binary workbooks and deposited TSV source sheets with the final submission workbooks, including Table S9D and the corrected Table S10 summary.
+- `Table_S1.xlsx` through `Table_S13.xlsx` and `supplementary_table_source/`: synchronized the public binary workbooks and final-numbered TSV mirrors with the final submission package, including complete global differential-expression Table S9 and the corrected Table S10 summary/statistics sheets.
 
 ## Removed everywhere relevant
 
@@ -59,9 +61,9 @@
 - Confirmed that the final Word files contain no comments, tracked changes, hidden text or highlighting; the manuscript's only field is its balanced, rendered page-number field.
 - Scanned the final Word files and repository working tree for obsolete DRA/DRR/DRX identifiers, pending-status phrases, previous-public-RNA-seq provenance and the obsolete repository commit reference; none remain.
 - Verified the six-row metadata map, both BioProjects, all six BioSamples, replicate numbering and laboratory provenance programmatically.
-- Verified `INPUT_PROVENANCE.tsv` SHA-256 (`62ab75b80b15550e49b533de4c3d89cf7d97ec47671f954f7599475eea247f3b`) and size (7,785 bytes).
+- Verified `INPUT_PROVENANCE.tsv` against the current package checksum manifest.
 - Ran `git diff --check`; no whitespace errors were found.
-- Cross-checked the seven main-figure PDFs, the supplementary-figure PDF and all fourteen supplementary workbooks against the manuscript citations, legends and final numbering. Figure 7 has A/B on the top row, C at bottom left and D at bottom right with two vertically stacked motif logos.
+- Cross-checked the seven main-figure PDFs, the supplementary-figure PDF and all thirteen final supplementary workbooks against the manuscript citations, legends and final numbering.
 - R was not installed in the available workspace, so the R validation script and full analysis pipeline were not executed.
 
 ## User action

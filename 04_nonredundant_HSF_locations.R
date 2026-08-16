@@ -1,5 +1,5 @@
 # Non-redundant HSF-compatible sequence locations.
-# Covers Fig. S4 and source data for Table S13.
+# Covers Fig. S1 and source data for final Table S5.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "ggplot2"))
@@ -78,17 +78,24 @@ h49 <- h49[
 h49$forward_start <- as.integer(h49$forward_start)
 h49$forward_end <- as.integer(h49$forward_end)
 
+exact49 <- h49 |>
+  dplyr::distinct(sequence_id, forward_start, forward_end, .keep_all = TRUE)
 clustered49 <- merge_overlapping_intervals(h49)
 locations49 <- summarize_interval_clusters(clustered49)
 
 raw49 <- h49 |>
-  dplyr::count(sequence_id, name = "HSF_motif_model_position_hits")
-nr49 <- locations49 |>
-  dplyr::count(sequence_id, name = "nonredundant_HSF_locations")
-summary49 <- dplyr::full_join(raw49, nr49, by = "sequence_id") |>
+  dplyr::count(sequence_id, name = "HSF_PWM_model_position_hits")
+exact49_summary <- exact49 |>
+  dplyr::count(sequence_id, name = "exact_coordinate_HSF_placements")
+overlap49_summary <- locations49 |>
+  dplyr::count(sequence_id, name = "strict_overlap_merged_HSF_regions")
+summary49 <- raw49 |>
+  dplyr::full_join(exact49_summary, by = "sequence_id") |>
+  dplyr::full_join(overlap49_summary, by = "sequence_id") |>
   dplyr::mutate(
-    HSF_motif_model_position_hits = tidyr::replace_na(HSF_motif_model_position_hits, 0L),
-    nonredundant_HSF_locations = tidyr::replace_na(nonredundant_HSF_locations, 0L),
+    HSF_PWM_model_position_hits = tidyr::replace_na(HSF_PWM_model_position_hits, 0L),
+    exact_coordinate_HSF_placements = tidyr::replace_na(exact_coordinate_HSF_placements, 0L),
+    strict_overlap_merged_HSF_regions = tidyr::replace_na(strict_overlap_merged_HSF_regions, 0L),
     analysis_space = "49-bp sequence"
   )
 
@@ -111,59 +118,71 @@ copy_hits$forward_start <- ifelse(
 )
 copy_hits$forward_end <- copy_hits$forward_start + as.integer(copy_hits$motif_width) - 1L
 
+exact_copy <- copy_hits |>
+  dplyr::distinct(sequence_id, forward_start, forward_end, .keep_all = TRUE)
 clustered_copy <- merge_overlapping_intervals(copy_hits)
 locations_copy <- summarize_interval_clusters(clustered_copy)
 
 raw_copy <- copy_hits |>
-  dplyr::count(sequence_id, name = "HSF_motif_model_position_hits")
-nr_copy <- locations_copy |>
-  dplyr::count(sequence_id, name = "nonredundant_HSF_locations")
-summary_copy <- dplyr::full_join(raw_copy, nr_copy, by = "sequence_id") |>
+  dplyr::count(sequence_id, name = "HSF_PWM_model_position_hits")
+exact_copy_summary <- exact_copy |>
+  dplyr::count(sequence_id, name = "exact_coordinate_HSF_placements")
+overlap_copy_summary <- locations_copy |>
+  dplyr::count(sequence_id, name = "strict_overlap_merged_HSF_regions")
+summary_copy <- raw_copy |>
+  dplyr::full_join(exact_copy_summary, by = "sequence_id") |>
+  dplyr::full_join(overlap_copy_summary, by = "sequence_id") |>
   dplyr::mutate(
-    HSF_motif_model_position_hits = tidyr::replace_na(HSF_motif_model_position_hits, 0L),
-    nonredundant_HSF_locations = tidyr::replace_na(nonredundant_HSF_locations, 0L),
-    proportion_collapsed = 1 -
-      nonredundant_HSF_locations / HSF_motif_model_position_hits,
+    HSF_PWM_model_position_hits = tidyr::replace_na(HSF_PWM_model_position_hits, 0L),
+    exact_coordinate_HSF_placements = tidyr::replace_na(exact_coordinate_HSF_placements, 0L),
+    strict_overlap_merged_HSF_regions = tidyr::replace_na(strict_overlap_merged_HSF_regions, 0L),
+    strict_overlap_fraction_of_exact = ifelse(
+      exact_coordinate_HSF_placements > 0,
+      strict_overlap_merged_HSF_regions / exact_coordinate_HSF_placements,
+      NA_real_
+    ),
     analysis_space = "Col-0 ONSEN 800-bp terminal candidate window"
   )
 
 combined_summary <- dplyr::bind_rows(summary49, summary_copy)
 
 safe_write_csv(h49, "Revision_R1_2_49bp_HSF_raw_hits_threshold_0p85_repository.csv")
-safe_write_csv(clustered49, "Revision_R1_2_49bp_HSF_clustered_hits_threshold_0p85_repository.csv")
-safe_write_csv(locations49, "Revision_R1_2_49bp_HSF_nonredundant_locations_threshold_0p85_repository.csv")
-safe_write_csv(summary49, "Revision_R1_2_49bp_HSF_raw_vs_nonredundant_summary_threshold_0p85_repository.csv")
+safe_write_csv(exact49, "Revision_R1_2_49bp_HSF_exact_coordinate_placements_threshold_0p85_repository.csv")
+safe_write_csv(clustered49, "Revision_R1_2_49bp_HSF_strict_overlap_clusters_threshold_0p85_repository.csv")
+safe_write_csv(locations49, "Revision_R1_2_49bp_HSF_strict_overlap_regions_threshold_0p85_repository.csv")
+safe_write_csv(summary49, "Revision_R1_2_49bp_HSF_exact_vs_overlap_summary_threshold_0p85_repository.csv")
 
 safe_write_csv(copy_hits, "Revision_R1_2_Col0_ONSEN_HSF_raw_hits_forward_coordinates_threshold_0p85_repository.csv")
-safe_write_csv(clustered_copy, "Revision_R1_2_Col0_ONSEN_HSF_clustered_hits_threshold_0p85_repository.csv")
-safe_write_csv(locations_copy, "Revision_R1_2_Col0_ONSEN_HSF_nonredundant_locations_threshold_0p85_repository.csv")
-safe_write_csv(summary_copy, "Revision_R1_2_Col0_ONSEN_HSF_raw_vs_nonredundant_summary_threshold_0p85_repository.csv")
-safe_write_csv(combined_summary, "Revision_R1_2_combined_HSF_raw_vs_nonredundant_summary_threshold_0p85_repository.csv")
+safe_write_csv(exact_copy, "Revision_R1_2_Col0_ONSEN_HSF_exact_coordinate_placements_threshold_0p85_repository.csv")
+safe_write_csv(clustered_copy, "Revision_R1_2_Col0_ONSEN_HSF_strict_overlap_clusters_threshold_0p85_repository.csv")
+safe_write_csv(locations_copy, "Revision_R1_2_Col0_ONSEN_HSF_strict_overlap_regions_threshold_0p85_repository.csv")
+safe_write_csv(summary_copy, "Revision_R1_2_Col0_ONSEN_HSF_exact_vs_overlap_summary_threshold_0p85_repository.csv")
+safe_write_csv(combined_summary, "Revision_R1_2_combined_HSF_exact_vs_overlap_summary_threshold_0p85_repository.csv")
 
 if (ONSEN_MAKE_FIGURES) {
   figure_data <- summary_copy |>
     tidyr::pivot_longer(
-      cols = c("HSF_motif_model_position_hits", "nonredundant_HSF_locations"),
+      cols = c("exact_coordinate_HSF_placements", "strict_overlap_merged_HSF_regions"),
       names_to = "metric", values_to = "count"
     ) |>
     dplyr::mutate(
       metric = dplyr::recode(
         metric,
-        HSF_motif_model_position_hits = "PWM model-position hits",
-        nonredundant_HSF_locations = "Non-redundant HSF locations"
+        exact_coordinate_HSF_placements = "Exact-coordinate HSF placements",
+        strict_overlap_merged_HSF_regions = "Strict overlap-merged HSF regions"
       ),
       sequence_id = factor(sequence_id, levels = rev(windows$window_id))
     )
 
-  p_s4 <- ggplot2::ggplot(
+  p_s1 <- ggplot2::ggplot(
     figure_data,
     ggplot2::aes(count, sequence_id, group = sequence_id)
   ) +
     ggplot2::geom_line(linewidth = 0.7) +
     ggplot2::geom_point(ggplot2::aes(shape = metric), size = 3.3) +
     ggplot2::scale_shape_manual(values = c(
-      "PWM model-position hits" = 16,
-      "Non-redundant HSF locations" = 17
+      "Exact-coordinate HSF placements" = 16,
+      "Strict overlap-merged HSF regions" = 17
     )) +
     ggplot2::labs(
       x = "HSF motif count",
@@ -172,7 +191,7 @@ if (ONSEN_MAKE_FIGURES) {
     ) +
     theme_onsen(13) +
     ggplot2::theme(legend.position = "top")
-  save_plot_pair(p_s4, "FigS4_HSF_model_hits_vs_nonredundant_locations", 7.2, 7.4)
+  save_plot_pair(p_s1, "FigS1_exact_coordinate_vs_strict_overlap_HSF", 7.2, 7.4)
 }
 
 message("Non-redundant HSF-location analysis completed.")

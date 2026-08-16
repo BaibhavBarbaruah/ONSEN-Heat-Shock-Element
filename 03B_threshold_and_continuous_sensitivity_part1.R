@@ -1,5 +1,5 @@
 # HSF threshold-sensitivity and continuous-score analysis.
-# Reconstructs the analysis underlying final Fig. S3 and Table S8.
+# Reconstructs the analysis underlying final Fig. S2 and Table S7.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "ggplot2", "patchwork", "openxlsx", "Biostrings"))
@@ -102,9 +102,20 @@ overlaps_onsen <- vapply(seq_len(nrow(bg)), function(i) {
 n_before <- nrow(bg); n_removed <- sum(overlaps_onsen)
 bg <- bg[!overlaps_onsen, , drop = FALSE]
 
+# Final annotation harmonisation excludes residual ONSEN/ATCOPIA78-like rows
+# from the non-ONSEN background when the family annotation identifies them.
+onsen_like_background <- grepl(
+  "ONSEN|ATCOPIA[ _-]?78|COPIA[ _-]?78",
+  paste(bg$region_id, bg$TE_family),
+  ignore.case = TRUE
+)
+if (any(onsen_like_background)) {
+  bg <- bg[!onsen_like_background, , drop = FALSE]
+}
+
 cat("Direct ONSEN-overlapping background regions removed: ", n_removed, "\n", sep = "")
 cat("Final strict non-ONSEN TE regions: ", nrow(bg), "\n", sep = "")
-if (nrow(bg) != 1942L) warning("Expected 1,942 background regions, but found ", nrow(bg), ".")
+if (nrow(bg) != 1930L) warning("Expected 1,930 final background regions, but found ", nrow(bg), ".")
 
 ###############################################################################
 # 7. READ GENOME AND EXTRACT SEQUENCES

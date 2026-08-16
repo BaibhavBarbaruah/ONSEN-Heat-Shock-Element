@@ -1,40 +1,21 @@
-"check","passed","detail"
-"Table S1 lost motif-model count",TRUE,"Expected 60"
-"Table S1 gained motif-model count",TRUE,"Expected 50"
-"Table S4 random-mutant library size",TRUE,"Expected 5,000"
-"Table S4 exact-GC design space",TRUE,"Expected 5,120"
-"Table S4 designed AP2/ERF count",TRUE,"Expected 61"
-"Table S5 has sixteen windows",TRUE,"Expected sixteen terminal windows"
-"Table S5 includes raw HSF minimum 48",TRUE,"Expected 48"
-"Table S5 includes raw HSF maximum 75",TRUE,"Expected 75"
-"Table S6 native raw HSF count",TRUE,"Expected 31"
-"Table S6 native non-redundant count",TRUE,"Expected 1"
-"Table S7 threshold 0.85 ONSEN median",TRUE,"Expected 75"
-"Table S7 Wilcoxon P",TRUE,"Expected approximately 7.33e-12"
-"Table S8 contains ONSEN median 154.4",TRUE,"Expected 154.4"
-"Table S8 contains ONSEN median 75",TRUE,"Expected 75"
-"Table S8 contains ONSEN median 37.5",TRUE,"Expected 37.5"
-"Table S8 contains ONSEN median 12.5",TRUE,"Expected 12.5"
-"Table S8 includes threshold 0.95",TRUE,"Expected cutoff 0.95"
-"Table S9 ordinary-TE CHH median",TRUE,"Expected approximately 15.83"
-"Table S9 ONSEN CHH median",TRUE,"Expected approximately 53.61"
-"Table S11 contains accession count 19",TRUE,"Expected 19"
-"Table S11 contains accession count 7",TRUE,"Expected 7"
-"Table S11 contains accession count 11",TRUE,"Expected 11"
-"Table S11 contains accession count 9",TRUE,"Expected 9"
-"Table S11 contains accession count 16",TRUE,"Expected 16"
-"Table S11 contains accession count 17",TRUE,"Expected 17"
-"Table S11 contains accession count 15",TRUE,"Expected 15"
-"Table S11 contains accession count 41",TRUE,"Expected 41"
-"Table S14 contains Xu et al. 2024 evidence",TRUE,"Expected cited Xu et al. 2024 evidence"
-"Figure 7 upper logo is HSFC1 MA1667.2",TRUE,"Expected HSFC1/MA1667.2"
-"Figure 7 lower logo is DOF1.8 MA0981.2",TRUE,"Expected DOF1.8/MA0981.2"
-"Figure 7 variant source has 53 rows",TRUE,"Rows found: 53"
-"Figure 7 variant source has one Col-0 reference",TRUE,"Expected one zero-mismatch reference"
-"RNA-seq template has six Col-0 libraries",TRUE,"Expected exactly six Col-0 rows and three replicates per condition"
-"RNA-seq DDBJ BioSample map is exact",TRUE,"Unexpected DDBJ BioSample assignment"
-"RNA-seq DDBJ BioProject map is exact",TRUE,"Unexpected DDBJ BioProject assignment"
-"RNA-seq laboratory provenance is explicit",TRUE,"Expected laboratory-generated provenance for all six libraries"
-"Final Fig. S4 output naming",TRUE,"Fig. S4 code/output mapping is not synchronized"
-"Final Fig. S5 output naming",TRUE,"Fig. S5 code/output mapping is not synchronized"
-"Table S9 exact downstream outlier set is deposited",TRUE,"Expected eight selected non-ONSEN TE rows"
+check,passed,detail
+Root workbook set is exactly Table S1-S13,True,Table_S1.xlsx; Table_S10.xlsx; Table_S11.xlsx; Table_S12.xlsx; Table_S13.xlsx; Table_S2.xlsx; Table_S3.xlsx; Table_S4.xlsx; Table_S5.xlsx; Table_S6.xlsx; Table_S7.xlsx; Table_S8.xlsx; Table_S9.xlsx
+No obsolete Table S14 workbook,True,final package stops at Table S13
+All 13 workbooks pass ZIP/open checks,True,13/13
+Final package contains 36 worksheets,True,observed 36
+Every TSV mirror exactly matches its workbook sheet,True,36/36
+Source-sheet manifest matches all workbooks,True,36 manifest rows
+Table S10 class-summary headers restored,True,Candidate class; n windows; Mean NS CPM; Mean HS CPM; Median NS CPM; Median HS CPM; Descriptive log2FC [(mean HS CPM + 0.05)/(mean NS CPM + 0.05)]
+Table S10 contains S10D statistics sheet,True,S10A_Class_summary; S10B_Individual_windows; S10C_Replicate_CPM; S10D_Statistics
+Table S10 Welch result independently reproduces,True,P=0.000757270061088619
+Table S10 Wilcoxon result independently reproduces,True,P=0.0808555983700522
+Table S10 statistics formulas reference the 16 ONSEN rows,True,replicate sums and per-window means are formula-linked
+Table S8 direct CHH comparison is exact,True,8 vs 779; adjusted P=0.00864; Cliff's delta=0.612
+Table S9 retains all genes and TEs,True,genes=32833; TEs=31189
+Table S9 has eight canonical ONSEN rows,True,ONSEN rows=8
+Numbering map has exactly Tables S1-S13,True,Table S1; Table S2; Table S3; Table S4; Table S5; Table S6; Table S7; Table S8; Table S9; Table S10; Table S11; Table S12; Table S13
+Numbering map has exactly Figs S1-S4,True,Fig. S1; Fig. S2; Fig. S3; Fig. S4
+Global differential expression is final Table S9,True,correct final insertion
+Author surname is Airlangga in active metadata,True,no extra 'a'
+Active metadata assigns final package S1-S13,True,README/data/matrix synchronized
+Direct Fig. 4 analysis entry points are present,True,code plus compact summaries

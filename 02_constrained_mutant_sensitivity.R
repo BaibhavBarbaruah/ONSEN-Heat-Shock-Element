@@ -1,5 +1,6 @@
 # Constrained-mutant and exact-GC sensitivity analysis.
-# Covers Fig. S3 and source data for Table S12.
+# Covers the HSF-focused constrained-alternative and exact-GC robustness
+# controls deposited in final Table S3.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "stringr",
@@ -373,7 +374,7 @@ threshold_summary <- dplyr::bind_rows(
 safe_write_csv(threshold_summary, "mutant_sensitivity_threshold_family_summary_repository.csv")
 
 if (ONSEN_MAKE_FIGURES) {
-  # Fig. S3A
+  # Optional robustness diagnostic A (not a final supplementary figure)
   p_s3a <- ggplot2::ggplot(
     random_distribution,
     ggplot2::aes(motif_position_hits)
@@ -390,9 +391,9 @@ if (ONSEN_MAKE_FIGURES) {
       y = "Number of constrained random mutants"
     ) +
     theme_onsen(13)
-  save_plot_pair(p_s3a, "FigS3A_random_mutant_AP2ERF_distribution", 6.5, 4.8)
+  save_plot_pair(p_s3a, "RobustnessA_random_mutant_AP2ERF_distribution", 6.5, 4.8)
 
-  # Fig. S3B
+  # Optional robustness diagnostic B (not a final supplementary figure)
   p_s3b <- ggplot2::ggplot(
     gc_data,
     ggplot2::aes(GC_percent, motif_position_hits)
@@ -416,9 +417,9 @@ if (ONSEN_MAKE_FIGURES) {
       hjust = -0.05, vjust = 1.2
     ) +
     theme_onsen(13)
-  save_plot_pair(p_s3b, "FigS3B_random_mutant_GC_correlation", 6.5, 4.8)
+  save_plot_pair(p_s3b, "RobustnessB_random_mutant_GC_correlation", 6.5, 4.8)
 
-  # Fig. S3C
+  # Optional robustness diagnostic C (not a final supplementary figure)
   p_s3c <- ggplot2::ggplot(
     exact_distribution,
     ggplot2::aes(motif_position_hits)
@@ -435,7 +436,7 @@ if (ONSEN_MAKE_FIGURES) {
       y = "Number of exact-GC alternatives"
     ) +
     theme_onsen(13)
-  save_plot_pair(p_s3c, "FigS3C_exact_GC_AP2ERF_distribution", 6.5, 4.8)
+  save_plot_pair(p_s3c, "RobustnessC_exact_GC_AP2ERF_distribution", 6.5, 4.8)
 }
 
 message("Constrained-mutant and exact-GC sensitivity analysis completed.")

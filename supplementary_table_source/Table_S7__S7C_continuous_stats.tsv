@@ -1,0 +1,8 @@
+Table S7C. Threshold-independent continuous HSF relative-score comparisons using the revised region universe.												
+												
+metric	metric_column	n_ONSEN_regions	n_background_regions	ONSEN_median	ONSEN_Q1	ONSEN_Q3	background_median	background_Q1	background_Q3	Wilcoxon_P	Cliffs_delta	Wilcoxon_P_BH
+Maximum HSF relative PWM score	Maximum HSF relative PWM score	16	1930	0.997057323853935	0.997057323853935	0.997057323853935	0.908452927585686	0.877148587339202	0.938823665407958	2.81342950989637e-08	0.804663212435233	2.81342950989637e-08
+Mean of top five HSF relative PWM scores	Mean of top five HSF relative PWM scores	16	1930	0.994168599502574	0.994168599502574	0.994168599502574	0.887951243205718	0.85249969974801	0.913493695800376	8.65218479015639e-12	0.989799222797927	1.35143954349892e-11
+Median of ten per-model maximum scores	Median of ten per-model maximum scores	16	1930	0.941882282058775	0.941882282058775	0.952420903159377	0.84108992022577	0.806119495476498	0.867581055802495	9.00959695665949e-12	0.98895725388601	1.35143954349892e-11
+												
+Continuous-score statistics use the same biological comparison as the revised threshold analysis: the same curated 16 ONSEN terminal windows and the revised 1,930-region strict non-ONSEN TE background. BH correction is across the three continuous-score tests.												

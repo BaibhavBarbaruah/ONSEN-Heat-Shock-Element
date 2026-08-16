@@ -1,0 +1,4 @@
+context	ONSEN_unit	ONSEN_n	ONSEN_median_weighted_methylation_percent	comparator_unit	comparator_n	comparator_median_weighted_methylation_percent	Wilcoxon_P	BH_adjusted_P	Cliffs_delta	effect_magnitude	significance
+CG	ONSEN copy	6	87.76215	non-ONSEN LTR-retrotransposon element	779	88.43137	0.849	0.849	0.0454	negligible	ns
+CHG	ONSEN copy	6	48.10606	non-ONSEN LTR-retrotransposon element	779	60.28481	0.620	0.849	-0.118	negligible	ns
+CHH	ONSEN copy	8	47.09377	non-ONSEN LTR-retrotransposon element	779	20.05708	0.00288	0.00864	0.612	large	**

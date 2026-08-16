@@ -1,0 +1,8 @@
+Table S8A. Direct methylation comparison between ONSEN terminal candidate regions and annotation-defined non-ONSEN LTR-retrotransposon terminal regions (principal element/copy-level analysis).											
+Context	ONSEN unit	ONSEN n	ONSEN median weighted methylation (%)	Comparator unit	Comparator n	Comparator median weighted methylation (%)	Wilcoxon P	BH-adjusted P	Cliff's delta	Effect magnitude	Significance
+CG	ONSEN copy	6	87.76215	non-ONSEN LTR-RT element	779	88.43137	0.849	0.849	0.0454	negligible	ns
+CHG	ONSEN copy	6	48.10606	non-ONSEN LTR-RT element	779	60.28481	0.62	0.849	-0.118	negligible	ns
+CHH	ONSEN copy	8	47.09377	non-ONSEN LTR-RT element	779	20.05708	0.00288	0.00864	0.612	large	**
+											
+Principal inference: ONSEN terminal candidate regions show selectively elevated basal CHH methylation relative to the direct non-ONSEN LTR-retrotransposon comparator; CG and CHG are not detectably different. CG/CHG coverage is sparse for ONSEN (6 of 8 copies with usable data).											
+											

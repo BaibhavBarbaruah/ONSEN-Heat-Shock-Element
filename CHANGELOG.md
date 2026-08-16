@@ -1,6 +1,16 @@
 # Changelog
 
-## 1.1.0 — 2026-08-16
+## 1.2.0 — 2026-08-17
+
+- synchronized the repository with the actual final Biology Open package of Fig. S1-Fig. S4 and Tables S1-S13;
+- replaced every root supplementary workbook with the final submitted version and added the corrected Table S10 class headers and explicit Fig. 5B statistics sheet;
+- deposited final-numbered TSV mirrors of all 36 worksheets, including the complete global gene and TE results in Table S9;
+- removed the obsolete AP2/ERF-only workbook, obsolete Table S14 and all legacy misnumbered source sheets;
+- corrected the final table map, data-availability text, reproducibility matrix, manifest and validation rules;
+- added explicit direct LTR HSF-density and methylation analysis entry points and compact Fig. 4 summary data;
+- corrected Rahmadani P. Airlangga's surname in citation metadata and synchronized repository version/date metadata.
+
+## 1.1.0 — 2026-08-16 (superseded intermediate metadata)
 
 - synchronized public-facing repository metadata with the final August 2026 Biology Open revision;
 - adopted the physical-forward exact-coordinate HSF motif-placement metric as the principal non-redundant count and retained transitive overlap merging only as a stringent sensitivity analysis;
@@ -8,8 +18,8 @@
 - documented the direct ONSEN versus non-ONSEN LTR-retrotransposon HSF and basal methylation comparisons;
 - documented the corrected complete-TAIR10 RNA-seq workflow and genome-wide gene/TE differential-expression analyses;
 - removed the AP2/ERF-only supplementary table from the final journal package;
-- changed the final supplementary package to Fig. S1-Fig. S4 and Tables S1-S14, with the new global gene/TE differential-expression workbook as Table S14;
-- updated `FINAL_NUMBERING_MAP.tsv` and `REPRODUCIBILITY_MATRIX.tsv` to the final journal-facing numbering;
+- temporarily recorded an incorrect S1-S14 numbering map; this intermediate metadata was corrected in 1.2.0 to match the actual S1-S13 submission package;
+- updated `FINAL_NUMBERING_MAP.tsv` and `REPRODUCIBILITY_MATRIX.tsv` for that intermediate draft;
 - explicitly marked the files in `supplementary_table_source/` as legacy pre-final-numbering provenance rather than silently renaming historical source files.
 
 ## 1.0.1 — 2026-07-17

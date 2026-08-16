@@ -1,5 +1,7 @@
-# Public Col-0 leaf methylation analysis.
-# Covers Fig. 4 and source data for Table S6.
+# Secondary public Col-0 leaf methylation analyses.
+# Covers the broad ordinary-TE sensitivity control and selected-locus/profile
+# panels in Fig. 4B and Fig. 4D and final Table S8B-S8D. The principal direct
+# element/copy comparison for Fig. 4A is in 05A_direct_LTR_methylation_analysis.R.
 # The methylome is basal/unstressed and is not interpreted as heat-induced change.
 
 source("ONSEN_functions.R")
@@ -435,7 +437,7 @@ if (ONSEN_MAKE_FIGURES) {
     ) +
     theme_onsen(13) +
     ggplot2::theme(legend.position = "top")
-  save_plot_pair(p4a, "Fig4A_ONSEN_vs_ordinary_TE_methylation", 6.8, 5.4)
+  save_plot_pair(p4a, "Sensitivity_ONSEN_vs_ordinary_TE_methylation", 6.8, 5.4)
 
   if (nrow(selected_locus)) {
     heat_data <- selected_locus |>
@@ -476,7 +478,11 @@ if (ONSEN_MAKE_FIGURES) {
         ) +
         theme_onsen(12) +
         ggplot2::theme(legend.position = "top")
-      save_plot_pair(p4c, "Fig4C_HSF_density_vs_CHH", 6.5, 5.2)
+      save_plot_pair(
+        p4c,
+        "Exploratory_selected_loci_HSF_density_vs_CHH",
+        6.5, 5.2
+      )
     }
   }
 

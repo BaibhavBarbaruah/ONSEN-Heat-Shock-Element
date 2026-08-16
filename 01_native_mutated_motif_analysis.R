@@ -1,5 +1,5 @@
 # Native versus in-silico-designed 49-bp ONSEN motif analysis.
-# Covers Fig. 1, Fig. 2 and source data for Tables S1-S3.
+# Covers Fig. 1, Fig. 2 and source data for Tables S1-S2.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "stringr",

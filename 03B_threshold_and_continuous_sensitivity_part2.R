@@ -2,7 +2,7 @@
 ###############################################################################
 
 data.table::fwrite(region_metrics, file.path(OUT_DIR, "Revision_R1_3_region_level_HSF_metrics_all_thresholds.csv"))
-data.table::fwrite(region_metrics, file.path(OUT_DIR, "S8C_region_metrics.tsv.gz"), sep = "\t")
+data.table::fwrite(region_metrics, file.path(OUT_DIR, "S7D_region_threshold_metrics.tsv.gz"), sep = "\t")
 data.table::fwrite(continuous_metrics, file.path(OUT_DIR, "Revision_R1_3_region_level_continuous_HSF_scores.csv"))
 data.table::fwrite(threshold_stats, file.path(OUT_DIR, "Revision_R1_3_threshold_sensitivity_statistics.csv"))
 data.table::fwrite(continuous_stats, file.path(OUT_DIR, "Revision_R1_3_continuous_score_statistics.csv"))
@@ -21,10 +21,10 @@ data.table::fwrite(qc, file.path(OUT_DIR, "Revision_R1_3_analysis_QC.csv"))
 data.table::fwrite(motif_inventory, file.path(OUT_DIR, "Revision_R1_3_HSF_model_inventory.csv"))
 
 ###############################################################################
-# 14. RECONSTRUCT FINAL TABLE S8
+# 14. RECONSTRUCT DATA-EQUIVALENT FINAL TABLE S7
 ###############################################################################
 
-TABLE_FILE <- file.path(OUT_DIR, "Table_S8.xlsx")
+TABLE_FILE <- file.path(OUT_DIR, "Table_S7_data_rebuild.xlsx")
 wb <- openxlsx::createWorkbook(creator = "Baibhav R. Barbaruah")
 
 write_sheet <- function(name, title, data) {
@@ -33,10 +33,10 @@ write_sheet <- function(name, title, data) {
   openxlsx::freezePane(wb, name, firstActiveRow = 4); openxlsx::setColWidths(wb, name, 1:ncol(data), widths = "auto")
 }
 
-write_sheet("S8A_threshold_stats", "Table S8A. HSF-family motif-density threshold sensitivity.", threshold_stats)
-write_sheet("S8B_continuous_stats", "Table S8B. Continuous HSF relative-score comparisons.", continuous_stats)
-write_sheet("S8C_region_metrics", "Table S8C. Region-level threshold and continuous-score metrics.", region_metrics)
-write_sheet("S8D_QC", "Table S8D. Analysis quality-control information.", dplyr::bind_rows(
+write_sheet("S7A_threshold_stats", "Table S7A. HSF-family motif-density threshold sensitivity.", threshold_stats)
+write_sheet("S7C_continuous_stats", "Table S7C. Continuous HSF relative-score comparisons.", continuous_stats)
+write_sheet("S7D_region_threshold", "Table S7D. Region-level threshold metrics.", region_metrics)
+write_sheet("S7F_QC", "Table S7F. Analysis quality-control information.", dplyr::bind_rows(
   qc |> dplyr::mutate(section = "Analysis QC"),
   motif_inventory |> dplyr::transmute(section = "HSF motif inventory", item = HSF_model,
                                       value = paste0(JASPAR_ID, "; width=", motif_width, " bp; pseudocount=", pseudocount))
@@ -45,7 +45,7 @@ write_sheet("S8D_QC", "Table S8D. Analysis quality-control information.", dplyr:
 openxlsx::saveWorkbook(wb, TABLE_FILE, overwrite = TRUE)
 
 ###############################################################################
-# 15. RECONSTRUCT FINAL FIGURE S3
+# 15. RECONSTRUCT FINAL FIGURE S2
 ###############################################################################
 
 plot_summary <- region_metrics |>
@@ -91,16 +91,16 @@ panel_c <- ggplot2::ggplot(continuous_metrics, ggplot2::aes(class, mean_top5_HSF
   ggplot2::labs(x = NULL, y = "Mean of top five HSF relative scores") +
   theme_revision() + ggplot2::theme(legend.position = "none")
 
-figure_s3 <- (panel_a / (panel_b | panel_c)) + patchwork::plot_annotation(tag_levels = "A")
+figure_s2 <- (panel_a / (panel_b | panel_c)) + patchwork::plot_annotation(tag_levels = "A")
 
 # Mandatory for the user's RStudio workflow: display before saving.
-print(figure_s3)
+print(figure_s2)
 
-FIG_PDF <- file.path(FIG_DIR, "FigS3_HSF_threshold_and_continuous_scores.pdf")
-FIG_PNG <- file.path(FIG_DIR, "FigS3_HSF_threshold_and_continuous_scores.png")
+FIG_PDF <- file.path(FIG_DIR, "FigS2_HSF_threshold_and_continuous_scores.pdf")
+FIG_PNG <- file.path(FIG_DIR, "FigS2_HSF_threshold_and_continuous_scores.png")
 
-ggplot2::ggsave(FIG_PDF, figure_s3, width = 10.5, height = 10, units = "in")
-ggplot2::ggsave(FIG_PNG, figure_s3, width = 10.5, height = 10, units = "in", dpi = 600, bg = "white")
+ggplot2::ggsave(FIG_PDF, figure_s2, width = 10.5, height = 10, units = "in")
+ggplot2::ggsave(FIG_PNG, figure_s2, width = 10.5, height = 10, units = "in", dpi = 600, bg = "white")
 
 ###############################################################################
 # 16. VALIDATION AND FINAL OUTPUT
@@ -120,7 +120,7 @@ cat("Threshold statistics:\n"); print(threshold_stats, row.names = FALSE)
 cat("\nContinuous-score statistics:\n"); print(continuous_stats, row.names = FALSE)
 
 cat("\nOutputs:\n")
-cat("Table S8 reconstructed:\n  ", TABLE_FILE, "\n", sep = "")
-cat("Figure S3 PDF:\n  ", FIG_PDF, "\n", sep = "")
-cat("Figure S3 PNG:\n  ", FIG_PNG, "\n", sep = "")
+cat("Table S7 data-equivalent rebuild:\n  ", TABLE_FILE, "\n", sep = "")
+cat("Figure S2 PDF:\n  ", FIG_PDF, "\n", sep = "")
+cat("Figure S2 PNG:\n  ", FIG_PNG, "\n", sep = "")
 cat("Source-data directory:\n  ", OUT_DIR, "\n", sep = "")
