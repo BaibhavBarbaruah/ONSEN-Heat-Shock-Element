@@ -1,0 +1,11 @@
+Table S7B. Distribution summaries for non-redundant HSF motif-coordinate placement density.						
+						
+Relative PWM-score threshold	Region class	n	Median density (placements/kb)	Q1 density (placements/kb)	Q3 density (placements/kb)	Mean density (placements/kb)
+0.8	ONSEN terminal candidate windows	16	104.375	95	111.25	102.734375
+0.8	Strict non-ONSEN TE background	1930	27.7296360485269	18.1593159315932	39.9931082012405	30.4315433711741
+0.85	ONSEN terminal candidate windows	16	49.375	45.9375	56.25	50
+0.85	Strict non-ONSEN TE background	1930	6.81238953796413	3.77429744057459	12.4399370568455	8.90529427978492
+0.9	ONSEN terminal candidate windows	16	24.375	21.25	28.75	23.90625
+0.9	Strict non-ONSEN TE background	1930	0.938528373417142	0	2.91474426108862	2.12870310986258
+0.95	ONSEN terminal candidate windows	16	5	5	6.25	5.078125
+0.95	Strict non-ONSEN TE background	1930	0	0	0	0.414568985293409

@@ -1,11 +1,11 @@
-# Supplementary-table source sheets
+# Final supplementary-table source sheets
 
-This directory contains tab-separated source sheets deposited during the earlier revision workflow. The filenames preserve their **pre-final August 2026 numbering** for provenance.
+This directory contains one tab-separated export for every worksheet in the final journal-facing `Table_S1.xlsx`-`Table_S13.xlsx` workbooks.
 
-They are **not** the final journal numbering after the August 2026 deletion/renumbering pass. In particular, the old AP2/ERF-only Table S3 was removed, subsequent tables shifted, the published accession-evidence synthesis became final Table S13, and a new genome-wide gene/TE differential-expression workbook became final Table S14.
+Filenames follow:
 
-Use `../FINAL_NUMBERING_MAP.tsv` as the authoritative mapping between these historical source numbers and the final journal-facing Tables S1-S14.
+`Table_S<table number>__<worksheet name>.tsv`
 
-`08_write_supplementary_tables.R` now rebuilds these historical source sheets only into a dedicated `legacy_rebuilt_tables` output directory. It must not be used to generate the final submission workbooks.
+Each TSV preserves the worksheet's displayed rows, including the title and note rows. The tracked Excel workbooks at the repository root are authoritative for final formatting, merged cells, numeric cell types and column widths. `08_write_supplementary_tables.R` rebuilds content-equivalent workbooks from these source sheets into `ONSEN_OUTPUT_ROOT/rebuilt_final_tables/`.
 
-The historical source sheets remain useful for provenance and for checking the earlier analysis stages. Corrected August 2026 values, analysis roles and final display-item assignments are summarized in the repository `README.md` and `REPRODUCIBILITY_MATRIX.tsv`.
+These are final-numbered sources, not the legacy source numbering used in earlier revision rounds. `../FINAL_NUMBERING_MAP.tsv` documents the historical-to-final mapping.

@@ -1,0 +1,12 @@
+Table S5. Definitions for principal exact-coordinate HSF placements and strict overlap-merged HSF regions.	
+	
+Column	Definition
+Principal non-redundant HSF motif-coordinate placements	Primary motif-count metric. Within each sequence/window, all predictions are first represented in physical forward-sequence coordinates; predictions with identical 1-based start and end coordinates are then collapsed across HSF PWM models and strands. Predictions with a different start or end remain separate.
+Principal placement density (placements/kb)	Principal non-redundant HSF motif-coordinate placements divided by sequence/window length in kb.
+Strict overlap-merged HSF regions	Stringent sensitivity metric. HSF-family intervals are merged transitively whenever they overlap by at least one nucleotide, irrespective of PWM model or strand.
+Strict overlap-merged density (regions/kb)	Strict overlap-merged HSF regions divided by sequence/window length in kb.
+Reduction after strict overlap merging (%)	Percentage reduction from the principal exact-coordinate placement count after strict transitive overlap merging.
+Distinct HSF PWM models	Number of distinct HSF PWM models represented among predictions; this is model diversity and is not interpreted as an independent motif-site count.
+Maximum relative PWM score	Highest relative PWM score among HSF-family predictions in the sequence/window.
+Strict-region start/end, forward coordinate	Coordinates of stringent overlap-merged regions. Reverse-strand copy-wide predictions were converted to forward-sequence coordinates before merging.
+PWM model-position hits contributing to strict region	Technical QC only: number of individual PWM model-position predictions contributing to a strict overlap-merged region. This is not the principal biological motif count.

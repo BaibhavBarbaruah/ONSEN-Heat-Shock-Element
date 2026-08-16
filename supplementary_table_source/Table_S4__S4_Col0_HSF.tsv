@@ -1,0 +1,20 @@
+Table S4. Non-redundant Arabidopsis HSF-family motif-coordinate summary and density across Col-0 ONSEN terminal candidate windows.						
+ONSEN copy	Terminal candidate window	Non-redundant HSF motif-coordinate placements	Distinct HSF PWM models	Maximum relative score	Terminal-window width (bp)	Non-redundant HSF motif-coordinate density (placements/kb)
+ONSEN1	Left terminal window	45	10	0.997	800	56.25
+ONSEN1	Right terminal window	37	10	0.997	800	46.25
+ONSEN2	Left terminal window	37	10	0.997	800	46.25
+ONSEN2	Right terminal window	45	10	0.997	800	56.25
+ONSEN3	Left terminal window	41	10	0.997	800	51.25
+ONSEN3	Right terminal window	49	10	0.997	800	61.25
+ONSEN4	Left terminal window	34	10	0.997	800	42.5
+ONSEN4	Right terminal window	34	10	0.997	800	42.5
+ONSEN5	Left terminal window	45	10	0.997	800	56.25
+ONSEN5	Right terminal window	40	10	0.997	800	50
+ONSEN6	Left terminal window	41	10	0.997	800	51.25
+ONSEN6	Right terminal window	33	9	0.997	800	41.25
+ONSEN7	Left terminal window	39	10	0.997	800	48.75
+ONSEN7	Right terminal window	36	10	0.997	800	45
+ONSEN8	Left terminal window	45	10	0.997	800	56.25
+ONSEN8	Right terminal window	39	10	0.997	800	48.75
+						
+Note: Non-redundant placements are exact motif coordinates after collapsing duplicate HSF PWM-model/strand predictions at identical start-end coordinates within each 800-bp terminal candidate window; relative PWM-score threshold ≥0.85.						

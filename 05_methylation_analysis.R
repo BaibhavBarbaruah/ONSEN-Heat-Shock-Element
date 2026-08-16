@@ -1,5 +1,5 @@
 # Public Col-0 leaf methylation analysis.
-# Covers Fig. 4 and source data for Table S6.
+# Covers Fig. 4 and final Table S8.
 # The methylome is basal/unstressed and is not interpreted as heat-induced change.
 
 source("ONSEN_functions.R")
@@ -160,8 +160,27 @@ if (!is.na(broad_locus_file) && !ONSEN_FORCE_RESCAN) {
   ))
   if (length(overlap_bg)) ordinary_regions <- ordinary_regions[-overlap_bg, , drop = FALSE]
 
-  if (nrow(ordinary_regions) != 1942L) {
-    warning("Expected 1,942 ordinary TE regions after exclusion; found ", nrow(ordinary_regions))
+  final_universe <- readr::read_tsv(
+    repo_file("supplementary_table_source/Table_S7__S7E_region_continuous.tsv"),
+    skip = 2, show_col_types = FALSE, progress = FALSE
+  )
+  final_background_ids <- final_universe |>
+    dplyr::filter(`Region class` == "Strict non-ONSEN TE background") |>
+    dplyr::pull(`Region ID`) |>
+    as.character()
+  missing_final_ids <- setdiff(final_background_ids, ordinary_regions$locus_id)
+  if (length(missing_final_ids)) {
+    stop(
+      "Final Table S7 background IDs missing from ordinary-TE coordinates: ",
+      paste(missing_final_ids, collapse = ", "), call. = FALSE
+    )
+  }
+  ordinary_regions <- ordinary_regions[
+    ordinary_regions$locus_id %in% final_background_ids, , drop = FALSE
+  ]
+
+  if (nrow(ordinary_regions) != 1930L) {
+    stop("Expected final 1,930-region ordinary-TE universe; found ", nrow(ordinary_regions), call. = FALSE)
   }
 
   mc <- read_methylome(methylome_file)

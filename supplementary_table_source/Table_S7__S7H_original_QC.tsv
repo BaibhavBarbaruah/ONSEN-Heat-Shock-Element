@@ -1,0 +1,17 @@
+Table S7H. Original continuous-score scan QC and reconciliation to the final background universe.	
+	
+item	value
+Genome file	Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz (external input; see repository INPUT_PROVENANCE.tsv)
+JASPAR file	JASPAR2026_CORE_plants_nonredundant_pfms_jaspar.txt (external input; see repository INPUT_PROVENANCE.tsv)
+Background coordinate file	strict_TE_only_background_coordinates.csv (external input; see repository INPUT_PROVENANCE.tsv)
+Chromosome source columns available	chr_clean, seqid
+ONSEN regions	16
+Background regions in original scan	1,942
+Direct coordinate overlaps removed in original scan	0
+Regions excluded by final annotation and ONSEN/ATCOPIA78 harmonisation	12
+Final background regions used in reported analyses	1,930
+HSF models	10
+Thresholds	0.80, 0.85, 0.90, 0.95
+Pseudocount	0.8
+Both strands scanned	Yes
+Reconciliation	The reported threshold and continuous-score statistics use the final 1,930-region universe; the 1,942-region values are retained only as archived scan provenance.

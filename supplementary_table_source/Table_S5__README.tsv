@@ -1,0 +1,14 @@
+Table S5. Principal non-redundant HSF motif-coordinate placements and strict overlap-merged HSF regions in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.	
+	
+Item	Description
+Table title	Table S5. Principal non-redundant HSF motif-coordinate placements and strict overlap-merged HSF regions in the native and in-silico-designed HSE-disrupted 49-bp sequences and Col-0 ONSEN terminal candidate windows.
+Purpose	To report the editor-requested non-redundant HSF motif numbers using exact coordinate uniqueness as the principal metric, while retaining the earlier any-overlap merged analysis as a stringent sensitivity check.
+PWM threshold	Relative PWM score ≥0.85.
+Principal non-redundancy rule	Within each sequence/window, predictions with identical 1-based start/end coordinates are collapsed across HSF PWM models and strands. Different start or end coordinates remain distinct.
+Strict sensitivity rule	HSF-family intervals are merged transitively when they overlap by at least one nucleotide; adjacent but non-overlapping intervals remain separate.
+Coordinate handling	For copy-wide ONSEN scans, reverse-strand positions were converted to forward-sequence coordinates before coordinate comparison and strict overlap merging.
+Important interpretation	Both metrics indicate computational sequence compatibility with HSF-family PWMs; neither demonstrates experimental HSF binding or occupancy.
+Main result	Native 49-bp HSE window: 20 principal motif-coordinate placements and 1 strict overlap-merged region. Across the sixteen Col-0 ONSEN 800-bp terminal windows: 33–49 principal placements (median 39.5) and 7–10 strict overlap-merged regions.
+Principal Col-0 source	Revised Table S4 / Figure 3A exact-coordinate counts at relative PWM score ≥0.85.
+Strict-region detail	The Col0_ONSEN_locations and 49bp_locations sheets retain the strict overlap-merged interval detail as sensitivity/QC information.
+Coordinate correction	For the final R2 analysis, reverse-strand PWM hits were mapped to their physical forward-sequence coordinates before exact-coordinate deduplication. This corrects the earlier legacy counts while leaving the strict overlap-merged sensitivity regions unchanged.

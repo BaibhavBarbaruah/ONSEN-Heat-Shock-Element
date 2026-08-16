@@ -1,0 +1,5 @@
+Table S10. Heat-associated RNA-seq signal across curated ONSEN terminal candidate windows, two additional ATCOPIA78 candidate regions and the fixed HSF-rich non-ONSEN TE subset.						
+						Descriptive log2FC [(mean HS CPM + 0.05)/(mean NS CPM + 0.05)]
+ONSEN terminal candidate windows	16	0.25856351189429666	54.09689402312801	0.03068449272938411	37.95286990095993	7.455167302929192
+Additional ATCOPIA78 candidate regions	2	0	1.5669026893206934	0	1.5669026893206934	5.015160950038493
+HSF-rich non-ONSEN TE regions	8	0	0.02174483218396903	0	0	0.5209468226003591

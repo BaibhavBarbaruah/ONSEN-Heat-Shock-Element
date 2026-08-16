@@ -1,5 +1,5 @@
 # Natural-accession ONSEN-like HSE analysis.
-# Covers Fig. 6, Fig. 7, Fig. S1, Fig. S2 and source data for Tables S8-S10.
+# Covers Fig. 6, Fig. 7, final Figs. S3-S4 and final Tables S11-S13.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "stringr",
@@ -213,10 +213,6 @@ hsf_candidate_file <- find_input(
   "FIXED_accession_ONSEN_like_mainchr_candidate_windows_JASPAR2026_Arabidopsis_HSF_candidate_summary_threshold_0.85.csv",
   required = FALSE
 )
-hsf_accession_file <- find_input(
-  "FIXED_accession_ONSEN_like_mainchr_candidate_windows_JASPAR2026_Arabidopsis_HSF_accession_summary_threshold_0.85.csv",
-  required = FALSE
-)
 hsf_model_summary_file <- find_input(
   "FIXED_accession_by_HSF_motif_model_summary_threshold_0.85.csv",
   required = FALSE
@@ -232,7 +228,11 @@ normalize_hsf_candidate <- function(x) {
   rename_first("HSF_hits", c("HSF_hits", "hsf_hits", "motif_position_hits"))
   rename_first("HSF_hits_per_kb", c("HSF_hits_per_kb", "hsf_density", "motif_density"))
   rename_first("unique_HSF_models", c("unique_HSF_models", "unique_models"))
-  assert_columns(x, c("candidate_id", "accession"), "accession HSF summary")
+  assert_columns(
+    x,
+    c("candidate_id", "accession", "HSF_hits", "HSF_hits_per_kb", "unique_HSF_models"),
+    "accession HSF summary"
+  )
   x
 }
 
@@ -263,14 +263,20 @@ if (!is.na(hsf_candidate_file) && !ONSEN_FORCE_RESCAN) {
   hits <- as.data.frame(scan_sequences_against_motifs(
     sequence_table, hsf_motifs, threshold = 0.85, pseudocount = 0.8
   ))
-  hsf_candidates <- hits |>
+  hit_summary <- hits |>
     dplyr::group_by(sequence_id) |>
     dplyr::summarise(
-      HSF_hits = dplyr::n(),
       unique_HSF_models = dplyr::n_distinct(motif_id),
       maximum_relative_score = max(relative_score, na.rm = TRUE),
       .groups = "drop"
     ) |>
+    dplyr::left_join(
+      hits |>
+        dplyr::distinct(sequence_id, forward_start, forward_end) |>
+        dplyr::count(sequence_id, name = "HSF_hits"),
+      by = "sequence_id"
+    )
+  hsf_candidates <- hit_summary |>
     dplyr::right_join(
       main_candidates |>
         dplyr::transmute(
@@ -289,18 +295,14 @@ if (!is.na(hsf_candidate_file) && !ONSEN_FORCE_RESCAN) {
 }
 safe_write_csv(hsf_candidates, "accession_HSF_candidate_summary_repository.csv")
 
-if (!is.na(hsf_accession_file) && !ONSEN_FORCE_RESCAN) {
-  hsf_accession <- read_table_auto(hsf_accession_file)
-} else {
-  hsf_accession <- hsf_candidates |>
-    dplyr::group_by(accession) |>
-    dplyr::summarise(
-      candidate_windows = dplyr::n(),
-      median_HSF_hits_per_kb = median(HSF_hits_per_kb, na.rm = TRUE),
-      mean_HSF_hits_per_kb = mean(HSF_hits_per_kb, na.rm = TRUE),
-      .groups = "drop"
-    )
-}
+hsf_accession <- hsf_candidates |>
+  dplyr::group_by(accession) |>
+  dplyr::summarise(
+    candidate_windows = dplyr::n(),
+    median_HSF_hits_per_kb = median(HSF_hits_per_kb, na.rm = TRUE),
+    mean_HSF_hits_per_kb = mean(HSF_hits_per_kb, na.rm = TRUE),
+    .groups = "drop"
+  )
 safe_write_csv(hsf_accession, "accession_HSF_accession_summary_repository.csv")
 
 # ----------------------- Paired HSE/LTR structural proxies -------------------
@@ -363,6 +365,37 @@ if (!is.na(proxy_file) && !ONSEN_FORCE_RESCAN) {
       .groups = "drop"
     )
 }
+
+# Standardize the structural-proxy summary and always derive unpaired counts
+# from the accession candidate total. This prevents stale precomputed unpaired
+# values from disagreeing with candidate_windows - 2 * paired_proxies.
+names(proxy_summary) <- gsub(" ", "_", names(proxy_summary))
+accession_col <- c("accession", "Accession")[c("accession", "Accession") %in% names(proxy_summary)][1]
+paired_col <- c(
+  "paired_HSE_LTR_copy_proxy", "putative_paired_copy_proxy",
+  "paired_candidates", "paired_proxy"
+)[c(
+  "paired_HSE_LTR_copy_proxy", "putative_paired_copy_proxy",
+  "paired_candidates", "paired_proxy"
+) %in% names(proxy_summary)][1]
+if (is.na(accession_col) || is.na(paired_col)) {
+  stop("Could not identify accession and paired-proxy columns.", call. = FALSE)
+}
+candidate_counts <- main_candidates |>
+  dplyr::count(accession, name = "candidate_windows")
+proxy_summary <- proxy_summary |>
+  dplyr::transmute(
+    accession = .data[[accession_col]],
+    paired_HSE_LTR_copy_proxy = as.integer(.data[[paired_col]])
+  ) |>
+  dplyr::left_join(candidate_counts, by = "accession") |>
+  dplyr::mutate(
+    unpaired_HSE_candidate = candidate_windows - 2L * paired_HSE_LTR_copy_proxy
+  ) |>
+  dplyr::select(
+    accession, candidate_windows,
+    paired_HSE_LTR_copy_proxy, unpaired_HSE_candidate
+  )
 safe_write_csv(proxy_summary, "putative_ONSEN_like_copy_proxy_summary_repository.csv")
 
 # --------------------------- Accession summary -------------------------------
@@ -503,105 +536,83 @@ safe_write_csv(family_delta, "natural_variant_TF_family_delta_repository.csv")
 if (ONSEN_MAKE_FIGURES) {
   accession_order <- c("Col-0", "An-1", "C24", "Cvi", "Eri", "Kyo", "Ler", "Sha")
 
-  # Fig. S5A
-  s1a <- candidate_summary |>
-    dplyr::select(
-      accession, exact_seed_matches,
-      one_to_two_mismatch_seeds, three_to_four_mismatch_seeds
-    ) |>
-    tidyr::pivot_longer(
-      -accession, names_to = "seed_class", values_to = "count"
-    ) |>
-    dplyr::mutate(
-      accession = factor(accession, levels = accession_order),
-      seed_class = factor(
-        seed_class,
-        levels = c(
-          "exact_seed_matches",
-          "one_to_two_mismatch_seeds",
-          "three_to_four_mismatch_seeds"
-        ),
-        labels = c("Exact seed", "1-2 mismatches", "3-4 mismatches")
-      )
-    )
-  p_s1a <- ggplot2::ggplot(
-    s1a, ggplot2::aes(accession, count, fill = seed_class)
+  # Fig. S4A: candidate-window abundance.
+  s4a <- candidate_summary |>
+    dplyr::mutate(accession = factor(accession, levels = accession_order))
+  p_s4a <- ggplot2::ggplot(
+    s4a, ggplot2::aes(accession, candidate_windows, fill = accession)
   ) +
-    ggplot2::geom_col(colour = "black", linewidth = 0.2) +
-    ggplot2::labs(
-      x = "Accession", y = "Main-chromosome candidate windows",
-      fill = "Seed class"
+    ggplot2::geom_col(colour = "black", linewidth = 0.25) +
+    ggplot2::geom_text(
+      ggplot2::aes(label = candidate_windows), vjust = -0.25, size = 3.5
     ) +
+    ggplot2::labs(x = NULL, y = "Candidate windows") +
+    ggplot2::expand_limits(y = max(s4a$candidate_windows) * 1.08) +
     theme_onsen(12) +
     ggplot2::theme(
-      legend.position = "top",
+      legend.position = "none",
       axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
     )
-  save_plot_pair(p_s1a, "FigS5A_accession_candidate_abundance", 7.0, 5.2)
+  save_plot_pair(p_s4a, "FigS4A_accession_candidate_abundance", 7.0, 5.2)
 
-  # Fig. S5B
+  # Fig. S4B: non-redundant HSF motif-coordinate placement density.
   hsf_candidates$accession <- factor(hsf_candidates$accession, levels = accession_order)
-  p_s1b <- ggplot2::ggplot(
+  p_s4b <- ggplot2::ggplot(
     hsf_candidates,
     ggplot2::aes(accession, HSF_hits_per_kb, fill = accession)
   ) +
     ggplot2::geom_boxplot(outlier.shape = NA, colour = "black") +
     ggplot2::geom_jitter(width = 0.15, size = 1.3, alpha = 0.55) +
     ggplot2::labs(
-      x = "Accession", y = "HSF-family motif-position hits per kb"
+      x = "Accession",
+      y = "Non-redundant HSF motif-coordinate placements per kb"
     ) +
     theme_onsen(12) +
     ggplot2::theme(
       legend.position = "none",
       axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
     )
-  save_plot_pair(p_s1b, "FigS5B_accession_HSF_density", 7.0, 5.2)
+  save_plot_pair(p_s4b, "FigS4B_accession_HSF_density", 7.0, 5.2)
 
-  # Fig. S5C
-  proxy_plot <- proxy_summary
-  names(proxy_plot) <- gsub(" ", "_", names(proxy_plot))
-  paired_col <- c(
-    "paired_HSE_LTR_copy_proxy", "putative_paired_copy_proxy",
-    "paired_candidates", "paired_proxy"
-  )[c(
-    "paired_HSE_LTR_copy_proxy", "putative_paired_copy_proxy",
-    "paired_candidates", "paired_proxy"
-  ) %in% names(proxy_plot)][1]
-  unpaired_col <- c(
-    "unpaired_HSE_candidate", "unpaired_candidates", "unpaired"
-  )[c(
-    "unpaired_HSE_candidate", "unpaired_candidates", "unpaired"
-  ) %in% names(proxy_plot)][1]
-  if (!is.na(paired_col)) {
-    if (is.na(unpaired_col)) {
-      candidate_col <- c("candidate_windows", "candidate_count")[
-        c("candidate_windows", "candidate_count") %in% names(proxy_plot)
-      ][1]
-      proxy_plot$unpaired_HSE_candidate <- proxy_plot[[candidate_col]] -
-        2 * proxy_plot[[paired_col]]
-      unpaired_col <- "unpaired_HSE_candidate"
-    }
-    s1c <- proxy_plot |>
-      dplyr::transmute(
-        accession,
-        `Paired HSE/LTR copy proxy` = .data[[paired_col]],
-        `Unpaired HSE candidate` = .data[[unpaired_col]]
-      ) |>
-      tidyr::pivot_longer(
-        -accession, names_to = "proxy_class", values_to = "count"
-      ) |>
-      dplyr::mutate(accession = factor(accession, levels = accession_order))
-    p_s1c <- ggplot2::ggplot(
-      s1c, ggplot2::aes(count, accession, fill = proxy_class)
+  # Fig. S4C: paired structural proxies versus unpaired candidate windows.
+  proxy_plot <- proxy_summary |>
+    dplyr::mutate(accession = factor(accession, levels = accession_order))
+  proxy_long <- proxy_plot |>
+    dplyr::select(
+      accession,
+      `Paired HSE/LTR copy proxy` = paired_HSE_LTR_copy_proxy,
+      `Unpaired HSE candidate` = unpaired_HSE_candidate
+    ) |>
+    tidyr::pivot_longer(
+      -accession, names_to = "proxy_class", values_to = "count"
+    )
+  p_s4c <- ggplot2::ggplot(proxy_plot, ggplot2::aes(y = accession)) +
+    ggplot2::geom_segment(
+      ggplot2::aes(
+        x = unpaired_HSE_candidate,
+        xend = paired_HSE_LTR_copy_proxy,
+        yend = accession
+      ),
+      colour = "grey75", linewidth = 0.8
     ) +
-      ggplot2::geom_col(position = "stack", colour = "black", linewidth = 0.2) +
-      ggplot2::labs(x = "Count", y = "Accession", fill = NULL) +
-      theme_onsen(12) +
-      ggplot2::theme(legend.position = "top")
-    save_plot_pair(p_s1c, "FigS5C_paired_unpaired_proxies", 7.0, 5.2)
-  }
+    ggplot2::geom_vline(xintercept = 8, linetype = "dashed", colour = "grey65") +
+    ggplot2::geom_point(
+      data = proxy_long,
+      ggplot2::aes(x = count, colour = proxy_class),
+      size = 3.2
+    ) +
+    ggplot2::scale_colour_manual(
+      values = c(
+        "Paired HSE/LTR copy proxy" = "#8E24AA",
+        "Unpaired HSE candidate" = "#F06292"
+      )
+    ) +
+    ggplot2::labs(x = "Count", y = "Accession", colour = NULL) +
+    theme_onsen(12) +
+    ggplot2::theme(legend.position = "top")
+  save_plot_pair(p_s4c, "FigS4C_paired_unpaired_proxies", 7.0, 5.2)
 
-  # Fig. S4A
+  # Fig. S3A
   architecture$accession <- factor(architecture$accession, levels = accession_order)
   p_s2a <- ggplot2::ggplot(
     architecture,
@@ -616,9 +627,9 @@ if (ONSEN_MAKE_FIGURES) {
       legend.position = "none",
       axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
     )
-  save_plot_pair(p_s2a, "FigS4A_accession_HSE_architecture", 7.0, 5.2)
+  save_plot_pair(p_s2a, "FigS3A_accession_HSE_architecture", 7.0, 5.2)
 
-  # Fig. S4B scaled accession summary
+  # Fig. S3B scaled accession summary
   s2b_metrics <- candidate_summary |>
     dplyr::mutate(
       accession = factor(accession, levels = accession_order)
@@ -648,9 +659,9 @@ if (ONSEN_MAKE_FIGURES) {
     ggplot2::labs(x = NULL, y = "Accession") +
     theme_onsen(10) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-  save_plot_pair(p_s2b, "FigS4B_scaled_accession_summary", 9.0, 5.2)
+  save_plot_pair(p_s2b, "FigS3B_scaled_accession_summary", 9.0, 5.2)
 
-  # Fig. S4C HSF-model heatmap from exact processed model summary.
+  # Fig. S3C HSF-model heatmap from exact processed model summary.
   if (!is.na(hsf_model_summary_file)) {
     model_summary <- read_table_auto(hsf_model_summary_file)
     accession_col <- c("accession", "Accession")[
@@ -691,7 +702,7 @@ if (ONSEN_MAKE_FIGURES) {
         ggplot2::labs(x = "Arabidopsis HSF motif model", y = "Accession") +
         theme_onsen(10) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
-      save_plot_pair(p_s2c, "FigS4C_HSF_model_compatibility", 8.5, 5.2)
+      save_plot_pair(p_s2c, "FigS3C_HSF_model_compatibility", 8.5, 5.2)
     }
   }
 
