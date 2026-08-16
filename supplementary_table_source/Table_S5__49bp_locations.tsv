@@ -1,0 +1,4 @@
+Table S5. Strict overlap-merged HSF-region detail (stringent sensitivity analysis) supporting the principal exact-coordinate motif-placement summary.																	
+																	
+Source	Sequence ID	ONSEN copy	LTR side	Strict overlap region ID	Site start, forward coordinate	Site end, forward coordinate	Site width (bp)	PWM model-position hits contributing to strict region	Distinct HSF PWM models in strict region	HSF PWM models	Motif IDs	Strands	Maximum relative PWM score	Representative HSF model	Representative motif ID	Representative matched sequence	Sequence length (bp)
+Native_designed_HSE_disrupted_49bp	native			1	6	36	31	31	10	HSFA1B; HSFA1E; HSFA4A; HSFA6A; HSFA6B; HSFB2A; HSFB2B; HSFB3; HSFB4; HSFC1	MA1664.3; MA1665.3; MA1666.3; MA1667.3; MA1758.2; MA1759.2; MA1760.1; MA1761.2; MA2019.2; MA2020.2	-; +	0.9971	HSFC1	MA1667.3	TTCTAGAA	49

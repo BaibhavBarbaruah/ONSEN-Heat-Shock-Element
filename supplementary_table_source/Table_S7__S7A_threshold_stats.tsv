@@ -1,0 +1,9 @@
+Table S7A. Threshold sensitivity of non-redundant HSF motif-coordinate placement density.									
+									
+Relative PWM-score threshold	n ONSEN terminal windows	n strict non-ONSEN TE regions	ONSEN median density (placements/kb)	Background median density (placements/kb)	Wilcoxon W	Two-sided Wilcoxon P	BH-adjusted P	Cliff's delta	Significance
+0.8	16	1930	104.375	27.7296360485269	30786.5	7.08630579009012e-12	7.08630579009012e-12	0.993944300518135	****
+0.85	16	1930	49.375	6.81238953796413	30775	6.96852179434592e-12	7.08630579009012e-12	0.993199481865285	****
+0.9	16	1930	24.375	0.938528373417142	30777	7.61185444825267e-13	1.52237088965053e-12	0.993329015544041	****
+0.95	16	1930	5	0	30471	8.85242239482475e-21	3.5409689579299e-20	0.9735103626943	****
+									
+Statistics compare 16 Col-0 ONSEN terminal candidate windows with the final 1,930-region strict non-ONSEN TE background. Identical start-end coordinates are collapsed across HSF PWM models and strands.									

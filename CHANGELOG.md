@@ -8,9 +8,12 @@
 - documented the direct ONSEN versus non-ONSEN LTR-retrotransposon HSF and basal methylation comparisons;
 - documented the corrected complete-TAIR10 RNA-seq workflow and genome-wide gene/TE differential-expression analyses;
 - removed the AP2/ERF-only supplementary table from the final journal package;
-- changed the final supplementary package to Fig. S1-Fig. S4 and Tables S1-S14, with the new global gene/TE differential-expression workbook as Table S14;
+- finalized the supplementary package as Fig. S1-Fig. S4 and Tables S1-S13, with genome-wide differential expression as Table S9 and candidate-window RNA-seq as Table S10;
 - updated `FINAL_NUMBERING_MAP.tsv` and `REPRODUCIBILITY_MATRIX.tsv` to the final journal-facing numbering;
-- explicitly marked the files in `supplementary_table_source/` as legacy pre-final-numbering provenance rather than silently renaming historical source files.
+- synchronized the thirteen final Excel workbooks and deposited an exact TSV export of every worksheet;
+- reconciled the archived 1,942-region scan with the final 1,930-region background and documented DESeq2 independent filtering;
+- corrected the Fig. S4C Ler structural-proxy summary to six paired proxies and three unpaired windows;
+- corrected the repository author spelling to Rahmadani P. Airlangga throughout current metadata.
 
 ## 1.0.1 — 2026-07-17
 

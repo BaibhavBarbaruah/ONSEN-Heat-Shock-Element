@@ -1,5 +1,6 @@
 # Col-0 non-stressed versus 24-h 37C heat-stress RNA-seq analysis.
-# Covers Fig. 5 and source data for Table S10.
+# Covers Fig. 5, final Table S9 (genome-wide results) and final Table S10
+# (candidate-window signal).
 # Candidate-window signal is fractional and multimapping-aware.
 
 source("ONSEN_functions.R")

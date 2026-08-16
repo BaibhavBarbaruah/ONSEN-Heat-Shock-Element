@@ -1,9 +1,9 @@
 # Col-0 ONSEN HSF scan and strict TE-only background analysis.
-# Covers Fig. 3 and source data for Tables S4-S5.
+# Covers Fig. 3 and final Tables S4-S6.
 
 source("ONSEN_functions.R")
 require_packages(c("data.table", "dplyr", "tidyr", "readr", "stringr",
-                   "purrr", "ggplot2", "forcats", "Biostrings", "readxl"))
+                   "purrr", "ggplot2", "forcats", "Biostrings"))
 
 message_config()
 
@@ -119,14 +119,20 @@ scan_from_coordinates <- function(coordinates, sequence_id_col, thresholds) {
     hits <- as.data.frame(scan_sequences_against_motifs(
       sequences, hsf_motifs, threshold = cutoff, pseudocount = 0.8
     ))
-    summary <- hits |>
+    hit_summary <- hits |>
       dplyr::group_by(sequence_id) |>
       dplyr::summarise(
-        HSF_hits = dplyr::n(),
         unique_HSF_models = dplyr::n_distinct(motif_id),
         maximum_relative_score = max(relative_score, na.rm = TRUE),
         .groups = "drop"
       ) |>
+      dplyr::left_join(
+        hits |>
+          dplyr::distinct(sequence_id, forward_start, forward_end) |>
+          dplyr::count(sequence_id, name = "HSF_hits"),
+        by = "sequence_id"
+      )
+    summary <- hit_summary |>
       dplyr::right_join(
         data.frame(
           sequence_id = coordinates[[sequence_id_col]],
@@ -208,6 +214,80 @@ if (!is.na(copy_hits_file) && !ONSEN_FORCE_RESCAN) {
   copy_hits <- normalize_hits(read_table_auto(copy_hits_file))
   if (!"threshold" %in% names(copy_hits)) copy_hits$threshold <- 0.85
 }
+
+# The deposited final Table S4 is authoritative for the sixteen principal
+# threshold-0.85 exact-coordinate counts. Replace any legacy raw motif-model
+# counts in processed summaries before plotting or statistical comparison.
+final_col0 <- readr::read_tsv(
+  repo_file("supplementary_table_source/Table_S4__S4_Col0_HSF.tsv"),
+  skip = 1, show_col_types = FALSE, progress = FALSE
+) |>
+  dplyr::transmute(
+    sequence_id = paste0(
+      `ONSEN copy`,
+      dplyr::if_else(grepl("Left", `Terminal candidate window`, ignore.case = TRUE), "-L", "-R")
+    ),
+    copy_id = `ONSEN copy`,
+    terminal_side = dplyr::if_else(
+      grepl("Left", `Terminal candidate window`, ignore.case = TRUE), "left", "right"
+    ),
+    HSF_hits = as.integer(`Non-redundant HSF motif-coordinate placements`),
+    unique_HSF_models = as.integer(`Distinct HSF PWM models`),
+    maximum_relative_score = as.numeric(`Maximum relative score`),
+    width_bp = as.integer(`Terminal-window width (bp)`),
+    HSF_hits_per_kb = as.numeric(`Non-redundant HSF motif-coordinate density (placements/kb)`),
+    threshold = 0.85
+  ) |>
+  dplyr::left_join(
+    window_coords |>
+      dplyr::select(
+        window_id, chromosome, start_1based, end_1based, strand
+      ),
+    by = c("sequence_id" = "window_id")
+  )
+
+# The corresponding exact-coordinate values at 0.90 are deposited in Table
+# S7D. Use them here so both reported thresholds come from the same final
+# non-redundant metric, even when older processed summaries are available.
+final_col0_sensitivity <- readr::read_tsv(
+  repo_file("supplementary_table_source/Table_S7__S7D_region_threshold.tsv"),
+  skip = 2, show_col_types = FALSE, progress = FALSE
+) |>
+  dplyr::filter(
+    `Region class` == "ONSEN terminal candidate windows",
+    `Relative PWM-score threshold` %in% thresholds,
+    `Relative PWM-score threshold` != 0.85
+  ) |>
+  dplyr::mutate(
+    copy_id = stringr::str_extract(`Region ID`, "ONSEN[1-8]"),
+    terminal_side = dplyr::if_else(
+      grepl("left", `Region ID`, ignore.case = TRUE), "left", "right"
+    ),
+    sequence_id = paste0(
+      copy_id, dplyr::if_else(terminal_side == "left", "-L", "-R")
+    )
+  ) |>
+  dplyr::transmute(
+    sequence_id, copy_id, terminal_side,
+    HSF_hits = as.integer(`Non-redundant HSF motif-coordinate placements`),
+    unique_HSF_models = NA_integer_,
+    maximum_relative_score = NA_real_,
+    width_bp = as.integer(`Region length (bp)`),
+    HSF_hits_per_kb = as.numeric(`Density (placements/kb)`),
+    threshold = as.numeric(`Relative PWM-score threshold`)
+  ) |>
+  dplyr::left_join(
+    window_coords |>
+      dplyr::select(window_id, chromosome, start_1based, end_1based, strand),
+    by = c("sequence_id" = "window_id")
+  )
+final_col0_all <- dplyr::bind_rows(final_col0, final_col0_sensitivity)
+copy_summary_all$threshold <- as.numeric(copy_summary_all$threshold)
+copy_summary_all <- dplyr::bind_rows(
+  copy_summary_all |>
+    dplyr::filter(!threshold %in% unique(final_col0_all$threshold)),
+  final_col0_all
+)
 safe_write_csv(copy_summary_all, "Col0_ONSEN_HSF_summary_repository.csv")
 if (exists("copy_hits")) safe_write_csv(copy_hits, "Col0_ONSEN_HSF_hits_repository.csv")
 
@@ -233,33 +313,51 @@ rename_coordinate_columns <- function(x) {
 }
 background_coords <- rename_coordinate_columns(background_coords)
 
-if (nrow(background_coords) != 1942L) {
-  warning("The final manuscript background contained 1,942 regions; current coordinate file contains ",
-          nrow(background_coords), ".")
+# Restrict the archived 1,942-region coordinate scan to the final 1,930-region
+# universe retained after annotation and ONSEN/ATCOPIA78 harmonisation.
+final_universe <- readr::read_tsv(
+  repo_file("supplementary_table_source/Table_S7__S7E_region_continuous.tsv"),
+  skip = 2, show_col_types = FALSE, progress = FALSE
+)
+final_background_ids <- final_universe |>
+  dplyr::filter(`Region class` == "Strict non-ONSEN TE background") |>
+  dplyr::pull(`Region ID`) |>
+  as.character()
+missing_final_ids <- setdiff(final_background_ids, background_coords$sequence_id)
+if (length(missing_final_ids)) {
+  stop(
+    "Final Table S7 background IDs missing from strict-TE coordinates: ",
+    paste(missing_final_ids, collapse = ", "), call. = FALSE
+  )
+}
+background_coords <- background_coords[
+  background_coords$sequence_id %in% final_background_ids, , drop = FALSE
+]
+if (nrow(background_coords) != 1930L) {
+  stop("Expected final 1,930-region background; found ", nrow(background_coords), ".", call. = FALSE)
 }
 
-processed_bg_summary_file <- find_any_input(c(
-  "ONSEN_vs_strict_TE_only_background_threshold_0p85_0p90_summary.csv",
-  "strict_TE_background_HSF_summary_thresholds_0p85_0p90.csv"
-), required = FALSE)
-
-if (!is.na(processed_bg_summary_file) && !ONSEN_FORCE_RESCAN) {
-  combined_processed <- read_table_auto(processed_bg_summary_file)
-  # This file may contain class-level statistics rather than region-level data.
-  region_bg_file <- find_any_input(c(
-    "strict_TE_background_annotated_with_HSF_outlier_classes.csv",
-    "strict_TE_background_HSF_counts_threshold_0p85.csv",
-    "ONSEN_vs_strict_TE_background_HSF_summary_thresholds_0p85_0p90.csv"
-  ), required = FALSE)
-
-  if (!is.na(region_bg_file)) {
-    region_bg <- read_table_auto(region_bg_file)
-    region_bg <- normalize_hsf_summary(region_bg)
-    if (!"threshold" %in% names(region_bg)) region_bg$threshold <- 0.85
-    background_summary_all <- region_bg
-  } else {
-    background_summary_all <- data.frame()
-  }
+if (!ONSEN_FORCE_RESCAN) {
+  # Use the exact deposited region-level values that underlie final Table S7.
+  # This avoids silently reverting to legacy motif-model counts when older
+  # processed summaries are present in the external data directory.
+  background_summary_all <- readr::read_tsv(
+    repo_file("supplementary_table_source/Table_S7__S7D_region_threshold.tsv"),
+    skip = 2, show_col_types = FALSE, progress = FALSE
+  ) |>
+    dplyr::filter(
+      `Region class` == "Strict non-ONSEN TE background",
+      `Relative PWM-score threshold` %in% thresholds
+    ) |>
+    dplyr::transmute(
+      sequence_id = as.character(`Region ID`),
+      HSF_hits = as.integer(`Non-redundant HSF motif-coordinate placements`),
+      unique_HSF_models = NA_integer_,
+      maximum_relative_score = NA_real_,
+      width_bp = as.integer(`Region length (bp)`),
+      HSF_hits_per_kb = as.numeric(`Density (placements/kb)`),
+      threshold = as.numeric(`Relative PWM-score threshold`)
+    )
 } else {
   scanned_bg <- scan_from_coordinates(background_coords, "sequence_id", thresholds)
   background_summary_all <- scanned_bg$summary
@@ -267,21 +365,15 @@ if (!is.na(processed_bg_summary_file) && !ONSEN_FORCE_RESCAN) {
   safe_write_csv(background_hits, "strict_TE_background_HSF_hits_repository.csv")
 }
 
-# If exact region-level background counts are not found, the published class
-# statistics are retained from Table S5 and the processed project summaries.
-if (nrow(background_summary_all)) {
-  safe_write_csv(background_summary_all, "strict_TE_background_HSF_summary_repository.csv")
-}
+safe_write_csv(background_summary_all, "strict_TE_background_HSF_summary_repository.csv")
 
 # ------------------------------- Statistics ----------------------------------
-# Prefer exact class-level project statistics when available.
-stats_file <- find_any_input(c(
-  "ONSEN_vs_strict_TE_only_background_threshold_0p85_0p90_STATS.csv",
-  "ONSEN_vs_strict_TE_background_HSF_stats.csv"
-), required = FALSE)
-
-if (!is.na(stats_file) && !ONSEN_FORCE_RESCAN) {
-  stats_table <- read_table_auto(stats_file)
+if (!ONSEN_FORCE_RESCAN) {
+  # Preserve the final four-threshold BH adjustment reported in Table S6.
+  stats_table <- readr::read_tsv(
+    repo_file("supplementary_table_source/Table_S6__S6_TE_background.tsv"),
+    skip = 3, n_max = 2, show_col_types = FALSE, progress = FALSE
+  )
 } else if (nrow(background_summary_all)) {
   stats_rows <- list()
   for (cutoff in intersect(thresholds, unique(background_summary_all$threshold))) {
@@ -307,9 +399,7 @@ if (!is.na(stats_file) && !ONSEN_FORCE_RESCAN) {
   }
   stats_table <- dplyr::bind_rows(stats_rows)
 } else {
-  # Table S5 is included in the repository and remains the authoritative
-  # processed summary when region-level background values are unavailable.
-  stats_table <- readxl::read_excel(repo_file("Table_S5.xlsx"), skip = 1)
+  stop("No strict non-ONSEN TE background metrics were available.", call. = FALSE)
 }
 safe_write_csv(stats_table, "ONSEN_vs_strict_TE_HSF_statistics_repository.csv")
 
@@ -396,7 +486,10 @@ if (ONSEN_MAKE_FIGURES) {
       shape = 21, size = 3.4, colour = "black"
     ) +
     ggplot2::scale_fill_manual(values = c("Left LTR" = "#A67BE8", "Right LTR" = "#ED82BD")) +
-    ggplot2::labs(x = "LTR candidate", y = "HSF-family motif-position hits") +
+    ggplot2::labs(
+      x = "Terminal candidate window",
+      y = "Non-redundant HSF motif-coordinate placements"
+    ) +
     theme_onsen(13) +
     ggplot2::theme(legend.position = "none")
   save_plot_pair(p3b, "Fig3B_left_right_HSF_hits", 5.5, 5.0)
@@ -424,7 +517,10 @@ if (ONSEN_MAKE_FIGURES) {
         "Strict TE-only background" = "#83AEE8",
         "ONSEN LTR candidates" = "#E989AE"
       )) +
-      ggplot2::labs(x = NULL, y = "HSF motif-position hits per kb") +
+      ggplot2::labs(
+        x = NULL,
+        y = "Non-redundant HSF motif-coordinate placements per kb"
+      ) +
       theme_onsen(13) +
       ggplot2::theme(legend.position = "none")
     save_plot_pair(p3c, "Fig3C_ONSEN_vs_strict_TE_background", 6.2, 5.2)

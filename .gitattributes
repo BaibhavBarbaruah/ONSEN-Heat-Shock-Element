@@ -1,0 +1,2 @@
+# Worksheet TSV exports preserve trailing empty cells as tab delimiters.
+supplementary_table_source/*.tsv whitespace=-blank-at-eol,-blank-at-eof

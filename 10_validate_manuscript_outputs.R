@@ -1,11 +1,10 @@
-# Validate the public repository metadata/provenance against the final August 2026
-# Biology Open revision. Historical files under supplementary_table_source/ retain
-# their pre-final-numbering names by design; FINAL_NUMBERING_MAP.tsv is authoritative.
+# Validate repository metadata and deposited final supplementary tables against
+# the final August 2026 Biology Open package.
 
 source("ONSEN_config.R")
 
-if (!requireNamespace("dplyr", quietly = TRUE)) {
-  stop("Package 'dplyr' is required for validation.", call. = FALSE)
+if (!requireNamespace("openxlsx", quietly = TRUE)) {
+  stop("Package 'openxlsx' is required for validation.", call. = FALSE)
 }
 message_config()
 
@@ -30,19 +29,11 @@ required_metadata <- c(
   "supplementary_table_source/README.md"
 )
 
-required_files <- c(required_scripts, required_metadata)
+final_workbooks <- sprintf("Table_S%d.xlsx", 1:13)
+required_files <- c(required_scripts, required_metadata, final_workbooks)
 missing_files <- required_files[!file.exists(file.path(REPO_ROOT, required_files))]
 if (length(missing_files)) {
   stop("Repository package is incomplete. Missing:\n", paste(missing_files, collapse = "\n"), call. = FALSE)
-}
-
-# Public-facing R files must not contain hard-coded Windows drive roots.
-r_files <- list.files(REPO_ROOT, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-for (path in r_files) {
-  txt <- paste(readLines(path, warn = FALSE), collapse = "\n")
-  if (grepl("(^|[^A-Za-z0-9])([A-Za-z]):[/\\\\]", txt, perl = TRUE)) {
-    stop("Hard-coded drive-specific path in: ", basename(path), call. = FALSE)
-  }
 }
 
 checks <- list()
@@ -52,33 +43,91 @@ add_check <- function(name, passed, detail) {
   )
 }
 
+# Public-facing R files must not contain hard-coded Windows drive roots.
+r_files <- list.files(REPO_ROOT, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+for (path in r_files) {
+  text <- paste(readLines(path, warn = FALSE), collapse = "\n")
+  add_check(
+    paste("Portable path:", basename(path)),
+    !grepl("(^|[^A-Za-z0-9])([A-Za-z]):[/\\\\]", text, perl = TRUE),
+    "No hard-coded drive-specific path"
+  )
+}
+
+# Author spelling across current text metadata.
+text_files <- list.files(
+  REPO_ROOT,
+  pattern = "\\.(md|tsv|csv|cff|R|txt)$",
+  recursive = TRUE,
+  full.names = TRUE
+)
+wrong_spelling <- paste0("Aira", "langga")
+typo_files <- text_files[vapply(text_files, function(path) {
+  any(grepl(wrong_spelling, readLines(path, warn = FALSE), fixed = TRUE))
+}, logical(1))]
+add_check("Co-author spelling", !length(typo_files), "No extra 'a' in Airlangga")
+
 # README declarations.
 readme <- paste(readLines(file.path(REPO_ROOT, "README.md"), warn = FALSE), collapse = "\n")
 add_check("README final supplementary figures", grepl("Fig. S1-Fig. S4", readme, fixed = TRUE), "Expected Fig. S1-Fig. S4")
-add_check("README final supplementary tables", grepl("Table S1-Table S14", readme, fixed = TRUE), "Expected Table S1-Table S14")
-add_check("README marks legacy source numbering", grepl("Legacy source-sheet numbering", readme, fixed = TRUE), "Expected explicit legacy-source note")
-add_check("README records principal exact-coordinate metric", grepl("physical-forward exact-coordinate", readme, fixed = TRUE), "Expected principal metric definition")
-add_check("README records final global DE table", grepl("Table S14", readme, fixed = TRUE) && grepl("genome-wide gene", readme, ignore.case = TRUE), "Expected global gene/TE Table S14")
+add_check("README final supplementary tables", grepl("Table S1-Table S13", readme, fixed = TRUE), "Expected Table S1-Table S13")
+add_check("README records global DE as Table S9", grepl("differential-expression results are **Table S9**", readme, fixed = TRUE), "Expected global gene/TE Table S9")
+add_check("README records candidate RNA-seq as Table S10", grepl("candidate-window RNA-seq results are **Table S10**", readme, fixed = TRUE), "Expected candidate-window Table S10")
 
 # Final numbering map.
 numbering <- read.delim(file.path(REPO_ROOT, "FINAL_NUMBERING_MAP.tsv"), check.names = FALSE, stringsAsFactors = FALSE)
-final_tables <- numbering$final_item[numbering$item_type == "Supplementary table"]
-final_figs <- numbering$final_item[numbering$item_type == "Supplementary figure"]
-add_check("Final map has Tables S1-S14", all(sprintf("Table S%d", 1:14) %in% final_tables), "Expected every final Table S1-S14")
-add_check("Final map deletes AP2-only Table S3", any(numbering$pre_final_item == "Table S3" & numbering$final_item == "DELETED"), "Expected old AP2-only S3 deletion")
+final_tables <- unique(numbering$final_item[numbering$item_type == "Supplementary table"])
+final_figs <- unique(numbering$final_item[numbering$item_type == "Supplementary figure"])
+add_check("Final map has Tables S1-S13", all(sprintf("Table S%d", 1:13) %in% final_tables), "Expected every final Table S1-S13")
+add_check("Final map has no Table S14", !"Table S14" %in% final_tables, "Final package stops at Table S13")
+add_check("Final map deletes AP2-only Table S3", any(grepl("AP2/ERF-only", numbering$pre_final_item, fixed = TRUE) & numbering$final_item == "DELETED"), "Expected AP2/ERF-only table deletion")
+add_check("Final map assigns global DE to S9", any(grepl("Genome-wide gene/TE DE", numbering$pre_final_item, fixed = TRUE) & numbering$final_item == "Table S9"), "Expected global DE as Table S9")
 add_check("Final map has Figures S1-S4", all(sprintf("Fig. S%d", 1:4) %in% final_figs), "Expected every final Fig. S1-S4")
-add_check("Final map has no retained Fig. S5", !any(final_figs == "Fig. S5"), "Final supplement should stop at Fig. S4")
-add_check("Final map assigns new global DE to S14", any(grepl("NEW global gene/TE DE", numbering$pre_final_item, fixed = TRUE) & numbering$final_item == "Table S14"), "Expected new global DE as final Table S14")
+add_check("Final map has no retained Fig. S5", !"Fig. S5" %in% final_figs, "Final supplement stops at Fig. S4")
 
 # Reproducibility matrix declarations.
 matrix <- read.delim(file.path(REPO_ROOT, "REPRODUCIBILITY_MATRIX.tsv"), check.names = FALSE, stringsAsFactors = FALSE)
-add_check("Matrix has Tables S1-S14", all(sprintf("Table S%d", 1:14) %in% matrix$display_item), "Expected every final Table S1-S14")
+add_check("Matrix has Tables S1-S13", all(sprintf("Table S%d", 1:13) %in% matrix$display_item), "Expected every final Table S1-S13")
+add_check("Matrix excludes Table S14", !any(matrix$display_item == "Table S14"), "Expected no final Table S14")
 for (item in sprintf("Fig. S%d", 1:4)) {
   add_check(paste("Matrix has", item), any(matrix$display_item == item), paste("Expected", item))
 }
-add_check("Matrix excludes final Fig. S5", !any(matrix$display_item == "Fig. S5"), "Expected no final Fig. S5")
 add_check("Matrix includes Fig. 5D gene volcano", any(matrix$display_item == "Fig. 5D"), "Expected global gene volcano")
 add_check("Matrix includes Fig. 5E TE volcano", any(matrix$display_item == "Fig. 5E"), "Expected global TE volcano")
+
+# Exact final workbook inventory and titles.
+add_check("No Table S14 workbook", !file.exists(file.path(REPO_ROOT, "Table_S14.xlsx")), "Final package stops at Table S13")
+for (table_number in 1:13) {
+  workbook_path <- file.path(REPO_ROOT, sprintf("Table_S%d.xlsx", table_number))
+  sheets <- openxlsx::getSheetNames(workbook_path)
+  titles <- vapply(sheets, function(sheet) {
+    value <- openxlsx::read.xlsx(
+      workbook_path, sheet = sheet, rows = 1, cols = 1,
+      colNames = FALSE, skipEmptyRows = FALSE, skipEmptyCols = FALSE
+    )
+    as.character(value[1, 1])
+  }, character(1))
+  add_check(
+    paste("Workbook titles use Table S", table_number, sep = ""),
+    all(grepl(sprintf("^Table S%d([A-Z])?\\.", table_number), titles)),
+    paste(sheets, collapse = ", ")
+  )
+
+  source_paths <- list.files(
+    file.path(REPO_ROOT, "supplementary_table_source"),
+    pattern = sprintf("^Table_S%d__.*\\.tsv$", table_number),
+    full.names = TRUE
+  )
+  source_sheet_names <- sub(
+    sprintf("^Table_S%d__", table_number), "",
+    tools::file_path_sans_ext(basename(source_paths))
+  )
+  add_check(
+    paste("TSV source coverage for Table S", table_number),
+    setequal(source_sheet_names, sheets),
+    paste(source_sheet_names, collapse = ", ")
+  )
+}
 
 # RNA-seq accession/provenance map.
 rna_meta <- read.csv(file.path(REPO_ROOT, "RNAseq_sample_metadata_template.csv"), check.names = FALSE, stringsAsFactors = FALSE)
@@ -91,12 +140,13 @@ add_check("RNA-seq template has six Col-0 libraries", nrow(rna_meta) == 6L && al
 add_check("RNA-seq DDBJ BioSample map is exact", identical(rna_meta$biosample_accession, expected_biosamples), "Unexpected BioSample assignment")
 add_check("RNA-seq DDBJ BioProject map is exact", identical(rna_meta$bioproject, expected_bioprojects), "Unexpected BioProject assignment")
 
-# Figure 7 logo metadata remains intentionally illustrative.
+# Figure 7 illustrative logo metadata.
 logo <- read.csv(file.path(REPO_ROOT, "source_data/Figure7_logo_model_metadata.csv"), stringsAsFactors = FALSE)
 add_check("Figure 7 upper logo is HSFC1 MA1667.2", any(logo$model_name == "HSFC1" & logo$JASPAR_ID == "MA1667.2"), "Expected HSFC1/MA1667.2")
 add_check("Figure 7 lower logo is DOF1.8 MA0981.2", any(logo$model_name == "DOF1.8" & logo$JASPAR_ID == "MA0981.2"), "Expected DOF1.8/MA0981.2")
 
-report <- dplyr::bind_rows(checks)
+report <- do.call(rbind, checks)
+dir.create(ONSEN_OUTPUT_ROOT, recursive = TRUE, showWarnings = FALSE)
 write.csv(report, file.path(ONSEN_OUTPUT_ROOT, "repository_validation_report.csv"), row.names = FALSE)
 
 if (any(!report$passed)) {
@@ -107,4 +157,4 @@ if (any(!report$passed)) {
 message("\n============================================================")
 message("REPOSITORY METADATA VALIDATION PASSED")
 message("============================================================")
-message("Final August 2026 numbering, provenance and public metadata passed.")
+message("Final numbering, source coverage, provenance and metadata passed.")

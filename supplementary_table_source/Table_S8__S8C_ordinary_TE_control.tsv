@@ -1,0 +1,6 @@
+Table S8C. Broad ordinary-TE methylation comparison retained as contextual sensitivity analysis.											
+Context	Ordinary TE n	Ordinary TE median weighted methylation (%)	ONSEN n	ONSEN median weighted methylation (%)	Raw Wilcoxon P	BH-adjusted P	Label	Interpretation			
+CG	1813	87.26852	10	86.26886	0.3846524	0.3950103	ns	No significant difference			
+CHG	1809	50.46948	10	48.16308	0.3950103	0.3950103	ns	No significant difference			
+CHH	1854	15.83017	16	53.61375	6.881199e-08	2.06436e-07	****	ONSEN CHH methylation is higher than the broad ordinary-TE background			
+											

@@ -1,9 +1,12 @@
-Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: motif-effect and family-level summary.
-Motif-effect class	Number of motif IDs	Relative-score cutoff	Score-margin used
-lost_in_design	60	0.85	0.05
-gained_in_design	50	0.85	0.05
-weakened_in_design	2	0.85	0.05
-strengthened_in_design	3	0.85	0.05
-shifted_position	3	0.85	0.05
-retained	44	0.85	0.05
-below_threshold_both	643	0.85	0.05
+Table S1. Native versus in-silico-designed HSE-disrupted 49-bp ONSEN sequence: PWM-model effects and family-specific non-redundant motif-coordinate placements.			
+			
+Motif-effect class	Number of distinct PWM motif models	Relative-score cutoff	Score-margin used
+Lost in designed sequence	60	0.85	0.05
+Gained in designed sequence	50	0.85	0.05
+Weakened in designed sequence	2	0.85	0.05
+Strengthened in designed sequence	3	0.85	0.05
+Shifted best position/strand	3	0.85	0.05
+Retained	44	0.85	0.05
+Below threshold in both	643	0.85	0.05
+			
+Note: Motif-effect classes are defined at the distinct PWM-model level using the best relative score for each motif model in the native and designed sequences. These values are counts of PWM motif models, not counts of independent motif sites or motif-coordinate placements. The primary relative-score cutoff is 0.85 and the score-margin criterion is 0.05.			

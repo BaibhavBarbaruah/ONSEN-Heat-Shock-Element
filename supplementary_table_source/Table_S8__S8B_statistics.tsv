@@ -1,0 +1,8 @@
+Table S8B. Window-level sensitivity analysis for ONSEN versus non-ONSEN LTR-retrotransposon 800-bp terminal candidate regions.											
+Context	ONSEN unit	ONSEN n	ONSEN median weighted methylation (%)	Comparator unit	Comparator n	Comparator median weighted methylation (%)	Wilcoxon P	BH-adjusted P	Cliff's delta	Effect magnitude	Significance
+CG	ONSEN terminal window	10	86.26886	non-ONSEN LTR-RT terminal window	1549	88.3	0.996	0.996	NA	not reported	ns
+CHG	ONSEN terminal window	10	48.16308	non-ONSEN LTR-RT terminal window	1549	59.8	0.391	0.586	-0.157	small	ns
+CHH	ONSEN terminal window	16	53.61375	non-ONSEN LTR-RT terminal window	1552	19.7	4.31e-06	1.29e-05	0.667	large	****
+											
+Sensitivity analysis treats left and right terminal windows as separate observations; the element/copy-level analysis in Table S8A is principal because paired termini from the same TE are not independent. The retained source output did not contain the CG window-level Cliff's delta, so no value was inferred from the P-value or medians.											
+											

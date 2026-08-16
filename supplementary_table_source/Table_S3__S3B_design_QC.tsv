@@ -1,0 +1,22 @@
+Table S3. HSF-focused constrained-mutant and exact-GC robustness control for the in-silico-designed 49-bp ONSEN HSE-disrupted sequence.		
+Design and metric definitions supporting the HSF-focused robustness analysis.		
+		
+Item	Value	Validation or note
+Native 49-bp sequence	TCCTTAAAAGATTCTAGAAATTTTCTAGAATCATCTTCCACCTCCTTAA	Validated sequence used throughout the design analysis.
+In-silico-designed HSE-disrupted 49-bp sequence	TCCTTAAAAGAGGCTACCGATTGGCTACCGTCATCGGCCACCTCCTTAA	Validated designed sequence used throughout the design-space analysis.
+Sequence length	49 bp	Both sequences are 49 bp.
+Number of substitutions versus native sequence	12	Exactly 12 substitutions were introduced.
+Native-sequence GC content	30.61224%	Calculated directly from the native sequence.
+Designed-sequence GC content	51.02041%	Calculated directly from the designed sequence.
+Native HSE-like units	Five units at positions 11–15, 16–20, 22–26, 27–31 and 35–39	Five native HSE-like units were targeted by the design constraints.
+Mutable HSE-core triplets	Positions 12–14, 17–19, 23–25, 28–30 and 36–38	Fifteen mutable positions.
+Constrained random-mutant library size	5,000	Variable-GC constrained library.
+Alternative exact-GC comparator designs	5,119	Alternative valid designs with the same GC content as the selected designed sequence.
+Substitution constraint	Exactly 12 substitutions relative to the native sequence	Applied to both comparator spaces.
+HSE-disruption constraint	All five native HSE-like cores disrupted	Applied during constrained sequence generation.
+Canonical-HSE constraint	No remaining canonical nTTCn or nGAAn unit	Applied during constrained sequence generation.
+Primary relative PWM-score threshold	0.85	Primary manuscript threshold.
+Primary motif-count metric	Non-redundant HSF motif-coordinate placements	Identical 1-based start/end coordinates are collapsed across HSF PWM models and strands; predictions at different coordinates remain separate.
+Why the retained 0.85 comparator statistics are valid after deduplication	Variable-GC comparators had only 0 or 1 HSF prediction per sequence; exact-GC comparators all had 0.	Thus exact-coordinate deduplication cannot alter the 0.85 HSF count distribution used in S3A.
+Scope of this table	HSF robustness control only	AP2/ERF- and DOF-focused comparator statistics were removed to avoid carrying forward redundant motif-hit counts and to keep the revision focused on the robust HSF result.
+Interpretive limitation	Predicted motif compatibility does not demonstrate TF binding, occupancy or regulatory activity.	The in-silico design is an illustrative computational perturbation.

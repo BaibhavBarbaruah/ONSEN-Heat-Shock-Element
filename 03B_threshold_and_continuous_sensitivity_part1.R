@@ -1,8 +1,8 @@
 # HSF threshold-sensitivity and continuous-score analysis.
-# Reconstructs the analysis underlying final Fig. S3 and Table S8.
+# Reconstructs the analysis underlying final Fig. S2 and Table S7.
 
 source("ONSEN_functions.R")
-require_packages(c("data.table", "dplyr", "tidyr", "ggplot2", "patchwork", "openxlsx", "Biostrings"))
+require_packages(c("data.table", "dplyr", "tidyr", "readr", "ggplot2", "patchwork", "openxlsx", "Biostrings"))
 message_config()
 
 THRESHOLDS <- c(0.80, 0.85, 0.90, 0.95)
@@ -102,9 +102,33 @@ overlaps_onsen <- vapply(seq_len(nrow(bg)), function(i) {
 n_before <- nrow(bg); n_removed <- sum(overlaps_onsen)
 bg <- bg[!overlaps_onsen, , drop = FALSE]
 
+# Restrict the archived 1,942-region coordinate set to the final 1,930-region
+# universe retained after annotation and ONSEN/ATCOPIA78 harmonisation. The
+# deposited final Table S7E source sheet is the authoritative ID list.
+final_universe_file <- repo_file(
+  "supplementary_table_source/Table_S7__S7E_region_continuous.tsv"
+)
+final_universe <- readr::read_tsv(
+  final_universe_file, skip = 2, show_col_types = FALSE, progress = FALSE
+)
+final_background_ids <- final_universe |>
+  dplyr::filter(`Region class` == BG_CLASS) |>
+  dplyr::pull(`Region ID`) |>
+  as.character()
+missing_final_ids <- setdiff(final_background_ids, bg$region_id)
+if (length(missing_final_ids)) {
+  stop(
+    "Final Table S7 background IDs missing from strict-TE coordinates: ",
+    paste(missing_final_ids, collapse = ", "), call. = FALSE
+  )
+}
+n_harmonisation_removed <- nrow(bg) - length(final_background_ids)
+bg <- bg[bg$region_id %in% final_background_ids, , drop = FALSE]
+
 cat("Direct ONSEN-overlapping background regions removed: ", n_removed, "\n", sep = "")
+cat("Background regions removed by final annotation harmonisation: ", n_harmonisation_removed, "\n", sep = "")
 cat("Final strict non-ONSEN TE regions: ", nrow(bg), "\n", sep = "")
-if (nrow(bg) != 1942L) warning("Expected 1,942 background regions, but found ", nrow(bg), ".")
+if (nrow(bg) != 1930L) stop("Expected final 1,930-region background; found ", nrow(bg), ".", call. = FALSE)
 
 ###############################################################################
 # 7. READ GENOME AND EXTRACT SEQUENCES
@@ -224,25 +248,52 @@ top_n <- function(x, n = 5L) {
 ###############################################################################
 
 scan_region <- function(region_id, sequence, region_class, chromosome, start, end, width_bp) {
-  hit_counts <- integer(length(THRESHOLDS)); model_counts <- integer(length(THRESHOLDS))
-  overall_top <- numeric(); model_maxima <- numeric(length(pwm_models))
+  coordinate_sets <- replicate(length(THRESHOLDS), character(), simplify = FALSE)
+  model_counts <- integer(length(THRESHOLDS))
+  overall_top <- numeric()
+  model_maxima <- numeric(length(pwm_models))
+  sequence_width <- nchar(sequence)
+  reverse_sequence <- as.character(
+    Biostrings::reverseComplement(Biostrings::DNAString(toupper(sequence)))
+  )
 
   for (m in seq_along(pwm_models)) {
-    scores <- score_both_strands(sequence, pwm_models[[m]])
+    model <- pwm_models[[m]]
+    forward_scores <- score_one_strand(sequence, model)
+    reverse_scores <- score_one_strand(reverse_sequence, model)
+    scores <- c(forward_scores, reverse_scores)
     if (!length(scores)) { model_maxima[m] <- NA_real_; next }
 
     model_maxima[m] <- max(scores)
     overall_top <- top_n(c(overall_top, top_n(scores, 5L)), 5L)
 
     for (t in seq_along(THRESHOLDS)) {
-      count <- sum(scores >= THRESHOLDS[t])
-      hit_counts[t] <- hit_counts[t] + count
-      if (count > 0L) model_counts[t] <- model_counts[t] + 1L
+      forward_starts <- which(forward_scores >= THRESHOLDS[t])
+      reverse_starts <- which(reverse_scores >= THRESHOLDS[t])
+
+      forward_keys <- if (length(forward_starts)) {
+        paste0(forward_starts, ":", forward_starts + model$width - 1L)
+      } else {
+        character()
+      }
+      reverse_keys <- if (length(reverse_starts)) {
+        reverse_forward_start <- sequence_width - reverse_starts - model$width + 2L
+        reverse_forward_end <- sequence_width - reverse_starts + 1L
+        paste0(reverse_forward_start, ":", reverse_forward_end)
+      } else {
+        character()
+      }
+
+      model_keys <- unique(c(forward_keys, reverse_keys))
+      coordinate_sets[[t]] <- unique(c(coordinate_sets[[t]], model_keys))
+      if (length(model_keys)) model_counts[t] <- model_counts[t] + 1L
     }
   }
 
+  hit_counts <- vapply(coordinate_sets, length, integer(1))
+
   data.frame(region_id = region_id, class = region_class, chromosome = chromosome, start = start, end = end, width_bp = width_bp,
-             threshold = THRESHOLDS, HSF_motif_model_position_hits = hit_counts, unique_HSF_models = model_counts,
+             threshold = THRESHOLDS, nonredundant_HSF_motif_coordinate_placements = hit_counts, unique_HSF_models = model_counts,
              HSF_hits_per_kb = hit_counts / width_bp * 1000,
              maximum_HSF_relative_score = if (length(overall_top)) max(overall_top) else NA_real_,
              mean_top5_HSF_relative_score = if (length(overall_top)) mean(overall_top) else NA_real_,
@@ -293,12 +344,14 @@ threshold_stats <- lapply(THRESHOLDS, function(cutoff) {
   current <- region_metrics[region_metrics$threshold == cutoff, ]
   x <- current$HSF_hits_per_kb[current$class == ONSEN_CLASS]
   y <- current$HSF_hits_per_kb[current$class == BG_CLASS]
+  test <- suppressWarnings(stats::wilcox.test(x, y, exact = FALSE))
 
   data.frame(relative_score_threshold = cutoff, n_ONSEN_regions = length(x), n_background_regions = length(y),
              ONSEN_median_hits_per_kb = median(x), ONSEN_Q1_hits_per_kb = unname(quantile(x, 0.25)),
              ONSEN_Q3_hits_per_kb = unname(quantile(x, 0.75)), background_median_hits_per_kb = median(y),
              background_Q1_hits_per_kb = unname(quantile(y, 0.25)), background_Q3_hits_per_kb = unname(quantile(y, 0.75)),
-             Wilcoxon_P = wilcox_p(x, y), Cliffs_delta = cliffs_delta(x, y),
+             Wilcoxon_W = unname(test$statistic), Wilcoxon_P = test$p.value,
+             Cliffs_delta = cliffs_delta(x, y),
              background_regions_at_or_above_ONSEN_median = sum(y >= median(x)),
              background_regions_at_or_above_ONSEN_maximum = sum(y >= max(x)))
 }) |> dplyr::bind_rows()

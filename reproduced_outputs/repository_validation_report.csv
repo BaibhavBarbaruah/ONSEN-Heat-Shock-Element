@@ -1,40 +1,117 @@
-"check","passed","detail"
-"Table S1 lost motif-model count",TRUE,"Expected 60"
-"Table S1 gained motif-model count",TRUE,"Expected 50"
-"Table S4 random-mutant library size",TRUE,"Expected 5,000"
-"Table S4 exact-GC design space",TRUE,"Expected 5,120"
-"Table S4 designed AP2/ERF count",TRUE,"Expected 61"
-"Table S5 has sixteen windows",TRUE,"Expected sixteen terminal windows"
-"Table S5 includes raw HSF minimum 48",TRUE,"Expected 48"
-"Table S5 includes raw HSF maximum 75",TRUE,"Expected 75"
-"Table S6 native raw HSF count",TRUE,"Expected 31"
-"Table S6 native non-redundant count",TRUE,"Expected 1"
-"Table S7 threshold 0.85 ONSEN median",TRUE,"Expected 75"
-"Table S7 Wilcoxon P",TRUE,"Expected approximately 7.33e-12"
-"Table S8 contains ONSEN median 154.4",TRUE,"Expected 154.4"
-"Table S8 contains ONSEN median 75",TRUE,"Expected 75"
-"Table S8 contains ONSEN median 37.5",TRUE,"Expected 37.5"
-"Table S8 contains ONSEN median 12.5",TRUE,"Expected 12.5"
-"Table S8 includes threshold 0.95",TRUE,"Expected cutoff 0.95"
-"Table S9 ordinary-TE CHH median",TRUE,"Expected approximately 15.83"
-"Table S9 ONSEN CHH median",TRUE,"Expected approximately 53.61"
-"Table S11 contains accession count 19",TRUE,"Expected 19"
-"Table S11 contains accession count 7",TRUE,"Expected 7"
-"Table S11 contains accession count 11",TRUE,"Expected 11"
-"Table S11 contains accession count 9",TRUE,"Expected 9"
-"Table S11 contains accession count 16",TRUE,"Expected 16"
-"Table S11 contains accession count 17",TRUE,"Expected 17"
-"Table S11 contains accession count 15",TRUE,"Expected 15"
-"Table S11 contains accession count 41",TRUE,"Expected 41"
-"Table S14 contains Xu et al. 2024 evidence",TRUE,"Expected cited Xu et al. 2024 evidence"
-"Figure 7 upper logo is HSFC1 MA1667.2",TRUE,"Expected HSFC1/MA1667.2"
-"Figure 7 lower logo is DOF1.8 MA0981.2",TRUE,"Expected DOF1.8/MA0981.2"
-"Figure 7 variant source has 53 rows",TRUE,"Rows found: 53"
-"Figure 7 variant source has one Col-0 reference",TRUE,"Expected one zero-mismatch reference"
-"RNA-seq template has six Col-0 libraries",TRUE,"Expected exactly six Col-0 rows and three replicates per condition"
-"RNA-seq DDBJ BioSample map is exact",TRUE,"Unexpected DDBJ BioSample assignment"
-"RNA-seq DDBJ BioProject map is exact",TRUE,"Unexpected DDBJ BioProject assignment"
-"RNA-seq laboratory provenance is explicit",TRUE,"Expected laboratory-generated provenance for all six libraries"
-"Final Fig. S4 output naming",TRUE,"Fig. S4 code/output mapping is not synchronized"
-"Final Fig. S5 output naming",TRUE,"Fig. S5 code/output mapping is not synchronized"
-"Table S9 exact downstream outlier set is deposited",TRUE,"Expected eight selected non-ONSEN TE rows"
+check,passed,detail
+Final workbook inventory,TRUE,"Table_S1.xlsx, Table_S10.xlsx, Table_S11.xlsx, Table_S12.xlsx, Table_S13.xlsx, Table_S2.xlsx, Table_S3.xlsx, Table_S4.xlsx, Table_S5.xlsx, Table_S6.xlsx, Table_S7.xlsx, Table_S8.xlsx, Table_S9.xlsx"
+Table S14 absent,TRUE,Final set stops at S13
+Table S1 matches submission workbook,TRUE,70ee336e1f70d17a2114275305a71290fe02f8ade7fbf6291b5c6b73e7686a8e
+Table S1 worksheet titles,TRUE,PASS
+Table S1 cached formula errors,TRUE,none
+Table S1 exact TSV coverage,TRUE,"Table_S1__S1A_motif_effects.tsv, Table_S1__S1B_family_summary.tsv"
+Table S1 TSV values,TRUE,exact
+Table S2 matches submission workbook,TRUE,32be6459b4e897bae82bc8f6fc1a7ad286692a6ae08b71b36b2ec5a217718cc0
+Table S2 worksheet titles,TRUE,PASS
+Table S2 cached formula errors,TRUE,none
+Table S2 exact TSV coverage,TRUE,Table_S2__S2_HSF_lost.tsv
+Table S2 TSV values,TRUE,exact
+Table S3 matches submission workbook,TRUE,a8a4f900faf8bd6210ec434edcfdcb4dd63d3be38ef433c9539c2ab8ceaa4bd4
+Table S3 worksheet titles,TRUE,PASS
+Table S3 cached formula errors,TRUE,none
+Table S3 exact TSV coverage,TRUE,"Table_S3__S3A_HSF_robustness.tsv, Table_S3__S3B_design_QC.tsv"
+Table S3 TSV values,TRUE,exact
+Table S4 matches submission workbook,TRUE,aa78f11f9f5573e464c0ea440ca0561ff818382ac4828b18a9f29891a9c949e1
+Table S4 worksheet titles,TRUE,PASS
+Table S4 cached formula errors,TRUE,none
+Table S4 exact TSV coverage,TRUE,Table_S4__S4_Col0_HSF.tsv
+Table S4 TSV values,TRUE,exact
+Table S5 matches submission workbook,TRUE,31ac1fe69898b113447d1b5246c093865cc064d462ba4fc75ac0e73413d02660
+Table S5 worksheet titles,TRUE,PASS
+Table S5 cached formula errors,TRUE,none
+Table S5 exact TSV coverage,TRUE,"Table_S5__49bp_locations.tsv, Table_S5__Col0_ONSEN_locations.tsv, Table_S5__Column_definitions.tsv, Table_S5__README.tsv, Table_S5__Table_S5_summary.tsv"
+Table S5 TSV values,TRUE,exact
+Table S6 matches submission workbook,TRUE,06615d1a471249e72c5afe02f186db9d7b008298a81b241a2a8436b167257e2b
+Table S6 worksheet titles,TRUE,PASS
+Table S6 cached formula errors,TRUE,none
+Table S6 exact TSV coverage,TRUE,Table_S6__S6_TE_background.tsv
+Table S6 TSV values,TRUE,exact
+Table S7 matches submission workbook,TRUE,33ec76bf83a4b00906867bc5199ceb105003df5520e6036c1795ca86eab4291b
+Table S7 worksheet titles,TRUE,PASS
+Table S7 cached formula errors,TRUE,none
+Table S7 exact TSV coverage,TRUE,"Table_S7__S7A_threshold_stats.tsv, Table_S7__S7B_threshold_summary.tsv, Table_S7__S7C_continuous_stats.tsv, Table_S7__S7D_region_threshold.tsv, Table_S7__S7E_region_continuous.tsv, Table_S7__S7F_QC.tsv, Table_S7__S7G_HSF_models.tsv, Table_S7__S7H_original_QC.tsv"
+Table S7 TSV values,TRUE,exact
+Table S8 matches submission workbook,TRUE,f02eecb81a266b1c227e472793d254fcf961bee72060ca8720fe65eee2cb3bbd
+Table S8 worksheet titles,TRUE,PASS
+Table S8 cached formula errors,TRUE,none
+Table S8 exact TSV coverage,TRUE,"Table_S8__S8B_statistics.tsv, Table_S8__S8C_ordinary_TE_control.tsv, Table_S8__S8D_selected_outliers.tsv, Table_S8__S8_methylation.tsv"
+Table S8 TSV values,TRUE,exact
+Table S9 matches submission workbook,TRUE,5a0a4f7e345fe03ee051be4b87ff8db96a45a4d2c33a674568649b5a1711eec9
+Table S9 worksheet titles,TRUE,PASS
+Table S9 cached formula errors,TRUE,none
+Table S9 exact TSV coverage,TRUE,"Table_S9__Notes.tsv, Table_S9__S9A_Genes.tsv, Table_S9__S9B_TEs.tsv, Table_S9__S9C_ONSEN.tsv, Table_S9__Summary.tsv"
+Table S9 TSV values,TRUE,exact
+Table S10 matches submission workbook,TRUE,b99b7c402c193cf1ac5711e62b00a949a4b2f94c31a5ec5235d5c8acd3c1d8ea
+Table S10 worksheet titles,TRUE,PASS
+Table S10 cached formula errors,TRUE,none
+Table S10 exact TSV coverage,TRUE,"Table_S10__S10A_Class_summary.tsv, Table_S10__S10B_Individual_windows.tsv, Table_S10__S10C_Replicate_CPM.tsv"
+Table S10 TSV values,TRUE,exact
+Table S11 matches submission workbook,TRUE,39a5637ca65915a7f04b3195ce086643aa737ba708233f223f5d29fe3524a40f
+Table S11 worksheet titles,TRUE,PASS
+Table S11 cached formula errors,TRUE,none
+Table S11 exact TSV coverage,TRUE,Table_S11__S11_accessions.tsv
+Table S11 TSV values,TRUE,exact
+Table S12 matches submission workbook,TRUE,391d5e755d66d2be75413f63bfd498454ba47a40d1c3f6d8b4494387df2285db
+Table S12 worksheet titles,TRUE,PASS
+Table S12 cached formula errors,TRUE,none
+Table S12 exact TSV coverage,TRUE,Table_S12__S12_seed_variants.tsv
+Table S12 TSV values,TRUE,exact
+Table S13 matches submission workbook,TRUE,cb0a004b2017c6e1da5d08f410211d45414625760b01f8b03fd4967c2b081f6c
+Table S13 worksheet titles,TRUE,PASS
+Table S13 cached formula errors,TRUE,none
+Table S13 exact TSV coverage,TRUE,Table_S13__S13_TF_family.tsv
+Table S13 TSV values,TRUE,exact
+Worksheet export count,TRUE,35 worksheets
+Final numbering map tables,TRUE,"Table S1, Table S10, Table S11, Table S12, Table S13, Table S2, Table S3, Table S4, Table S5, Table S6, Table S7, Table S8, Table S9"
+Final numbering map figures,TRUE,"Fig. S1, Fig. S2, Fig. S3, Fig. S4"
+Reproducibility matrix tables,TRUE,Tables S1-S13 only
+Reproducibility matrix supplementary figures,TRUE,Figures S1-S4 only
+Co-author spelling across current text,TRUE,Rahmadani P. Airlangga
+Citation author spelling,TRUE,Baibhav R. Barbaruah; Rahmadani P. Airlangga; Hidetaka Ito
+R delimiter balance: 00_install_packages.R,TRUE,balanced
+Portable paths: 00_install_packages.R,TRUE,no hard-coded drive root
+R delimiter balance: 00_run_pipeline.R,TRUE,balanced
+Portable paths: 00_run_pipeline.R,TRUE,no hard-coded drive root
+R delimiter balance: 01_native_mutated_motif_analysis.R,TRUE,balanced
+Portable paths: 01_native_mutated_motif_analysis.R,TRUE,no hard-coded drive root
+R delimiter balance: 02_constrained_mutant_sensitivity.R,TRUE,balanced
+Portable paths: 02_constrained_mutant_sensitivity.R,TRUE,no hard-coded drive root
+R delimiter balance: 03B_threshold_and_continuous_sensitivity.R,TRUE,balanced
+Portable paths: 03B_threshold_and_continuous_sensitivity.R,TRUE,no hard-coded drive root
+R delimiter balance: 03B_threshold_and_continuous_sensitivity_part1.R,TRUE,balanced
+Portable paths: 03B_threshold_and_continuous_sensitivity_part1.R,TRUE,no hard-coded drive root
+R delimiter balance: 03B_threshold_and_continuous_sensitivity_part2.R,TRUE,balanced
+Portable paths: 03B_threshold_and_continuous_sensitivity_part2.R,TRUE,no hard-coded drive root
+R delimiter balance: 03_col0_HSF_and_TE_background.R,TRUE,balanced
+Portable paths: 03_col0_HSF_and_TE_background.R,TRUE,no hard-coded drive root
+R delimiter balance: 04_nonredundant_HSF_locations.R,TRUE,balanced
+Portable paths: 04_nonredundant_HSF_locations.R,TRUE,no hard-coded drive root
+R delimiter balance: 05_methylation_analysis.R,TRUE,balanced
+Portable paths: 05_methylation_analysis.R,TRUE,no hard-coded drive root
+R delimiter balance: 06_rnaseq_analysis.R,TRUE,balanced
+Portable paths: 06_rnaseq_analysis.R,TRUE,no hard-coded drive root
+R delimiter balance: 07B_figure7_identity_and_logo_workflow.R,TRUE,balanced
+Portable paths: 07B_figure7_identity_and_logo_workflow.R,TRUE,no hard-coded drive root
+R delimiter balance: 07_accession_analysis.R,TRUE,balanced
+Portable paths: 07_accession_analysis.R,TRUE,no hard-coded drive root
+R delimiter balance: 08_write_supplementary_tables.R,TRUE,balanced
+Portable paths: 08_write_supplementary_tables.R,TRUE,no hard-coded drive root
+R delimiter balance: 09_write_session_info.R,TRUE,balanced
+Portable paths: 09_write_session_info.R,TRUE,no hard-coded drive root
+R delimiter balance: 10_validate_manuscript_outputs.R,TRUE,balanced
+Portable paths: 10_validate_manuscript_outputs.R,TRUE,no hard-coded drive root
+R delimiter balance: ONSEN_config.R,TRUE,balanced
+Portable paths: ONSEN_config.R,TRUE,no hard-coded drive root
+R delimiter balance: ONSEN_functions.R,TRUE,balanced
+Portable paths: ONSEN_functions.R,TRUE,no hard-coded drive root
+README declaration: Table S1-Table S13,TRUE,Table S1-Table S13
+README declaration: Fig. S1-Fig. S4,TRUE,Fig. S1-Fig. S4
+README declaration: differential-expression results are **Table S9**,TRUE,differential-expression results are **Table S9**
+README declaration: candidate-window RNA-seq results are **Table S10**,TRUE,candidate-window RNA-seq results are **Table S10**
+README declaration: 6 paired structural proxies and 3 unpaired candidate windows,TRUE,6 paired structural proxies and 3 unpaired candidate windows
+Git whitespace check,TRUE,clean

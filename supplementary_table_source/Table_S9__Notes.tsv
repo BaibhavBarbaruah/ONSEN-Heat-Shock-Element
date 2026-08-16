@@ -1,0 +1,15 @@
+Table S9. Genome-wide gene and transposable-element differential expression in Col-0 after 24-h 37°C heat stress.	
+	
+Item	Description
+Comparison	24-h 37°C heat stress (HS) versus non-stressed control (NS).
+Biological material	Arabidopsis thaliana Col-0 seedlings.
+Replicates	Three biological replicates per condition.
+Reference genome	Complete TAIR10 reference containing chromosomes 1-5, mitochondrial and plastid sequences.
+Gene analysis	Gene counts were generated from complete-TAIR10 alignments using exon-level annotation summarized by gene. DESeq2 produced model estimates for 25,912 genes, raw P-values for 25,911 and non-missing BH-adjusted P-values for 23,922 after independent filtering.
+TE analysis	All 31,189 Araport11 transposable_element loci were included. Multimapping and overlapping reads were fractionally assigned for TE counting.
+Gene statistical method	DESeq2.
+TE statistical method	limma-voom after expression filtering.
+Significance criterion	BH-adjusted P < 0.05 and absolute log2 fold change >= 1 for Up/Down calls.
+All features retained	All annotated genes and TEs are retained. Missing entries distinguish features without model estimates from gene rows whose BH-adjusted P-value is unavailable after DESeq2 independent filtering.
+ONSEN interpretation	S9C_ONSEN contains the eight canonical ONSEN loci used throughout the manuscript. Because ONSEN-family sequences are repetitive, candidate-window RNA-seq analyses are interpreted separately from definitive copy-specific expression.
+Purpose	Reviewer-requested genome-wide gene and transposable-element log2 fold changes and adjusted P values after heat stress.
