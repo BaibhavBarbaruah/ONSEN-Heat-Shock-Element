@@ -1,4 +1,4 @@
-# Install/check packages required by the complete flat repository.
+# Install/check packages required by the complete repository workflow.
 
 cran_packages <- c(
   "data.table", "dplyr", "tidyr", "readr", "stringr", "purrr", "tibble",
@@ -18,8 +18,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 }
 
 bioc_packages <- c(
-  "Biostrings", "GenomicRanges", "IRanges", "S4Vectors",
-  "rtracklayer", "DESeq2", "Rsubread"
+  "Biostrings", "GenomicRanges", "IRanges", "S4Vectors", "rtracklayer",
+  "DESeq2", "Rsubread", "limma", "edgeR"
 )
 missing_bioc <- bioc_packages[
   !vapply(bioc_packages, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))
