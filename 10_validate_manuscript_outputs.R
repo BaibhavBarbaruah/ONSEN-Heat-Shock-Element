@@ -1,286 +1,229 @@
-# Validate repository metadata and deposited tables against the final August
-# 2026 Biology Open package: Figs S1-S4 and Tables S1-S13.
+# Validate the public repository against the final Biology Open manuscript data
+# and supplementary package (Fig. S1-Fig. S4; Table S1-Table S13).
 
 source("ONSEN_config.R")
-
-for (package in c("dplyr", "openxlsx")) {
-  if (!requireNamespace(package, quietly = TRUE)) {
-    stop("Package '", package, "' is required for validation.", call. = FALSE)
-  }
-}
+needed <- c("data.table", "dplyr", "openxlsx")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing)) stop("Missing validation package(s): ", paste(missing, collapse = ", "))
 message_config()
 
 checks <- list()
 add_check <- function(name, passed, detail) {
   checks[[length(checks) + 1L]] <<- data.frame(
-    check = name,
-    passed = isTRUE(passed),
-    detail = detail,
+    check = name, passed = isTRUE(passed), detail = as.character(detail),
     stringsAsFactors = FALSE
+  )
+}
+text_of <- function(path) {
+  full_path <- if (grepl("^(/|[A-Za-z]:[/\\\\])", path, perl = TRUE)) path else file.path(REPO_ROOT, path)
+  paste(readLines(full_path, warn = FALSE), collapse = "\n")
+}
+read_final <- function(filename, skip = 2L) {
+  data.table::fread(
+    file.path(REPO_ROOT, "supplementary_table_source", filename),
+    skip = skip, data.table = FALSE, check.names = FALSE
   )
 }
 
 required_scripts <- c(
-  "ONSEN_config.R", "ONSEN_functions.R", "00_install_packages.R",
-  "00_run_pipeline.R", "01_native_mutated_motif_analysis.R",
-  "02_constrained_mutant_sensitivity.R", "03_col0_HSF_and_TE_background.R",
-  "03B_threshold_and_continuous_sensitivity.R",
-  "03B_threshold_and_continuous_sensitivity_part1.R",
-  "03B_threshold_and_continuous_sensitivity_part2.R",
+  "ONSEN_config.R", "ONSEN_functions.R", "00_install_packages.R", "00_run_pipeline.R",
+  "01_native_mutated_motif_analysis.R", "02_constrained_mutant_sensitivity.R",
+  "03_col0_HSF_and_TE_background.R", "03B_threshold_and_continuous_sensitivity.R",
   "03C_direct_LTR_HSF_comparison.R", "04_nonredundant_HSF_locations.R",
   "05A_direct_LTR_methylation_analysis.R", "05_methylation_analysis.R",
   "06_rnaseq_analysis.R", "07_accession_analysis.R",
-  "07B_figure7_identity_and_logo_workflow.R",
-  "08_write_supplementary_tables.R", "09_write_session_info.R",
-  "10_validate_manuscript_outputs.R"
+  "07B_figure7_identity_and_logo_workflow.R", "08_write_supplementary_tables.R",
+  "09_write_session_info.R", "10_validate_manuscript_outputs.R"
 )
-
-required_metadata <- c(
-  "README.md", "LICENSE", "CITATION.cff", "CHANGELOG.md",
-  "DATA_AVAILABILITY.md", "REPRODUCIBILITY_NOTES.md",
-  "INPUT_PROVENANCE.tsv", "REPRODUCIBILITY_MATRIX.tsv",
-  "FINAL_NUMBERING_MAP.tsv", "R_PACKAGE_REQUIREMENTS.txt",
+required_docs <- c(
+  "README.md", "DATA_AVAILABILITY.md", "REPRODUCIBILITY_NOTES.md",
+  "REPRODUCIBILITY_MATRIX.tsv", "INPUT_PROVENANCE.tsv", "R_PACKAGE_REQUIREMENTS.txt",
+  "FULL_PACKAGE_MANIFEST.txt", "CITATION.cff", "LICENSE",
   "RNAseq_sample_metadata_template.csv", "ONSEN_49bp_sequences.fasta",
-  "ONSEN_HSE_units_and_substitutions.csv",
-  "ONSEN_Col0_terminal_candidate_windows.csv",
+  "ONSEN_HSE_units_and_substitutions.csv", "ONSEN_Col0_terminal_candidate_windows.csv",
   "Arabidopsis_HSF_models_JASPAR2026.csv",
   "source_data/Figure4A_direct_LTR_methylation_summary.tsv",
   "source_data/Figure4C_direct_LTR_HSF_summary.tsv",
-  "source_data/Figure7_variant_metrics.tsv",
-  "source_data/Figure7_logo_model_metadata.csv",
+  "source_data/Figure7_variant_metrics.tsv", "source_data/Figure7_logo_model_metadata.csv",
   "motifs/MA1667.2_HSFC1.jaspar", "motifs/MA0981.2_DOF1.8.jaspar",
-  "supplementary_table_source/README.md",
   "supplementary_table_source/SOURCE_SHEET_MANIFEST.tsv"
 )
-
 required_tables <- sprintf("Table_S%d.xlsx", 1:13)
-required_files <- c(required_scripts, required_metadata, required_tables)
-missing_files <- required_files[!file.exists(file.path(REPO_ROOT, required_files))]
-add_check(
-  "Required final files are present",
-  !length(missing_files),
-  if (length(missing_files)) paste(missing_files, collapse = "; ") else "complete"
-)
+required <- c(required_scripts, required_docs, required_tables)
+missing_files <- required[!file.exists(file.path(REPO_ROOT, required))]
+add_check("Required public files", !length(missing_files),
+          if (length(missing_files)) paste(missing_files, collapse = "; ") else "complete")
 
-add_check(
-  "No obsolete root Table S14",
-  !file.exists(file.path(REPO_ROOT, "Table_S14.xlsx")),
-  "Final package stops at Table S13"
+obsolete <- c(
+  "03B_threshold_and_continuous_sensitivity_part1.R",
+  "03B_threshold_and_continuous_sensitivity_part2.R",
+  "DDBJ_Update_Change_Log.md", "FINAL_NUMBERING_MAP.tsv", "CHANGELOG.md",
+  "FILE_CHECKSUMS_SHA256.tsv"
 )
-add_check(
-  "No obsolete AP2/ERF source sheet",
-  !file.exists(file.path(
-    REPO_ROOT, "supplementary_table_source", "Table_S3__S3_AP2ERF_gained.tsv"
-  )),
-  "AP2/ERF-only workbook was deleted"
-)
+present_obsolete <- obsolete[file.exists(file.path(REPO_ROOT, obsolete))]
+add_check("No obsolete/internal tracked files", !length(present_obsolete),
+          if (length(present_obsolete)) paste(present_obsolete, collapse = "; ") else "clean")
 
-# Public-facing R files must not contain hard-coded Windows drive roots.
+# Portability.
 r_files <- list.files(REPO_ROOT, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-drive_specific <- character()
-for (path in r_files) {
-  text <- paste(readLines(path, warn = FALSE), collapse = "\n")
-  if (grepl("(^|[^A-Za-z0-9])([A-Za-z]):[/\\\\]", text, perl = TRUE)) {
-    drive_specific <- c(drive_specific, basename(path))
-  }
-}
-add_check(
-  "No hard-coded Windows drive roots",
-  !length(drive_specific),
-  if (length(drive_specific)) paste(drive_specific, collapse = "; ") else "portable"
-)
-
-readme <- paste(readLines(file.path(REPO_ROOT, "README.md"), warn = FALSE), collapse = "\n")
-add_check("README has Figs S1-S4", grepl("Fig. S1-Fig. S4", readme, fixed = TRUE), "expected final figures")
-add_check("README has Tables S1-S13", grepl("Table S1-Table S13", readme, fixed = TRUE), "expected final tables")
-add_check("README states no final S14", grepl("no final Table S14", readme, ignore.case = TRUE), "expected explicit deletion")
-add_check("README assigns global DE to S9", grepl("final \\*\\*Table S9\\*\\*", readme), "expected global DE Table S9")
-
-numbering <- read.delim(
-  file.path(REPO_ROOT, "FINAL_NUMBERING_MAP.tsv"),
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-)
-final_tables <- numbering$final_item[
-  numbering$item_type == "Supplementary table" & numbering$final_item != "DELETED"
-]
-final_figs <- numbering$final_item[
-  numbering$item_type == "Supplementary figure" & numbering$final_item != "DELETED"
-]
-add_check(
-  "Final map has exactly Tables S1-S13",
-  setequal(final_tables, sprintf("Table S%d", 1:13)) && length(final_tables) == 13L,
-  paste(final_tables, collapse = "; ")
-)
-add_check(
-  "Final map has exactly Figs S1-S4",
-  setequal(final_figs, sprintf("Fig. S%d", 1:4)) && length(final_figs) == 4L,
-  paste(final_figs, collapse = "; ")
-)
-add_check(
-  "Final map assigns global DE to S9",
-  any(numbering$pre_final_item == "NEW global gene/TE DE" &
-        numbering$final_item == "Table S9"),
-  "expected new global DE Table S9"
-)
-
-matrix <- read.delim(
-  file.path(REPO_ROOT, "REPRODUCIBILITY_MATRIX.tsv"),
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-)
-add_check(
-  "Matrix contains Tables S1-S13",
-  all(sprintf("Table S%d", 1:13) %in% matrix$display_item),
-  "all final tables mapped"
-)
-add_check(
-  "Matrix excludes Table S14",
-  !any(matrix$display_item == "Table S14"),
-  "no obsolete final table"
-)
-add_check(
-  "Matrix contains Figs S1-S4 only",
-  all(sprintf("Fig. S%d", 1:4) %in% matrix$display_item) &&
-    !any(matrix$display_item == "Fig. S5"),
-  "final supplementary figures mapped"
-)
-
-source_manifest <- read.delim(
-  file.path(REPO_ROOT, "supplementary_table_source", "SOURCE_SHEET_MANIFEST.tsv"),
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-)
-add_check(
-  "Final TSV source manifest has 36 worksheets",
-  nrow(source_manifest) == 36L,
-  paste("observed", nrow(source_manifest))
-)
-add_check(
-  "Final TSV source manifest covers S1-S13",
-  all(sprintf("Table_S%d.xlsx", 1:13) %in% source_manifest$workbook),
-  "all final workbooks mirrored"
-)
-
-# Verify every final workbook opens and has at least one sheet.
-unreadable_tables <- character()
-for (table_name in required_tables) {
-  sheets <- tryCatch(
-    openxlsx::getSheetNames(file.path(REPO_ROOT, table_name)),
-    error = function(e) character()
-  )
-  if (!length(sheets)) unreadable_tables <- c(unreadable_tables, table_name)
-}
-add_check(
-  "All final workbooks open",
-  !length(unreadable_tables),
-  if (length(unreadable_tables)) paste(unreadable_tables, collapse = "; ") else "13/13"
-)
-
-s10_path <- file.path(REPO_ROOT, "Table_S10.xlsx")
-s10_sheets <- openxlsx::getSheetNames(s10_path)
-add_check(
-  "Table S10 contains statistics sheet",
-  "S10D_Statistics" %in% s10_sheets,
-  paste(s10_sheets, collapse = "; ")
-)
-s10a <- openxlsx::read.xlsx(
-  s10_path,
-  sheet = "S10A_Class_summary",
-  colNames = FALSE,
-  skipEmptyRows = FALSE
-)
-expected_s10_headers <- c(
-  "Candidate class", "n windows", "Mean NS CPM", "Mean HS CPM",
-  "Median NS CPM", "Median HS CPM",
-  "Descriptive log2FC [(mean HS CPM + 0.05)/(mean NS CPM + 0.05)]"
-)
-observed_s10_headers <- as.character(unlist(s10a[2, 1:7], use.names = FALSE))
-add_check(
-  "Table S10 class-summary headers restored",
-  identical(observed_s10_headers, expected_s10_headers),
-  paste(observed_s10_headers, collapse = "; ")
-)
-s10d <- openxlsx::read.xlsx(
-  s10_path,
-  sheet = "S10D_Statistics",
-  colNames = FALSE,
-  skipEmptyRows = FALSE
-)
-s10d_text <- paste(unlist(s10d, use.names = FALSE), collapse = " ")
-add_check(
-  "Table S10 reports Welch and Wilcoxon results",
-  grepl("0.000757270061", s10d_text, fixed = TRUE) &&
-    grepl("0.08085559837", s10d_text, fixed = TRUE),
-  "expected two-sided P values"
-)
-
-rna_meta <- read.csv(
-  file.path(REPO_ROOT, "RNAseq_sample_metadata_template.csv"),
-  check.names = FALSE,
-  stringsAsFactors = FALSE
-)
-expected_biosamples <- c(
-  "SAMD01789795", "SAMD01789796", "SAMD01789797",
-  "SAMD01943917", "SAMD01943918", "SAMD01943919"
-)
-expected_bioprojects <- c(rep("PRJDB39904", 3L), rep("PRJDB42759", 3L))
-add_check(
-  "RNA-seq metadata has six Col-0 libraries",
-  nrow(rna_meta) == 6L && all(rna_meta$ecotype == "Col-0"),
-  "expected six validated libraries"
-)
-add_check(
-  "RNA-seq BioSample map is exact",
-  identical(rna_meta$biosample_accession, expected_biosamples),
-  "validated DDBJ assignments"
-)
-add_check(
-  "RNA-seq BioProject map is exact",
-  identical(rna_meta$bioproject, expected_bioprojects),
-  "validated DDBJ projects"
-)
-
-logo <- read.csv(
-  file.path(REPO_ROOT, "source_data", "Figure7_logo_model_metadata.csv"),
-  stringsAsFactors = FALSE
-)
-add_check(
-  "Figure 7 logo models are exact",
-  any(logo$model_name == "HSFC1" & logo$JASPAR_ID == "MA1667.2") &&
-    any(logo$model_name == "DOF1.8" & logo$JASPAR_ID == "MA0981.2"),
-  "HSFC1 MA1667.2; DOF1.8 MA0981.2"
-)
-
-text_files <- c("README.md", "CITATION.cff", "DATA_AVAILABILITY.md")
-wrong_spelling <- vapply(text_files, function(path) {
-  any(grepl(
-    "Airalangga",
-    readLines(file.path(REPO_ROOT, path), warn = FALSE),
-    fixed = TRUE
-  ))
+drive_specific <- vapply(r_files, function(path) {
+  grepl("(^|[^A-Za-z0-9])([A-Za-z]):[/\\\\]", text_of(path), perl = TRUE)
 }, logical(1))
-add_check(
-  "Author surname is consistently Airlangga",
-  !any(wrong_spelling),
-  if (any(wrong_spelling)) paste(text_files[wrong_spelling], collapse = "; ") else "correct"
-)
+add_check("No hard-coded Windows drive roots", !any(drive_specific),
+          if (any(drive_specific)) paste(basename(r_files[drive_specific]), collapse = "; ") else "portable")
+
+# Documentation/provenance synchronization.
+readme <- text_of("README.md")
+data_avail <- text_of("DATA_AVAILABILITY.md")
+provenance <- text_of("INPUT_PROVENANCE.tsv")
+packages <- text_of("R_PACKAGE_REQUIREMENTS.txt")
+metadata <- paste(readme, data_avail, provenance, text_of("REPRODUCIBILITY_NOTES.md"),
+                  text_of("REPRODUCIBILITY_MATRIX.tsv"), text_of("CITATION.cff"))
+add_check("Final supplementary scope",
+          grepl("Fig. S1-Fig. S4", readme, fixed = TRUE) &&
+            grepl("Table S1-Table S13", readme, fixed = TRUE),
+          "Figs S1-S4; Tables S1-S13")
+add_check("Exact-coordinate HSF metric documented",
+          grepl("unique `(start, end)` coordinate placements", readme, fixed = TRUE) &&
+            grepl("identical start and end coordinates are counted once", readme, fixed = TRUE),
+          "physical start/end coordinate deduplication")
+add_check("Final strict-TE comparison documented",
+          grepl("1,930", readme, fixed = TRUE) && grepl("49.375", readme, fixed = TRUE) &&
+            grepl("6.81238953796413", readme, fixed = TRUE),
+          "16 ONSEN windows versus 1,930 strict non-ONSEN TE regions")
+add_check("Final RNA-seq methods documented",
+          all(vapply(c("32,833", "31,189", "2,101", "limma-voom",
+                       "summed across the sixteen curated ONSEN terminal windows"),
+                     function(x) grepl(x, readme, fixed = TRUE), logical(1))),
+          "DESeq2 genes; filtered limma-voom TEs; replicate-summed Fig. 5B")
+add_check("Ensembl Plants release 63 provenance",
+          grepl("Ensembl Plants release 63", provenance, fixed = TRUE) &&
+            grepl("Arabidopsis_thaliana.TAIR10.63.gtf", provenance, fixed = TRUE),
+          "TAIR10 release-63 gene annotation")
+add_check("TE-analysis dependencies documented",
+          grepl("edgeR", packages, fixed = TRUE) && grepl("limma", packages, fixed = TRUE),
+          "edgeR and limma")
+add_check("Author surname",
+          grepl("Rahmadani P. Airlangga", metadata, fixed = TRUE) &&
+            !grepl("Airalangga", metadata, fixed = TRUE),
+          "Rahmadani P. Airlangga")
+
+# DDBJ map.
+rna_meta <- read.csv(file.path(REPO_ROOT, "RNAseq_sample_metadata_template.csv"),
+                     stringsAsFactors = FALSE, check.names = FALSE)
+expected_samples <- c("SAMD01789795", "SAMD01789796", "SAMD01789797",
+                      "SAMD01943917", "SAMD01943918", "SAMD01943919")
+expected_projects <- c(rep("PRJDB39904", 3L), rep("PRJDB42759", 3L))
+add_check("Six-library DDBJ map",
+          nrow(rna_meta) == 6L && identical(rna_meta$biosample_accession, expected_samples) &&
+            identical(rna_meta$bioproject, expected_projects) &&
+            identical(as.integer(rna_meta$replicate), c(1L,2L,3L,1L,2L,3L)) &&
+            all(rna_meta$laboratory_provenance == "Generated in our laboratory"),
+          "three study-generated NS and three study-generated HS libraries")
+
+# Workbooks/source-sheet manifest.
+manifest <- read.delim(file.path(REPO_ROOT, "supplementary_table_source", "SOURCE_SHEET_MANIFEST.tsv"),
+                       stringsAsFactors = FALSE, check.names = FALSE)
+add_check("Final source-sheet manifest", nrow(manifest) == 36L &&
+            all(required_tables %in% manifest$workbook), "36 worksheets across S1-S13")
+unreadable <- required_tables[!vapply(required_tables, function(x) {
+  length(tryCatch(openxlsx::getSheetNames(file.path(REPO_ROOT, x)), error = function(e) character())) > 0L
+}, logical(1))]
+add_check("All final workbooks open", !length(unreadable),
+          if (length(unreadable)) paste(unreadable, collapse = "; ") else "13/13")
+s10_sheets <- openxlsx::getSheetNames(file.path(REPO_ROOT, "Table_S10.xlsx"))
+add_check("Table S10 has all four final sheets",
+          identical(s10_sheets, c("S10A_Class_summary", "S10B_Individual_windows",
+                                  "S10C_Replicate_CPM", "S10D_Statistics")),
+          paste(s10_sheets, collapse = "; "))
+s10_text <- readLines(file.path(REPO_ROOT, "supplementary_table_source",
+                                "Table_S10__S10D_Statistics.tsv"), warn = FALSE)
+add_check("Table S10 statistics",
+          any(grepl("0.000757270061088614", s10_text, fixed = TRUE)) &&
+            any(grepl("0.08085559837005224", s10_text, fixed = TRUE)) &&
+            any(grepl("Replicate-summed fractional CPM", s10_text, fixed = TRUE)),
+          "Welch and Wilcoxon on three replicate sums per condition")
+
+# Table S7 exact-coordinate statistics.
+s7 <- read_final("Table_S7__S7A_threshold_stats.tsv")
+s7_regions <- read_final("Table_S7__S7D_region_threshold.tsv")
+k85 <- s7[s7[["Relative PWM-score threshold"]] == 0.85, , drop = FALSE]
+add_check("Table S7 final 0.85 comparison",
+          nrow(k85) == 1L &&
+            as.integer(k85[["n ONSEN terminal windows"]]) == 16L &&
+            as.integer(k85[["n strict non-ONSEN TE regions"]]) == 1930L &&
+            abs(k85[["ONSEN median density (placements/kb)"]] - 49.375) < 1e-12 &&
+            abs(k85[["Background median density (placements/kb)"]] - 6.81238953796413) < 1e-12,
+          "n=16/1930; medians=49.375/6.81238953796413")
+add_check("Table S7 regional source completeness",
+          sum(s7_regions[["Region class"]] == "ONSEN terminal candidate windows" &
+                s7_regions[["Relative PWM-score threshold"]] == 0.85) == 16L &&
+            sum(s7_regions[["Region class"]] == "Strict non-ONSEN TE background" &
+                  s7_regions[["Relative PWM-score threshold"]] == 0.85) == 1930L &&
+            "Non-redundant HSF motif-coordinate placements" %in% names(s7_regions),
+          "exact-coordinate rows complete")
+
+# Table S9 exact totals and canonical ONSEN extraction.
+s9 <- read_final("Table_S9__Summary.tsv")
+g <- s9[s9[[1]] == "Genes", , drop = FALSE]
+t <- s9[s9[[1]] == "Transposable elements", , drop = FALSE]
+add_check("Table S9 gene totals",
+          nrow(g) == 1L && identical(as.integer(unlist(g[1, 2:6], use.names = FALSE)),
+                                    c(32833L,25912L,23922L,3912L,4185L)),
+          "32833/25912/23922/3912/4185")
+add_check("Table S9 TE totals",
+          nrow(t) == 1L && identical(as.integer(unlist(t[1, 2:6], use.names = FALSE)),
+                                    c(31189L,7632L,2101L,692L,397L)),
+          "31189/7632/2101/692/397")
+s9_onsen <- read_final("Table_S9__S9C_ONSEN.tsv")
+add_check("Eight canonical ONSEN loci are Up",
+          nrow(s9_onsen) == 8L && "DE call" %in% names(s9_onsen) && all(s9_onsen[["DE call"]] == "Up"),
+          "8/8 canonical loci")
+
+# Table S11/S12 accession abundance consistency.
+s11 <- read_final("Table_S11__S11_accessions.tsv", skip = 1L)
+s12 <- read_final("Table_S12__S12_seed_variants.tsv", skip = 1L)
+expected_accession_counts <- c(19L,7L,11L,9L,16L,17L,15L,41L)
+add_check("Accession candidate counts",
+          identical(as.integer(s11[["Candidate windows"]]), expected_accession_counts) &&
+            identical(as.integer(s12[["Candidate windows"]]), expected_accession_counts),
+          "Col-0/An-1/C24/Cvi/Eri/Kyo/Ler/Sha = 19/7/11/9/16/17/15/41")
+
+# Code-level guards for substantive analysis definitions.
+s3b <- text_of("03B_threshold_and_continuous_sensitivity.R")
+s6 <- text_of("06_rnaseq_analysis.R")
+s7code <- text_of("07_accession_analysis.R")
+add_check("03B uses exact-coordinate deduplication",
+          grepl("unique(coordinate_sets[[t]])", s3b, fixed = TRUE) &&
+            grepl("forward_start", s3b, fixed = TRUE) && grepl("forward_end", s3b, fixed = TRUE),
+          "no raw model-position count substituted")
+add_check("06 implements final global TE method",
+          grepl("edgeR::filterByExpr", s6, fixed = TRUE) &&
+            grepl("limma::voom", s6, fixed = TRUE) && grepl("2101L", s6, fixed = TRUE),
+          "expression filtering + limma-voom")
+add_check("06 implements replicate-summed Fig. 5B",
+          grepl("summed_fractional_CPM = sum(fractional_CPM)", s6, fixed = TRUE) &&
+            grepl("stats::t.test(summed_fractional_CPM ~ treatment", s6, fixed = TRUE),
+          "sum across 16 windows within each biological replicate")
+add_check("07 does not substitute raw PWM-model-position hits",
+          !grepl("HSF_hits = dplyr::n()", s7code, fixed = TRUE) &&
+            grepl("exact-coordinate", s7code, fixed = TRUE),
+          "final accession exact-coordinate source is used")
+
+logo <- read.csv(file.path(REPO_ROOT, "source_data", "Figure7_logo_model_metadata.csv"),
+                 stringsAsFactors = FALSE)
+add_check("Figure 7 logo models",
+          any(logo$model_name == "HSFC1" & logo$JASPAR_ID == "MA1667.2") &&
+            any(logo$model_name == "DOF1.8" & logo$JASPAR_ID == "MA0981.2"),
+          "HSFC1 MA1667.2; DOF1.8 MA0981.2")
 
 report <- dplyr::bind_rows(checks)
-write.csv(
-  report,
-  file.path(ONSEN_OUTPUT_ROOT, "repository_validation_report.csv"),
-  row.names = FALSE
-)
-
+dir.create(ONSEN_OUTPUT_ROOT, recursive = TRUE, showWarnings = FALSE)
+write.csv(report, file.path(ONSEN_OUTPUT_ROOT, "repository_validation_report.csv"), row.names = FALSE)
 if (any(!report$passed)) {
   print(report[!report$passed, ], row.names = FALSE)
-  stop(
-    "Repository validation failed; see repository_validation_report.csv.",
-    call. = FALSE
-  )
+  stop("Repository validation failed; see repository_validation_report.csv.", call. = FALSE)
 }
-
 message("\n============================================================")
-message("FINAL S1-S13 REPOSITORY VALIDATION PASSED")
+message("FINAL PUBLIC REPOSITORY VALIDATION PASSED")
 message("============================================================")

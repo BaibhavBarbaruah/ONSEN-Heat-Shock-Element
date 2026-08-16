@@ -7,9 +7,9 @@ All six RNA-seq libraries were generated in our laboratory, with three biologica
 - Col-0 non-stressed: BioProject **PRJDB39904**; BioSamples **SAMD01789795, SAMD01789796 and SAMD01789797**.
 - Col-0 37°C, 24-h heat stress: BioProject **PRJDB42759**; BioSamples **SAMD01943917, SAMD01943918 and SAMD01943919**.
 
-The repository does not duplicate FASTQ or BAM files. The exact sample-to-accession map and expected local filenames are recorded in `RNAseq_sample_metadata_template.csv` and `INPUT_PROVENANCE.tsv`.
+FASTQ and BAM files are not duplicated in this repository. The exact sample-to-accession map and expected local filenames are recorded in `RNAseq_sample_metadata_template.csv` and `INPUT_PROVENANCE.tsv`.
 
-The final RNA-seq analyses use the complete TAIR10 counting universe. Candidate-window measurements are fractional, multimapping-aware **candidate-window signal**, not definitive copy-specific ONSEN expression. Genome-wide gene differential expression uses DESeq2; the genome-wide TE workflow uses fractional multimapping-aware counts, expression filtering and limma-voom.
+Gene-level differential expression uses DESeq2. Global transposable-element differential expression uses fractional multimapping-aware TE counts, expression filtering and limma-voom. Candidate-window measurements are fractional multimapping-aware signal and are not interpreted as definitive copy-specific ONSEN expression.
 
 ## Public methylome
 
@@ -18,24 +18,17 @@ The final RNA-seq analyses use the complete TAIR10 counting universe. Candidate-
 - material: unstressed *Arabidopsis thaliana* Col-0 leaf
 - expected local analysis filename: `GSM1085222_mC_calls_Col_0.tsv.gz`
 
-This dataset is used only to describe basal methylation context. It is not a heat-treated methylome and is not interpreted as heat-induced methylation change or as a sample-matched methylation-expression dataset.
+The methylome is used to describe basal DNA-methylation context. It is not a heat-treated methylome and is not paired to the whole-seedling RNA-seq experiment.
 
 ## Reference resources
 
-- *Arabidopsis thaliana* TAIR10 reference genome;
-- Araport11 gene and transposable-element annotations;
-- JASPAR CORE Plants motif collections used by the deposited workflows;
-- chromosome-level assemblies used for the accession survey.
+The workflows use the TAIR10 reference genome, the gene/TE annotation resources listed in `INPUT_PROVENANCE.tsv`, JASPAR CORE Plants motif data and chromosome-level assemblies for the natural-accession survey. Exact expected filenames and analysis roles are recorded in `INPUT_PROVENANCE.tsv`.
 
-Expected filenames and analysis roles are listed in `INPUT_PROVENANCE.tsv`.
+## Supplementary source data
 
-## Final supplementary package
+The final supplementary set comprises **Fig. S1-Fig. S4** and **Table S1-Table S13**. Formatted Excel workbooks are at the repository root. Data-equivalent plain-text worksheet mirrors are under `supplementary_table_source/`.
 
-The journal-facing package contains **Fig. S1-Fig. S4** and **Table S1-Table S13**. There is no final Table S14. The earlier AP2/ERF-only and published-accession-evidence workbooks are not part of the final package.
-
-Final Table S9 contains the editor-requested genome-wide gene and transposable-element differential-expression results, including all 32,833 genes and all 31,189 TEs. Final Table S10 contains candidate-window values and an explicit statistics sheet for the Fig. 5B replicate-summed comparison.
-
-The authoritative final Excel workbooks are deposited at the repository root. Plain-text copies of all 36 worksheets are under `supplementary_table_source/` using the same final numbering.
+Table S9 contains the complete genome-wide gene and transposable-element differential-expression results. Table S10 contains candidate-window values, replicate-level CPM and the statistical analysis of replicate-summed fractional CPM across the sixteen curated ONSEN terminal candidate windows.
 
 ## Code repository
 

@@ -1,4 +1,4 @@
-# Master runner for the final Biology Open revision workflow.
+# Master runner for the ONSEN HSE analysis repository.
 
 source("ONSEN_config.R")
 message_config()
@@ -26,8 +26,9 @@ for (i in seq_along(steps)) message(i, ". ", steps[[i]])
 if (!ONSEN_RUN_LARGE_STEPS) {
   message(
     "\nONSEN_RUN_LARGE_STEPS is FALSE.\n",
-    "Scripts will prefer deposited/processed outputs where supported.\n",
-    "Set ONSEN_RUN_LARGE_STEPS='true' to permit genome-wide scans and other large raw-data steps."
+    "Scripts will validate/use deposited processed outputs where supported.\n",
+    "Set ONSEN_RUN_LARGE_STEPS='true' when the large external inputs listed in ",
+    "INPUT_PROVENANCE.tsv are available."
   )
 }
 
