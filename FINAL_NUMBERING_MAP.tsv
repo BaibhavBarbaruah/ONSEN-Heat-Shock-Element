@@ -1,20 +1,21 @@
-item_type	old_item	final_item	description
-Supplementary figure	Fig. S3	Fig. S1	Constrained-mutant sensitivity and exact-GC control
-Supplementary figure	Fig. S4	Fig. S2	Raw versus non-redundant HSF-compatible locations
-Supplementary figure	Fig. S5	Fig. S3	Threshold sensitivity and continuous HSF scores
-Supplementary figure	Fig. S1	Fig. S5	Accession candidate abundance, HSF density and structural proxies
-Supplementary figure	Fig. S2	Fig. S4	Additional accession HSE/HSF summaries
-Supplementary table	Table S1	Table S1	Native-versus-designed motif effects and family summary
-Supplementary table	Table S2	Table S2	HSF models below threshold after mutation
-Supplementary table	Table S3	Table S3	AP2/ERF models gained or strengthened
-Supplementary table	Table S12	Table S4	Constrained-mutant and exact-GC sensitivity
-Supplementary table	Table S4	Table S5	Col-0 copy-wide HSF summary
-Supplementary table	Table S13	Table S6	Non-redundant HSF-compatible locations
-Supplementary table	Table S5	Table S7	Strict TE-background comparison
-Supplementary table	Table S14	Table S8	Threshold sensitivity and continuous scores
-Supplementary table	Table S6	Table S9	Methylation and ordinary-TE control
-Supplementary table	Table S7	Table S10	RNA-seq candidate-window analysis
-Supplementary table	Table S8	Table S11	Accession candidate and proxy summary
-Supplementary table	Table S9	Table S12	Natural seed variants
-Supplementary table	Table S10	Table S13	Natural TF-family summary
-Supplementary table	Table S11	Table S14	Published accession-evidence synthesis
+item_type	pre_final_item	final_item	description	status
+Supplementary figure	Fig. S1 (strict-overlap/principal comparison)	Fig. S1	Principal non-redundant HSF motif-coordinate placements versus strict overlap-merged HSF regions	retained
+Supplementary figure	Fig. S2 (threshold/continuous)	Fig. S2	HSF threshold sensitivity and continuous regional-score analysis	retained
+Supplementary figure	Fig. S3 (accession architecture)	Fig. S3	Additional accession HSE architecture and HSF-model compatibility	retained
+Supplementary figure	Fig. S4 (accession abundance/proxies)	Fig. S4	Accession candidate abundance, HSF density and structural proxies	retained
+Supplementary figure	AP2/ERF-focused supplementary figure	DELETED	AP2/ERF-focused supplementary analysis removed/de-emphasized for final revision	deleted
+Supplementary table	Table S1	Table S1	Native-versus-designed motif effects and family-level non-redundant placements	retained
+Supplementary table	Table S2	Table S2	HSF PWM models below threshold in designed sequence	retained
+Supplementary table	Table S3	DELETED	AP2/ERF-only motif-model table removed from final package	deleted
+Supplementary table	Table S4	Table S3	HSF-focused constrained-mutant and exact-GC robustness control	renumbered
+Supplementary table	Table S5	Table S4	Col-0 terminal-window non-redundant HSF motif-coordinate summary	renumbered
+Supplementary table	Table S6	Table S5	Principal exact-coordinate HSF placements and strict overlap sensitivity	renumbered
+Supplementary table	Table S7	Table S6	Broad strict non-ONSEN TE background comparison	renumbered
+Supplementary table	Table S8	Table S7	Threshold sensitivity and continuous HSF-score analysis	renumbered
+Supplementary table	Table S9	Table S8	Direct non-ONSEN LTR-retrotransposon methylation comparison and controls	renumbered
+Supplementary table	Table S10	Table S9	Corrected complete-TAIR10 candidate-window RNA-seq summary	renumbered
+Supplementary table	Table S11	Table S10	Natural-accession candidate abundance, HSF density and structural proxies	renumbered
+Supplementary table	Table S12	Table S11	Natural 49-bp ONSEN-like HSE seed-variant summary	renumbered
+Supplementary table	Table S13	Table S12	Natural seed-variant distinct TF-family PWM-model summary	renumbered
+Supplementary table	Table S14 (published accession evidence)	Table S13	Published accession-evidence comparison	renumbered
+Supplementary table	NEW global gene/TE DE	Table S14	Genome-wide gene and transposable-element differential expression after 24-h 37°C heat stress	new editor-requested table
