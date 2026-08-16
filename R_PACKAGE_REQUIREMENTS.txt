@@ -28,6 +28,8 @@ S4Vectors
 rtracklayer
 DESeq2
 Rsubread
+edgeR
+limma
 
 Observed package versions in the development environment included:
 Biostrings 2.74.1
@@ -38,4 +40,4 @@ readr 2.1.6
 purrr 1.2.0
 ggplot2 4.0.1
 
-Exact versions on a reproduction system are captured by 09_write_session_info.R.
+Exact package versions on a reproduction system are captured by 09_write_session_info.R.
