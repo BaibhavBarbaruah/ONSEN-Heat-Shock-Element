@@ -26,7 +26,9 @@ Gene-level differential expression uses DESeq2. The complete output retains all 
 
 For Fig. 5B, fractional CPM is summed across the sixteen curated ONSEN terminal candidate windows within each biological replicate. The principal comparison is a two-sided Welch's t-test on the three NS replicate sums and three HS replicate sums; Table S10 also reports the corresponding Wilcoxon rank-sum result. These measurements are candidate-window signal rather than definitive copy-specific ONSEN expression.
 
-## Figure 7 logo models
+## Figure 7 PWM-model summaries and logo models
+
+Fig. 7A,B and Table S13 summarize distinct JASPAR PWM model identities compatible with each 49-bp seed sequence. These family-level model-identity summaries are analytically distinct from the ten-model Arabidopsis HSF exact-coordinate analyses used for the primary HSF scans; the model-identity totals are not counts of independent motif-coordinate placements or binding sites.
 
 The representative Fig. 7D models are HSFC1 (JASPAR **MA1667.2**) and DOF1.8 (JASPAR **MA0981.2**). Their PFMs and metadata are deposited under `motifs/` and `source_data/`. The logos illustrate PWM sequence preferences and do not demonstrate occupancy or regulatory function in vivo.
 
