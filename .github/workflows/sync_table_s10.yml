@@ -1,0 +1,35 @@
+name: One-time sync final Table S10
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync_table_s10.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-table-s10:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Reconstruct and verify final workbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .github/table_s10_chunks/part_*.b64 > /tmp/Table_S10.b64
+          base64 --decode /tmp/Table_S10.b64 > Table_S10.xlsx
+          echo "46956e45d247d9460232b6fdc86e3a90e4d9da3436b8c0665dd26026082db503  Table_S10.xlsx" | sha256sum -c -
+
+      - name: Commit exact journal-facing Table S10
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -r .github/table_s10_chunks
+          git add Table_S10.xlsx
+          git commit -m "Sync final Table S10 workbook"
+          git push
