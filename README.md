@@ -63,6 +63,8 @@ Candidate-window measurements use fractional multimapping-aware counts normalize
 
 The accession analysis uses chromosome-level assemblies for An-1, C24, Cvi-0, Eri-1, Kyo, Ler-1 and Sha together with Col-0. Candidate windows are recovered from the Col-0 49-bp HSE seed allowing at most four mismatches. Reported motif-retention and sequence-identity conclusions therefore apply to the detected candidate set rather than every possible ONSEN-related sequence in each accession.
 
+The family-level PWM-model summaries in Fig. 7A,B and Table S13 are analytically distinct from the ten-model Arabidopsis HSF exact-coordinate analyses. They report distinct JASPAR PWM model identities compatible with each 49-bp seed sequence and should not be interpreted as independent motif-coordinate placements or binding sites.
+
 ## Workflow
 
 - `00_install_packages.R` — package installation/check
